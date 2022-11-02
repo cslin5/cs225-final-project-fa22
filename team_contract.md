@@ -22,7 +22,7 @@ Be communicative about any time conflicts. Plan to spend 2-3 hours to work on th
 If the conflict is about implementaiton strategy or techincal aspects, seek help from a TA or instructor with more knowledge on data structures and algs. If the conflict is about management, own up to your mistakes, and talk out a solution with others.
 
 ## Signatures
-Deeya Bodas
-Kalika Raje
-Natalia Pinheiro
+Deeya Bodas,
+Kalika Raje,
+Natalia Pinheiro,
 Calvin Lin
