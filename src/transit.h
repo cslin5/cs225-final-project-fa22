@@ -48,15 +48,15 @@ public:
    */
   vector<Stop> getStops();
 
-  /** @brief Getter for bus_route.
+  /** @brief Getter for bus_routes.
    *
-   *  @return bus_route.
+   *  @return bus_routes.
    */
   map<Bus, vector<Stop>> getBusRoute();
 
-  /** @brief Getter for bus_service.
+  /** @brief Getter for bus_services.
    *
-   *  @return bus_service.
+   *  @return bus_services.
    */
   map<Bus, vector<Stop>> getBusService();
 
@@ -142,12 +142,12 @@ private:
    * Map storing each bus and all the stops it goes
    * through chronologically.
    */
-  const map<Bus, vector<Stop>> bus_route;
+  const map<Bus, vector<Stop>> bus_routes;
 
   /*
    * Map storing each stop and all the buses that go
    * through it chronologically.
    */
-  const map<Stop, vector<Bus>> bus_service;
+  const map<Stop, vector<Bus>> bus_services;
 
 };
