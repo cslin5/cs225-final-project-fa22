@@ -4,16 +4,17 @@
  *
  * @author Natalia Raymundi Pinheiro (natalia)
  * @date Fall 2023
- * @bug No known bugs.
+ * @bug Bugs in Transit constructor.
  */
 
 #include "transit.h"
 
-#include <ifstream>   /* for std::ifstream */
+#include <fstream>   /* for ifstream */
 #include <sstream>    /* for std::stringstream */
 #include <stdexcept>  /* for errors */
 
 using std::ifstream;
+using std::pair;
 using std::stringstream;
 
 
@@ -21,6 +22,12 @@ Transit::Transit() {
   /** Nothing to be done here. */
 }
 
+
+/** @bug In this function. We might have to create a template for map.
+ *       It seems that the problem is in map compariosons, but I don't
+ *       know why it is making comparisions.
+ *       I'm (natalia) not really sure what will fix the problem.
+ */
 Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) {
   /* BUSES */
   ifstream trips(trips_dataset);
@@ -51,7 +58,7 @@ Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) 
 
         // Info represents trip_id.
         else if (info_idx == 2) {
-          trip_id == bus_info;
+          trip_id = bus_info;
         }
 
         // Increment info_idx to make sure we are going to the next bus_info.
@@ -63,7 +70,7 @@ Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) 
       // Push it to the vector of Buses:
       buses.push_back(bus);
       // Insert it into the map with an empty vector.
-      bus_routes.insert(bus, vector<Stop>());
+      bus_routes.insert(pair<Bus, vector<Stop>>(bus, vector<Stop>()));
       
       /// @todo How do I insert the Stops into the map?
     }
@@ -102,7 +109,7 @@ Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) 
 
         // Info represents trip_id.
         else if (info_idx == 3) {
-          stop_id == stop_times_info;
+          stop_id = stop_times_info;
         }
 
         // Increment info_idx to make sure we are going to the next stop_times_info.
@@ -114,7 +121,7 @@ Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) 
       // Push it to the vector of Stops:
       stops.push_back(stop);
       // Insert it into the map with an empty vector.
-      bus_services.insert(stop, vector<Bus>());
+      bus_services.insert(pair<Stop, vector<Bus>>(stop, vector<Bus>()));
       
       /// @todo How do I insert the Buses into the map?
     }
@@ -137,42 +144,48 @@ Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) 
       }
     }
   }
-
 }
 
-vector<Bus> Transit::getBuses() { return buses; }
 
-vector<Stop> Transit::getStops() { return stops; }
+// vector<Transit::Bus> Transit::getBuses() { return buses; }
 
-map<Bus, vector<Stop>> Transit::getBusRoute() { return bus_routes; }
 
-map<Bus, vector<Stop>> Transit::getBusService() { return bus_services; }
+// vector<Transit::Stop> Transit::getStops() { return stops; }
 
-int Transit::find(const vector<Bus> buses, const string bus_id, const string trip_id) {
-  // For each Bus in buses:
-  for (int i = 0; i < buses.size(); i++) {
-    // If Bus is found, return its index.
-    if (buses[i].bus_id == bus_id && buses[i].trip_id == trip_id) {
-      return i;
-    }
-  }
+
+// map<Transit::Bus, vector<Transit::Stop>> Transit::getBusRoute() { return bus_routes; }
+
+
+// map<Transit::Stop, vector<Transit::Bus>> Transit::getBusService() { return bus_services; }
+
+
+// int Transit::findInBuses(string bus_id, string trip_id) {
+//   // For each Bus in buses:
+//   for (int i = 0; i < buses.size(); i++) {
+//     // If Bus is found, return its index.
+//     if (buses[i].bus_id == bus_id && buses[i].trip_id == trip_id) {
+//       return i;
+//     }
+//   }
   
-  // If not found, return -1.
-  return -1;
-}
+//   // If not found, return -1.
+//   return -1;
+// }
 
-int Transit::find(const vector<Stop> stops, const string stop_id, const string trip_id) {
-  // For each Bus in buses:
-  for (int i = 0; i < stops.size(); i++) {
-    // If Bus is found, return its index.
-    if (stops[i].stop_id == stop_id && stops[i].trip_id == trip_id) {
-      return i;
-    }
-  }
+
+// int Transit::findInStops(string stop_id, string trip_id) {
+//   // For each Bus in buses:
+//   for (int i = 0; i < stops.size(); i++) {
+//     // If Bus is found, return its index.
+//     if (stops[i].stop_id == stop_id && stops[i].trip_id == trip_id) {
+//       return i;
+//     }
+//   }
   
-  // If not found, return -1.
-  return -1;
-}
+//   // If not found, return -1.
+//   return -1;
+// }
+
 
 /* Implementation for Bus class */
 
@@ -180,15 +193,10 @@ Transit::Bus::Bus(): bus_id(""), trip_id("") {
   /* Nothing to be done here. */
 }
 
+
 Transit::Bus::Bus(const string new_bus_id, const string new_trip_id):
       bus_id(new_bus_id), trip_id(new_trip_id) {
-
-  // To avoid creating duplicates,
-  // if Bus does not exist already:
-  if (find(buses, new_bus_id, new_trip_id) == -1) {
-    bus_id  = new_stop_id;
-    trip_id = new_trip_id;
-  }
+  /* Nothing to be done here. */
 }
 
 
@@ -198,13 +206,8 @@ Transit::Stop::Stop(): stop_id(""), trip_id("") {
   /* Nothing to be done here. */
 }
 
-Transit::Stop::Stop(const string new_stop_id, const string new_trip_id):
-      bus_id(new_stop_id), trip_id(new_trip_id) {
 
-  // To avoid creating duplicates,
-  // if Stop does not exist already:
-  if (find(stops, new_stop_id, new_trip_id) == -1) {
-    stop_id = new_stop_id;
-    trip_id = new_trip_id;
-  }
+Transit::Stop::Stop(const string new_stop_id, const string new_trip_id):
+      stop_id(new_stop_id), trip_id(new_trip_id) {
+  /* Nothing to be done here. */
 }
