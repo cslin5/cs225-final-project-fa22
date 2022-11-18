@@ -10,29 +10,27 @@
 #include "transit.h"
 
 #include <fstream>   /* for ifstream */
-#include <sstream>    /* for std::stringstream */
-#include <stdexcept>  /* for errors */
+#include <sstream>   /* for std::stringstream */
+#include <stdexcept> /* for errors */
 
 using std::ifstream;
 using std::pair;
 using std::stringstream;
 
-
-Transit::Transit() {
-  /** Nothing to be done here. */
+Transit::Transit() { /** Nothing to be done here. */
 }
 
-
 /** @bug In this function. We might have to create a template for map.
- *       It seems that the problem is in map compariosons, but I don't
+ *       It seems that the problem is in map comparisons, but I don't
  *       know why it is making comparisions.
  *       I'm (natalia) not really sure what will fix the problem.
  */
-Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) {
+Transit::Transit(const string &trips_dataset,
+                 const string &stop_times_dataset) {
   /* BUSES */
   ifstream trips(trips_dataset);
   string bus_infos, bus_info;
-  
+
   // If the file is open:
   if (trips.is_open()) {
     // For each line in the CSV file:
@@ -40,9 +38,9 @@ Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) 
       stringstream ss(bus_infos);
 
       // Each "bus_infos" is an bus_info:
-      string route_id;         // 0*
+      string route_id; // 0*
       // string service_id;    // 1
-      string trip_id;          // 2*
+      string trip_id; // 2*
       // string trip_headsign; // 3
       // string direction_id;  // 4
       // string block_id;      // 5
@@ -50,19 +48,16 @@ Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) 
 
       // For each bus_info in "bus_infos":
       int info_idx = 0;
-      while (getline(ss, bus_info, ',')) {
-        // Info represents route_id.
-        if (info_idx == 0) {
-          route_id = bus_info;
-        }
+      while (getline(ss, bus_info)) {
+        vector<string> data = split(ss.str(), ',');
+        // not valid if less than 3 entries
+        if (data.size() > 2) {
+          // Info represents route_id.
+          route_id = data.at(0);
 
-        // Info represents trip_id.
-        else if (info_idx == 2) {
-          trip_id = bus_info;
+          // Info represents trip_id.
+          trip_id = data.at(2);
         }
-
-        // Increment info_idx to make sure we are going to the next bus_info.
-        info_idx++;
       }
 
       // Do something with the extracted bus_infos:
@@ -70,19 +65,19 @@ Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) 
       // Push it to the vector of Buses:
       buses.push_back(bus);
       // Insert it into the map with an empty vector.
-      bus_routes.insert(pair<Bus, vector<Stop>>(bus, vector<Stop>()));
-      
-      /// @todo How do I insert the Stops into the map?
+      bus_routes.insert(pair<Bus &, vector<Stop &>>(bus, vector<Stop &>()));
+
+      /// @todo How do I insert the Stops into the map? i think i fixed?
     }
   } else if (trips.fail()) {
-    cout << "Coult not open trips.csv." << endl; return;
+    cout << "Could not open trips.csv." << endl;
+    return;
   }
-
 
   /* STOPS */
   ifstream stop_times(stop_times_dataset);
   string stop_times_infos, stop_times_info;
-  
+
   // If the file is open:
   if (stop_times.is_open()) {
     // For each line in the CSV file:
@@ -90,10 +85,10 @@ Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) 
       stringstream ss(stop_times_infos);
 
       // Each "stop_times_infos" is an stop_times_info:
-      string trip_id;            // 0*
+      string trip_id; // 0*
       // string arrival_time;    // 1
       // string departure_time;  // 2
-      string stop_id;            // 3*
+      string stop_id; // 3*
       // string stop_sequence;   // 4
       // string stop_headsign;   // 5
       // string pickup_type;     // 6
@@ -102,18 +97,16 @@ Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) 
       // For each stop_times_info in "stop_times_infos":
       int info_idx = 0;
       while (getline(ss, stop_times_info, ',')) {
-        // Info represents route_id.
-        if (info_idx == 0) {
-          trip_id = stop_times_info;
-        }
 
-        // Info represents trip_id.
-        else if (info_idx == 3) {
-          stop_id = stop_times_info;
-        }
+        vector<string> data = split(ss.str(), ',');
+        // not valid if less than 4 entries
+        if (data.size() > 3) {
+          // Info represents route_id.
+          trip_id = data.at(0);
 
-        // Increment info_idx to make sure we are going to the next stop_times_info.
-        info_idx++;
+          // Info represents trip_id.
+          stop_id = data.at(3);
+        }
       }
 
       // Do something with the extracted infos:
@@ -121,12 +114,13 @@ Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) 
       // Push it to the vector of Stops:
       stops.push_back(stop);
       // Insert it into the map with an empty vector.
-      bus_services.insert(pair<Stop, vector<Bus>>(stop, vector<Bus>()));
-      
+      bus_services.insert(pair<Stop &, vector<Bus &>>(stop, vector<Bus &>()));
+
       /// @todo How do I insert the Buses into the map?
     }
   } else if (stop_times.fail()) {
-    cout << "Coult not open stop_times.csv." << endl; return;
+    cout << "Coult not open stop_times.csv." << endl;
+    return;
   }
 
   // After we have read all the data:
@@ -146,68 +140,76 @@ Transit::Transit(const string &trips_dataset, const string &stop_times_dataset) 
   }
 }
 
+vector<Transit::Bus &> &Transit::getBuses() { return buses; }
 
-// vector<Transit::Bus> Transit::getBuses() { return buses; }
+vector<Transit::Stop &> &Transit::getStops() { return stops; }
 
+map<Transit::Bus &, vector<Transit::Stop &>> &Transit::getBusRoute() {
+  return bus_routes;
+}
 
-// vector<Transit::Stop> Transit::getStops() { return stops; }
+map<Transit::Stop &, vector<Transit::Bus &>> &Transit::getBusService() {
+  return bus_services;
+}
 
+int Transit::findInBuses(string bus_id, string trip_id) {
+  // For each Bus in buses:
+  for (int i = 0; i < buses.size(); i++) {
+    // If Bus is found, return its index.
+    if (buses[i].bus_id == bus_id && buses[i].trip_id == trip_id) {
+      return i;
+    }
+  }
 
-// map<Transit::Bus, vector<Transit::Stop>> Transit::getBusRoute() { return bus_routes; }
+  // If not found, return -1.
+  return -1;
+}
 
+int Transit::findInStops(string stop_id, string trip_id) {
+  // For each Bus in buses:
+  for (int i = 0; i < stops.size(); i++) {
+    // If Bus is found, return its index.
+    if (stops[i].stop_id == stop_id && stops[i].trip_id == trip_id) {
+      return i;
+    }
+  }
 
-// map<Transit::Stop, vector<Transit::Bus>> Transit::getBusService() { return bus_services; }
-
-
-// int Transit::findInBuses(string bus_id, string trip_id) {
-//   // For each Bus in buses:
-//   for (int i = 0; i < buses.size(); i++) {
-//     // If Bus is found, return its index.
-//     if (buses[i].bus_id == bus_id && buses[i].trip_id == trip_id) {
-//       return i;
-//     }
-//   }
-  
-//   // If not found, return -1.
-//   return -1;
-// }
-
-
-// int Transit::findInStops(string stop_id, string trip_id) {
-//   // For each Bus in buses:
-//   for (int i = 0; i < stops.size(); i++) {
-//     // If Bus is found, return its index.
-//     if (stops[i].stop_id == stop_id && stops[i].trip_id == trip_id) {
-//       return i;
-//     }
-//   }
-  
-//   // If not found, return -1.
-//   return -1;
-// }
-
+  // If not found, return -1.
+  return -1;
+}
 
 /* Implementation for Bus class */
 
-Transit::Bus::Bus(): bus_id(""), trip_id("") {
-  /* Nothing to be done here. */
+Transit::Bus::Bus() : bus_id(""), trip_id("") { /* Nothing to be done here. */
 }
 
-
-Transit::Bus::Bus(const string new_bus_id, const string new_trip_id):
-      bus_id(new_bus_id), trip_id(new_trip_id) {
+Transit::Bus::Bus(const string new_bus_id, const string new_trip_id)
+    : bus_id(new_bus_id), trip_id(new_trip_id) {
   /* Nothing to be done here. */
 }
-
 
 /* Implementation for Stop class */
 
-Transit::Stop::Stop(): stop_id(""), trip_id("") {
+Transit::Stop::Stop() : stop_id(""), trip_id("") {
   /* Nothing to be done here. */
 }
 
-
-Transit::Stop::Stop(const string new_stop_id, const string new_trip_id):
-      stop_id(new_stop_id), trip_id(new_trip_id) {
+Transit::Stop::Stop(const string new_stop_id, const string new_trip_id)
+    : stop_id(new_stop_id), trip_id(new_trip_id) {
   /* Nothing to be done here. */
+}
+
+template <typename Out>
+void Transit::split(const string &s, char delim, Out result) {
+  std::istringstream iss(s);
+  std::string item;
+  while (std::getline(iss, item, delim)) {
+    *result++ = item;
+  }
+}
+
+vector<string> Transit::split(const string &s, char delim) {
+  vector<string> elems;
+  split(s, delim, std::back_inserter(elems));
+  return elems;
 }

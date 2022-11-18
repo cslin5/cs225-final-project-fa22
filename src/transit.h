@@ -22,7 +22,6 @@ using std::vector;
 
 class Transit {
 private:
-
   class Bus {
   public:
     /** @brief Default Bus constutor.
@@ -35,7 +34,7 @@ private:
      *  @param new_bus_id New trip_id.
      */
     Bus(string new_bus_id, string new_trip_id);
-    
+
     /*
      * `route_id` from `trips.csv`.
      */
@@ -71,31 +70,35 @@ private:
     string trip_id;
   };
 
-  /*
-   * Vector storing all possible buses.
-   */
-  vector<Bus> buses;
+  // helper split stringstream function
+  // https://stackoverflow.com/questions/236129/how-do-i-iterate-over-the-words-of-a-string
+  // Evan Teran
+  template <typename Out> void split(const string &s, char delim, Out result);
+  vector<string> split(const string &s, char delim);
 
   /*
    * Vector storing all possible buses.
    */
-  vector<Stop> stops;
+  vector<Bus &> buses;
+
+  /*
+   * Vector storing all possible buses.
+   */
+  vector<Stop &> stops;
 
   /*
    * Map storing each bus and all the stops it goes
    * through chronologically.
    */
-  map<Bus, vector<Stop>> bus_routes;
+  map<Bus &, vector<Stop &>> bus_routes;
 
   /*
    * Map storing each stop and all the buses that go
    * through it chronologically.
    */
-  map<Stop, vector<Bus>> bus_services;
-
+  map<Stop &, vector<Bus &>> bus_services;
 
 public:
-
   /** @brief Default constructor.
    */
   Transit();
@@ -113,40 +116,39 @@ public:
    *
    *  @return buses.
    */
-  // vector<Bus> getBuses();
+  vector<Bus &> &getBuses();
 
   /** @brief Getter for stops.
    *
    *  @return stops.
    */
-  // vector<Stop> getStops();
+  vector<Stop &> &getStops();
 
   /** @brief Getter for bus_routes.
    *
    *  @return bus_routes.
    */
-  // map<Bus, vector<Stop>> getBusRoute();
+  map<Bus &, vector<Stop &>> &getBusRoute();
 
   /** @brief Getter for bus_services.
    *
    *  @return bus_services.
    */
-  // map<Stop, vector<Bus>> getBusService();
+  map<Stop &, vector<Bus &>> &getBusService();
 
   /** @brief Find if Bus with bus_id and trip_id already exists.
-   *  
+   *
    *  @param bus_id bus_id to be found.
    *  @param trip_id trip_id to be found.
    *  @return index of Bus if found; otherwise, return -1.
    */
-  // int findInBuses(string bus_id, string trip_id);
+  int findInBuses(string bus_id, string trip_id);
 
   /** @brief Find if Stop with stop_id and trip_id already exists.
-   *  
+   *
    *  @param stop_id stop_id to be found.
    *  @param trip_id trip_id to be found.
    *  @return index of Stop if found; otherwise, return -1.
    */
-  // int findInStops(string stop_id, string trip_id);
-
+  int findInStops(string stop_id, string trip_id);
 };
