@@ -1,0 +1,2 @@
+/usr/bin/llvm-ar qc libsrc.a 
+/usr/bin/llvm-ranlib libsrc.a
