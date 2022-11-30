@@ -34,6 +34,16 @@ if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
 endif()
 
 # src_sources at src/CMakeLists.txt:5 (file)
+file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/workspaces/cs225env/cs225-final-project-fa22/src/*.cpp")
+set(OLD_GLOB
+  "/workspaces/cs225env/cs225-final-project-fa22/src/transit.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "/workspaces/cs225env/cs225-final-project-fa22/build/CMakeFiles/cmake.verify_globs")
+endif()
+
+# src_sources at src/CMakeLists.txt:5 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/workspaces/cs225env/cs225-final-project-fa22/src/*.h")
 set(OLD_GLOB
   "/workspaces/cs225env/cs225-final-project-fa22/src/transit.h"

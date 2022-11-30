@@ -9,15 +9,17 @@
 
 #pragma once
 
-#include <iostream> /* for std::cout, std::endl */
-#include <map>      /* for std::map */
-#include <string>   /* for std::string */
-#include <vector>   /* for std::vector */
+#include <boost/functional/hash.hpp> /* for hashing */
+#include <iostream>                  /* for std::cout, std::endl */
+#include <string>                    /* for std::string */
+#include <unordered_map>             /* for std::map */
+#include <vector>                    /* for std::vector */
 
 using std::cout;
 using std::endl;
-using std::map;
+using std::hash;
 using std::string;
+using std::unordered_map;
 using std::vector;
 
 class Transit {
@@ -34,6 +36,29 @@ private:
      *  @param new_bus_id New trip_id.
      */
     Bus(string new_bus_id, string new_trip_id);
+
+    /** @brief Overloaded == operator.
+     *
+     *  @param other Compared Object.
+     */
+    bool operator==(const Bus &other) const {
+      return (bus_id == other.bus_id && trip_id == other.trip_id);
+    }
+
+    /** @brief hashing class/function stolen from
+     * https://stackoverflow.com/questions/17016175/c-unordered-map-using-a-custom-class-type-as-the-key
+     * user jogojapan
+     */
+    struct BusHasher {
+      size_t operator()(const Bus &b) const {
+        // Compute individual hash values for first, second and third
+        // http://stackoverflow.com/a/1646913/126995
+        size_t res = 17;
+        res = res * 31 + hash<string>()(b.bus_id);
+        res = res * 31 + hash<string>()(b.trip_id);
+        return res;
+      }
+    };
 
     /*
      * `route_id` from `trips.csv`.
@@ -59,6 +84,30 @@ private:
      */
     Stop(string new_stop_id, string new_trip_id);
 
+    /** @brief Overloaded == operator.
+     *
+     *  @param other Compared Object.
+     */
+    bool operator==(const Stop &other) const {
+      return (stop_id == other.stop_id && trip_id == other.trip_id);
+    }
+
+    /** @brief hashing class/function stolen from
+     * https://stackoverflow.com/questions/17016175/c-unordered-map-using-a-custom-class-type-as-the-key
+     * user jogojapan
+     */
+
+    struct StopHasher {
+      size_t operator()(const Stop &s) const {
+        // Compute individual hash values for first, second and third
+        // http://stackoverflow.com/a/1646913/126995
+        size_t res = 17;
+        res = res * 31 + hash<string>()(s.stop_id);
+        res = res * 31 + hash<string>()(s.trip_id);
+        return res;
+      }
+    };
+
     /*
      * `stop_id` from `stop_times.csv`.
      */
@@ -70,39 +119,40 @@ private:
     string trip_id;
   };
 
+  /* @brief Default constructor.
+   * moved here because of this?
+   * https://stackoverflow.com/questions/10474417/how-to-delete-the-default-constructor
+   */
+  Transit();
   // helper split stringstream function
   // https://stackoverflow.com/questions/236129/how-do-i-iterate-over-the-words-of-a-string
   // Evan Teran
-  template <typename Out> void split(const string &s, char delim, Out result);
+  void split(const string &s, char delim, vector<string> &result);
   vector<string> split(const string &s, char delim);
 
   /*
    * Vector storing all possible buses.
    */
-  vector<Bus &> buses;
+  vector<Bus> buses;
 
   /*
    * Vector storing all possible buses.
    */
-  vector<Stop &> stops;
+  vector<Stop> stops;
 
   /*
    * Map storing each bus and all the stops it goes
    * through chronologically.
    */
-  map<Bus &, vector<Stop &>> bus_routes;
+  unordered_map<Bus, vector<Stop>, Transit::Bus::BusHasher> bus_routes;
 
   /*
    * Map storing each stop and all the buses that go
    * through it chronologically.
    */
-  map<Stop &, vector<Bus &>> bus_services;
+  unordered_map<Stop, vector<Bus>, Transit::Stop::StopHasher> bus_services;
 
 public:
-  /** @brief Default constructor.
-   */
-  Transit();
-
   /** @brief Parametrized constructor.
    *
    *  Initializes the member variables by reading an input CSV file.
@@ -116,25 +166,25 @@ public:
    *
    *  @return buses.
    */
-  vector<Bus &> &getBuses();
+  vector<Bus> &getBuses();
 
   /** @brief Getter for stops.
    *
    *  @return stops.
    */
-  vector<Stop &> &getStops();
+  vector<Stop> &getStops();
 
   /** @brief Getter for bus_routes.
    *
    *  @return bus_routes.
    */
-  map<Bus &, vector<Stop &>> &getBusRoute();
+  unordered_map<Bus, vector<Stop>, Transit::Bus::BusHasher> &getBusRoute();
 
   /** @brief Getter for bus_services.
    *
    *  @return bus_services.
    */
-  map<Stop &, vector<Bus &>> &getBusService();
+  unordered_map<Stop, vector<Bus>, Transit::Stop::StopHasher> &getBusService();
 
   /** @brief Find if Bus with bus_id and trip_id already exists.
    *

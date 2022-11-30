@@ -131,6 +131,30 @@ src/fast:
 	cd /workspaces/cs225env/cs225-final-project-fa22/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/src.dir/build.make src/CMakeFiles/src.dir/build
 .PHONY : src/fast
 
+transit.o: transit.cpp.o
+.PHONY : transit.o
+
+# target to build an object file
+transit.cpp.o:
+	cd /workspaces/cs225env/cs225-final-project-fa22/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/src.dir/build.make src/CMakeFiles/src.dir/transit.cpp.o
+.PHONY : transit.cpp.o
+
+transit.i: transit.cpp.i
+.PHONY : transit.i
+
+# target to preprocess a source file
+transit.cpp.i:
+	cd /workspaces/cs225env/cs225-final-project-fa22/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/src.dir/build.make src/CMakeFiles/src.dir/transit.cpp.i
+.PHONY : transit.cpp.i
+
+transit.s: transit.cpp.s
+.PHONY : transit.s
+
+# target to generate assembly for a file
+transit.cpp.s:
+	cd /workspaces/cs225env/cs225-final-project-fa22/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/src.dir/build.make src/CMakeFiles/src.dir/transit.cpp.s
+.PHONY : transit.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -140,6 +164,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... src"
+	@echo "... transit.o"
+	@echo "... transit.i"
+	@echo "... transit.s"
 .PHONY : help
 
 

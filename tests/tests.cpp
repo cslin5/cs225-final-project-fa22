@@ -14,8 +14,8 @@ using std::ostream;
 using std::string;
 
 TEST_CASE("test", "[pls]") {
-  string stop_path = "../dataset/teststop.csv";
-  string trip_path = "../dataset/testtrip.csv";
+  const string stop_path = "../dataset/teststop.csv";
+  const string trip_path = "../dataset/testtrip.csv";
   Transit t = Transit(stop_path, trip_path);
   REQUIRE(t.getBusRoute().size() == 8);
   REQUIRE(t.getBusService().size() == 8);

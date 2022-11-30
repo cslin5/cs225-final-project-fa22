@@ -69,15 +69,31 @@ include src/CMakeFiles/src.dir/progress.make
 # Include the compile flags for this target's objects.
 include src/CMakeFiles/src.dir/flags.make
 
+src/CMakeFiles/src.dir/transit.cpp.o: src/CMakeFiles/src.dir/flags.make
+src/CMakeFiles/src.dir/transit.cpp.o: ../src/transit.cpp
+src/CMakeFiles/src.dir/transit.cpp.o: src/CMakeFiles/src.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspaces/cs225env/cs225-final-project-fa22/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/src.dir/transit.cpp.o"
+	cd /workspaces/cs225env/cs225-final-project-fa22/build/src && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/src.dir/transit.cpp.o -MF CMakeFiles/src.dir/transit.cpp.o.d -o CMakeFiles/src.dir/transit.cpp.o -c /workspaces/cs225env/cs225-final-project-fa22/src/transit.cpp
+
+src/CMakeFiles/src.dir/transit.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/src.dir/transit.cpp.i"
+	cd /workspaces/cs225env/cs225-final-project-fa22/build/src && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspaces/cs225env/cs225-final-project-fa22/src/transit.cpp > CMakeFiles/src.dir/transit.cpp.i
+
+src/CMakeFiles/src.dir/transit.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/src.dir/transit.cpp.s"
+	cd /workspaces/cs225env/cs225-final-project-fa22/build/src && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspaces/cs225env/cs225-final-project-fa22/src/transit.cpp -o CMakeFiles/src.dir/transit.cpp.s
+
 # Object files for target src
-src_OBJECTS =
+src_OBJECTS = \
+"CMakeFiles/src.dir/transit.cpp.o"
 
 # External object files for target src
 src_EXTERNAL_OBJECTS =
 
+src/libsrc.a: src/CMakeFiles/src.dir/transit.cpp.o
 src/libsrc.a: src/CMakeFiles/src.dir/build.make
 src/libsrc.a: src/CMakeFiles/src.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/workspaces/cs225env/cs225-final-project-fa22/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Linking CXX static library libsrc.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/workspaces/cs225env/cs225-final-project-fa22/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libsrc.a"
 	cd /workspaces/cs225env/cs225-final-project-fa22/build/src && $(CMAKE_COMMAND) -P CMakeFiles/src.dir/cmake_clean_target.cmake
 	cd /workspaces/cs225env/cs225-final-project-fa22/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/src.dir/link.txt --verbose=$(VERBOSE)
 

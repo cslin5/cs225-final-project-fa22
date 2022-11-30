@@ -9,6 +9,7 @@
 
 #include "transit.h"
 
+#include <boost/functional/hash.hpp>
 #include <fstream>   /* for ifstream */
 #include <sstream>   /* for std::stringstream */
 #include <stdexcept> /* for errors */
@@ -17,8 +18,8 @@ using std::ifstream;
 using std::pair;
 using std::stringstream;
 
-Transit::Transit() { /** Nothing to be done here. */
-}
+// Transit::Transit() { /** Nothing to be done here. */
+// }
 
 /** @bug In this function. We might have to create a template for map.
  *       It seems that the problem is in map comparisons, but I don't
@@ -65,7 +66,7 @@ Transit::Transit(const string &trips_dataset,
       // Push it to the vector of Buses:
       buses.push_back(bus);
       // Insert it into the map with an empty vector.
-      bus_routes.insert(pair<Bus &, vector<Stop &>>(bus, vector<Stop &>()));
+      bus_routes.insert(pair<Bus, vector<Stop>>(bus, vector<Stop>()));
 
       /// @todo How do I insert the Stops into the map? i think i fixed?
     }
@@ -114,7 +115,7 @@ Transit::Transit(const string &trips_dataset,
       // Push it to the vector of Stops:
       stops.push_back(stop);
       // Insert it into the map with an empty vector.
-      bus_services.insert(pair<Stop &, vector<Bus &>>(stop, vector<Bus &>()));
+      bus_services.insert(pair<Stop, vector<Bus>>(stop, vector<Bus>()));
 
       /// @todo How do I insert the Buses into the map?
     }
@@ -140,21 +141,23 @@ Transit::Transit(const string &trips_dataset,
   }
 }
 
-vector<Transit::Bus &> &Transit::getBuses() { return buses; }
+vector<Transit::Bus> &Transit::getBuses() { return buses; }
 
-vector<Transit::Stop &> &Transit::getStops() { return stops; }
+vector<Transit::Stop> &Transit::getStops() { return stops; }
 
-map<Transit::Bus &, vector<Transit::Stop &>> &Transit::getBusRoute() {
+unordered_map<Transit::Bus, vector<Transit::Stop>, Transit::Bus::BusHasher> &
+Transit::getBusRoute() {
   return bus_routes;
 }
 
-map<Transit::Stop &, vector<Transit::Bus &>> &Transit::getBusService() {
+unordered_map<Transit::Stop, vector<Transit::Bus>, Transit::Stop::StopHasher> &
+Transit::getBusService() {
   return bus_services;
 }
 
 int Transit::findInBuses(string bus_id, string trip_id) {
   // For each Bus in buses:
-  for (int i = 0; i < buses.size(); i++) {
+  for (unsigned i = 0; i < buses.size(); i++) {
     // If Bus is found, return its index.
     if (buses[i].bus_id == bus_id && buses[i].trip_id == trip_id) {
       return i;
@@ -167,7 +170,7 @@ int Transit::findInBuses(string bus_id, string trip_id) {
 
 int Transit::findInStops(string stop_id, string trip_id) {
   // For each Bus in buses:
-  for (int i = 0; i < stops.size(); i++) {
+  for (unsigned i = 0; i < stops.size(); i++) {
     // If Bus is found, return its index.
     if (stops[i].stop_id == stop_id && stops[i].trip_id == trip_id) {
       return i;
@@ -199,17 +202,16 @@ Transit::Stop::Stop(const string new_stop_id, const string new_trip_id)
   /* Nothing to be done here. */
 }
 
-template <typename Out>
-void Transit::split(const string &s, char delim, Out result) {
+void Transit::split(const string &s, char delim, vector<string> &result) {
   std::istringstream iss(s);
   std::string item;
   while (std::getline(iss, item, delim)) {
-    *result++ = item;
+    result.push_back(item);
   }
 }
 
 vector<string> Transit::split(const string &s, char delim) {
   vector<string> elems;
-  split(s, delim, std::back_inserter(elems));
+  split(s, delim, elems);
   return elems;
 }
