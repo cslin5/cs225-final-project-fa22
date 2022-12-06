@@ -33,7 +33,7 @@ void Algo::DijSolve(Vertex v){
 
 vector<vector<vector<Edge>>> graph;
 
-void build_graph(vector<Vertex> all_verticies, vector<Edge> all_edges){
+void build_graph(vector<Vertex> all_vertices, vector<Edge> all_edges){
 // pseudocode instructions
 
 // resize the graph vector to 

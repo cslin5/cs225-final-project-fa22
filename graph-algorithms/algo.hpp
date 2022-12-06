@@ -28,20 +28,27 @@ public:
             return false;
         }
         Vertex(){}
+        Vertex(string stop_) : stop(stop_){}
     };
     struct Edge {
         double cost_weight;
-        double distance;
+        double time;
         Vertex start;
         Vertex end;
+        // double overall_time;
+        string route; 
         // Direction (upper), route
         string direction;
-        Edge(Vertex new_start, Vertex new_edge): cost_weight(0), distance(0), direction("N"), start(new_start), end(new_end) {}
+        Edge(){}
+        Edge(double time_, Vertex new_start, Vertex new_edge): time(time_), cost_weight(0), direction("N"), 
+            start(new_start), end(new_end), /*overall_time(0)*/, route("") {}
+        
     };
 private:
     // private data member to represent graph
     vector<vector<Edge>> graph;
-   
+    vector<Vertex> all_vertices;
+    vector<Edge> all_edges;
 };
 
 #endif
