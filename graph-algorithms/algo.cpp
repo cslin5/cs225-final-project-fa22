@@ -12,25 +12,83 @@ Algo::Algo(
   graph = g;
 }
 
+// cost function to check distance
+int cost(int dist[], bool sptSet[])
+{
+ 
+    // Initialize min value
+    int min = INT_MAX, min_index;
+ 
+    for (int v = 0; v < V; v++)
+        if (sptSet[v] == false && dist[v] <= min)
+            min = dist[v], min_index = v;
+ 
+    return min_index;
+}
+
 // need to write this out
-void Algo::DijSolve(Vertex v){
-    // pseudocode instructions
-    for each (Vertex v : G) {
-      d[v] = +inf
-      p[v] = NULL
-      d[s] = 0
-      PriorityQueue Q // min distance, defined by d[v]
-      Q.buildHeap(G.vertices())
-      Graph T // "labeled set"
-      repeat n times:
-      Vertex u = Q.removeMin()
-      T.add(u)
-      foreach (Vertex v : neighbors of u not in T):
-        if cost(u, v) + d[u] < d[v] {
-          d[v] = cost(u, v) + d[u]
-                  p[v] = u
-        }
-    }
+void Algo::DijSolve(Vertex s){
+  // use func to find index location of s
+  int s_loc = find_vertex_ind(s);
+
+  vector<double> dist = vector<double>();
+
+  vector<bool> sptSet = vector<bool>();
+
+  // start of the algorithim by pushing back "infinite" (largest double) values to dist vector
+  // this ensures that all actual values will be considered minimums when compared to these
+  // start of the algorithim by pushing back false values to dist vector
+  // basically meaning that you are setting all verticies to NOT be part of the path at the start
+  for (int i = 0; i < all_verticies.size(); i++){
+      dist.push_back(DOUBLE_MAX);
+      sptSet.push_back(false);
+  }
+
+  // felf to self distance MUST be 0
+  dist[s_loc] = 0.0;
+
+  // find shortest path for all vertices
+  // size is all but self
+  for (int count = 0; count < all_verticies.size() - 1; count++) {
+      // Pick the minimum distance vertex from the set of
+      // vertices not yet processed. u is always equal to
+      // src in the first iteration.
+      int min_dist_vertex_ind = minDistance(dist, sptSet);
+
+      // Mark the picked vertex as processed
+      sptSet[min_dist_vertex_ind] = true;
+
+      // Update dist value of the adjacent vertices of the
+      // picked vertex.
+      for (int v = 0; v < all_verticies.size(); v++){
+          // Update dist[v] only if is not in sptSet,
+          // there is an edge from u to v, and total
+          // weight of path from src to  v through u is
+          // smaller than current value of dist[v]
+          if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX && dist[u] + graph[u][v] < dist[v]){
+            dist[v] = dist[u] + graph[u][v];
+          }
+      }
+
+  // print the constructed distance array
+}    
+    // // pseudocode instructions
+    // for (Vertex v : all_vertices) {
+    //   d[v] = DOUBLE_MAX;
+    //   p[v] = NULL;
+    //   d[s] = 0
+    //   PriorityQueue Q // min distance, defined by d[v]
+    //   Q.buildHeap(G.vertices())
+    //   Graph T // "labeled set"
+    //   repeat n times:
+    //   Vertex u = Q.removeMin()
+    //   T.add(u)
+    //   foreach (Vertex v : neighbors of u not in T):
+    //     if cost(u, v) + d[u] < d[v] {
+    //       d[v] = cost(u, v) + d[u]
+    //               p[v] = u
+    //     }
+    // }
 }
 
 
@@ -105,13 +163,28 @@ Vertex find_vertex(string stop_){
   return Vertex();
 }
 
-Edge find_Edge(string route_, Vertex start_, Vertex end_){
+Edge find_edge(string route_, Vertex start_, Vertex end_){
   for (Edge e : graph[start_][end_]) {
     if (e.route == route_)
       return e;
   }
   return Edge();
 }
+
+int find_vertex_ind(Vertex v){
+  //user iterator to locate element
+  auto location = find(all_verticies.begin(), all_verticies.end(), v);
+  // If element doesn't exist return -1
+  if (location == all_verticies.end()) {
+    return -1;
+  }
+  return location - all_verticies.begin();
+}
+
+int minDistance(bleh){
+
+}
+
 // vector<vector<vector<Edge>>> graph;
 
 // void build_graph(vector<Vertex> all_vertices, vector<Edge> all_edges){
