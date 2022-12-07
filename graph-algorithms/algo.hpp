@@ -15,6 +15,10 @@ class Algo {
 public:
     Algo(vector<vector<int>> g);
     void DijSolve();
+    void translate_data(vector<Bus> buses);
+    void build_graph();
+    bool DFS_connected_on_route(string route_, string start_, string end_);
+
     struct Vertex {
         // represent stops as Direction of stop -- follows typical cardinal directions (if true N, S, E, W then do double letters), Stop Name
         string stop;
@@ -40,13 +44,13 @@ public:
         // Direction (upper), route
         string direction;
         Edge(){}
-        Edge(double time_, Vertex new_start, Vertex new_edge): time(time_), cost_weight(0), direction("N"), 
-            start(new_start), end(new_end), /*overall_time(0)*/, route("") {}
+        Edge(double time_, string route_, Vertex new_start, Vertex new_edge): time(time_), cost_weight(0), direction("N"), 
+            start(new_start), end(new_end), /*overall_time(0)*/, route(route_) {}
         
     };
 private:
     // private data member to represent graph
-    vector<vector<Edge>> graph;
+    map<Vertex, map<Vertex, vector<Edge>>> graph;
     vector<Vertex> all_vertices;
     vector<Edge> all_edges;
 };
