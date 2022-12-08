@@ -14,9 +14,7 @@ Algo::Algo(
 
 // cost function to check distance
 int cost(int dist[], bool sptSet[])
-{
- 
-    // Initialize min value
+{   // Initialize min value
     int min = INT_MAX, min_index;
  
     for (int v = 0; v < V; v++)
@@ -30,11 +28,9 @@ int cost(int dist[], bool sptSet[])
 void Algo::DijSolve(Vertex s){
   // use func to find index location of s
   int s_loc = find_vertex_ind(s);
-
   vector<double> dist = vector<double>();
-
   vector<bool> sptSet = vector<bool>();
-
+  
   // start of the algorithim by pushing back "infinite" (largest double) values to dist vector
   // this ensures that all actual values will be considered minimums when compared to these
   // start of the algorithim by pushing back false values to dist vector
@@ -44,27 +40,17 @@ void Algo::DijSolve(Vertex s){
       sptSet.push_back(false);
   }
 
-  // felf to self distance MUST be 0
+  // self to self distance MUST be 0
   dist[s_loc] = 0.0;
 
   // find shortest path for all vertices
   // size is all but self
   for (int count = 0; count < all_verticies.size() - 1; count++) {
-      // Pick the minimum distance vertex from the set of
-      // vertices not yet processed. u is always equal to
-      // src in the first iteration.
       int min_dist_vertex_ind = minDistance(dist, sptSet);
 
       // Mark the picked vertex as processed
       sptSet[min_dist_vertex_ind] = true;
-
-      // Update dist value of the adjacent vertices of the
-      // picked vertex.
       for (int v = 0; v < all_verticies.size(); v++){
-          // Update dist[v] only if is not in sptSet,
-          // there is an edge from u to v, and total
-          // weight of path from src to  v through u is
-          // smaller than current value of dist[v]
           if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX && dist[u] + graph[u][v] < dist[v]){
             dist[v] = dist[u] + graph[u][v];
           }
