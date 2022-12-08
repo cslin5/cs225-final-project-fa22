@@ -13,6 +13,7 @@ Algo::Algo(
 }
 
 // need to write this out
+<<<<<<< Updated upstream
 void Algo::DijSolve(Vertex v){
     // pseudocode instructions
     for each (Vertex v : G) {
@@ -31,40 +32,92 @@ void Algo::DijSolve(Vertex v){
                   p[v] = u
         }
     }
+=======
+void Algo::DijSolve(Vertex s){
+  // use func to find index location of s
+  int s_loc = find_vertex_ind(s);
+  map<Vertex, double> time_diff = map<Vertex, double>();
+  vector<bool> sptSet = vector<bool>();
+  
+  // start of the algorithim by pushing back "infinite" (largest double) values to dist vector
+  // this ensures that all actual values will be considered minimums when compared to these
+  // start of the algorithim by pushing back false values to dist vector
+  // basically meaning that you are setting all verticies to NOT be part of the path at the start
+  for (int i = 0; i < all_verticies.size(); i++){
+      time_diff.insert(std::pair<Vertex, double>(all_vertices.at(i), DOUBLE_MAX));
+      sptSet.push_back(false);
+  }
+
+  // self to self distance MUST be 0
+  dist.at(s_loc) = 0.0;
+
+  // find shortest path for all vertices
+  // size is all but self
+  for (int count = 0; count < all_verticies.size() - 1; count++) {
+      int min_dist_vertex_ind = minDistance(dist, sptSet);
+
+      // Mark the picked vertex as processed
+      sptSet[min_dist_vertex_ind] = true;
+      for (int v = 0; v < all_verticies.size(); v++){
+          if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX && dist[u] + graph[u][v] < dist[v]){
+            dist[v] = dist[u] + graph[u][v];
+          }
+      }
+
+  // print the constructed distance array
+}    
+    // // pseudocode instructions
+    // for (Vertex v : all_vertices) {
+    //   d[v] = DOUBLE_MAX;
+    //   p[v] = NULL;
+    //   d[s] = 0
+    //   PriorityQueue Q // min distance, defined by d[v]
+    //   Q.buildHeap(G.vertices())
+    //   Graph T // "labeled set"
+    //   repeat n times:
+    //   Vertex u = Q.removeMin()
+    //   T.add(u)
+    //   foreach (Vertex v : neighbors of u not in T):
+    //     if cost(u, v) + d[u] < d[v] {
+    //       d[v] = cost(u, v) + d[u]
+    //               p[v] = u
+    //     }
+    // }
+>>>>>>> Stashed changes
 }
 
 
 
 // presuming bus data is smth like this, so subject to change
 
-/// @brief sets up the data for all vertices and all edges vectors -- used in the graph initialization 
+// @brief sets up the data for all vertices and all edges vectors -- used in the graph initialization 
 // and other methods 
-void Algo::translate_data(vector<Bus> buses) {
-  for (Bus b : buses) {
-    // vertex vector?
-    vector<string> stops = b.stops;
-    vector<double> times = b.times;
-    /// how is the data like time being saved? route name? etc
+// void Algo::translate_data(vector<Bus> buses) {
+//   for (Bus b : buses) {
+//     // vertex vector?
+//     vector<string> stops = b.stops;
+//     vector<double> times = b.times;
+//     /// how is the data like time being saved? route name? etc
 
-    for (size_t index = 0; index < stops.size() - 1; index++) {
-      // vertex 1 and 2
-      Vertex v1(stops[index]);
-      v1.addRoute(b.route);
-      Vertex v2(stops[index + 1]);
-      v2.addRoute(b.route);
-      // don't wanna readd vertices
-      if (find(all_vertices.begin(), all_vertices.end(), v1) == all_vertices.end()) {
-        all_vertices.push_back(v1);
-      }
-      if (find(all_vertices.begin(), all_vertices.end(), v2) == all_vertices.end()) {
-        all_vertices.push_back(v2);
-      }
+//     for (size_t index = 0; index < stops.size() - 1; index++) {
+//       // vertex 1 and 2
+//       Vertex v1(stops[index]);
+//       v1.addRoute(b.route);
+//       Vertex v2(stops[index + 1]);
+//       v2.addRoute(b.route);
+//       // don't wanna readd vertices
+//       if (find(all_vertices.begin(), all_vertices.end(), v1) == all_vertices.end()) {
+//         all_vertices.push_back(v1);
+//       }
+//       if (find(all_vertices.begin(), all_vertices.end(), v2) == all_vertices.end()) {
+//         all_vertices.push_back(v2);
+//       }
 
-      Edge edge(times[index], b.route, v1, v2);
-      all_edges.push_back(edge);
-    }
-  }
-}
+//       Edge edge(times[index], b.route, v1, v2);
+//       all_edges.push_back(edge);
+//     }
+//   }
+// }
 
 /// @brief basically for each start vertex, we get a map of its end vertex and the edges 
 // that exist between these two points
@@ -112,6 +165,39 @@ Edge find_Edge(string route_, Vertex start_, Vertex end_){
   }
   return Edge();
 }
+<<<<<<< Updated upstream
+=======
+
+int find_vertex_ind(Vertex v){
+  //user iterator to locate element
+  auto location = find(all_verticies.begin(), all_verticies.end(), v);
+  // If element doesn't exist return -1
+  if (location == all_verticies.end()) {
+    return -1;
+  }
+  return location - all_verticies.begin();
+}
+
+int minDistance(map<Vertex, double> time_diff, vector<bool> sptSet){
+  // start by setting the minimum value to the largest possible double value 
+  // this ensure all vals accessed after are actual minimums
+  double min_val = DOUBLE_MAX;
+  int min_index = -1;
+
+  // 
+  for (int i = 0; i < all_verticies.size(); i++){
+    // now check if the point isn't already in the shortest path, and check to make sure it is less than the minimum val
+    if (sptSet.at(i) == false && time_diff[all_verticies.at(i)] <= min_val){
+      // update min val
+      min_val = time_diff[all_verticies.at(i)];
+      // update min_index to be index of min
+      min_index = i;
+    }
+  }
+  return min_index;
+}
+
+>>>>>>> Stashed changes
 // vector<vector<vector<Edge>>> graph;
 
 // void build_graph(vector<Vertex> all_vertices, vector<Edge> all_edges){
