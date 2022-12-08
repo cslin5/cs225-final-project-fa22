@@ -1,16 +1,7 @@
 #include "algo.hpp"
 #include <algorithm>
 
-Algo::Algo(
-    vector<vector<int>> g) {
-  // assign the graph
-  // null check
-  if(g == NULL) {
-    // decide what to do?
-    graph = g;
-  }
-  graph = g;
-}
+// 
 
 // cost function to check distance
 int cost(int dist[], bool sptSet[])
@@ -23,6 +14,80 @@ int cost(int dist[], bool sptSet[])
  
     return min_index;
 }
+
+// change comments
+void Algo::TarjanMain(Vertex v, map<Vertex, Vertex>& disc, map<Vertex, Vertex>& low,
+                    stack<Vertex>& s, map<Vertex, bool>& on_stack) {   
+ 
+    // Initialize discovery time and low value
+    s.push(v);
+    stackMember[v] = true;
+    disc[v] = v;
+    low[v] = v;
+
+    // Go through all vertices adjacent to this
+    for (auto it = graph[v].begin(); it != graph[v].end(); ++it) {
+        int v2 = it -> first; 
+ 
+        // If v is not visited yet, then recur for it
+        if (disc[v2] == Vertex()) {
+            SCCUtil(v2, disc, low, s, on_stack);
+ 
+            // Check if the subtree rooted with 'v' has a
+            // connection to one of the ancestors of 'u'
+            // Case 1 (per above discussion on Disc and Low
+            // value)
+            int index1 = find_index_ind(v);
+            int index2 = find_index_ind(v2);
+            if (index2 > index1) low[v] = v2;
+            else
+            low[v] = v;
+        }
+ 
+        // Update low value of 'u' only of 'v' is still in
+        // stack (i.e. it's a back edge, not cross edge).
+        // Case 2 (per above discussion on Disc and Low
+        // value)
+        else if (on_stack[v] == true)
+            int index1 = find_index_ind(v);
+            int index2 = find_index_ind(v2);
+            if (index2 > index1) low[v] = v2;
+            else
+            low[v] = v;
+    }
+ 
+    // head node found, pop the stack and print an SCC
+    Vertex v3(); // To store stack extracted vertices
+    if (low[v] == disc[v]) {
+        while (s.top() != v) {
+            v3 = s.top();
+            on_stack[v3] = false;
+            s.pop();
+        }
+        v3 = s.top();
+        on_stack[v3] = false;
+        s.pop();
+    }
+}
+ 
+void Algo::TarjanDFS() {
+  map <Vertex, Vertex> disc;
+  map <Vertex, Vertex> low_val;
+  map <Vertex, bool> on_stack;
+  stack<Vertex>s;
+  for (Vertex v: all_vertices) {
+    disc[v] = Vertex();
+    low[v] = Vertex();
+    on_stack[v] = false;
+  }
+  for (Vertex v : all_vertices)
+      if (disc[v] == false)
+          TarjanMain(v, disc, low, s, on_stack);
+}
+
+
+
+
 
 // need to write this out
 void Algo::DijSolve(Vertex s){
@@ -96,7 +161,7 @@ void Algo::translate_data(vector<Bus> buses) {
       v1.addRoute(b.route);
       Vertex v2(stops[index + 1]);
       v2.addRoute(b.route);
-      // don't wanna readd vertices
+      // don't wanna read vertices
       if (find(all_vertices.begin(), all_vertices.end(), v1) == all_vertices.end()) {
         all_vertices.push_back(v1);
       }
@@ -211,3 +276,13 @@ int minDistance(bleh){
 // }
 
 
+// Algo::Algo(
+//     vector<vector<int>> g) {
+//   // assign the graph
+//   // null check
+//   if(g == NULL) {
+//     // decide what to do?
+//     graph = g;
+//   }
+//   graph = g;
+// }

@@ -18,7 +18,10 @@ public:
     void translate_data(vector<Bus> buses);
     void build_graph();
     bool DFS_connected_on_route(string route_, string start_, string end_);
-
+    void TarjanDFS()
+    void TarjanMain(Vertex v, map<Vertex, Vertex>& disc, map<Vertex, Vertex>& low,
+                        stack<Vertex>& s, map<Vertex, bool>& on_stack) 
+                        
     struct Vertex {
         // represent stops as Direction of stop -- follows typical cardinal directions (if true N, S, E, W then do double letters), Stop Name
         string stop;
