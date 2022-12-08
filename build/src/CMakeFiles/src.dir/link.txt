@@ -1,2 +1,0 @@
-/usr/bin/ar qc libsrc.a CMakeFiles/src.dir/algorithms.cpp.o CMakeFiles/src.dir/transit.cpp.o
-/usr/bin/ranlib libsrc.a
