@@ -3,17 +3,7 @@
 
 // 
 
-// cost function to check distance
-int cost(int dist[], bool sptSet[])
-{   // Initialize min value
-    int min = INT_MAX, min_index;
- 
-    for (int v = 0; v < V; v++)
-        if (sptSet[v] == false && dist[v] <= min)
-            min = dist[v], min_index = v;
- 
-    return min_index;
-}
+
 
 // change comments
 void Algo::TarjanMain(Vertex v, map<Vertex, Vertex>& disc, map<Vertex, Vertex>& low,
@@ -74,7 +64,7 @@ void Algo::TarjanDFS() {
   map <Vertex, Vertex> disc;
   map <Vertex, Vertex> low_val;
   map <Vertex, bool> on_stack;
-  stack<Vertex>s;
+  stack<Vertex> s;
   for (Vertex v: all_vertices) {
     disc[v] = Vertex();
     low[v] = Vertex();
@@ -142,7 +132,17 @@ void Algo::DijSolve(Vertex s){
     // }
 }
 
-
+// cost function to check distance
+int cost(int dist[], bool sptSet[])
+{   // Initialize min value
+    int min = INT_MAX, min_index;
+ 
+    for (int v = 0; v < V; v++)
+        if (sptSet[v] == false && dist[v] <= min)
+            min = dist[v], min_index = v;
+ 
+    return min_index;
+}
 
 // presuming bus data is smth like this, so subject to change
 
