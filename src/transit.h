@@ -13,15 +13,16 @@
 #include <iostream>                  /* for std::cout, std::endl */
 #include <string>                    /* for std::string */
 #include <unordered_map>             /* for std::map */
-#include <vector>                    /* for std::vector */
+#include <unordered_set>
+#include <vector> /* for std::vector */
 
 using std::cout;
 using std::endl;
 using std::hash;
 using std::string;
 using std::unordered_map;
+using std::unordered_set;
 using std::vector;
-
 class Transit {
 private:
   class Bus {
@@ -32,17 +33,17 @@ private:
 
     /** @brief Parametrized Bus constructor.
      *
-     *  @param new_bus_id New bus_id.
-     *  @param new_bus_id New trip_id.
+     *  @param new_route_id New bus_id.
+     *  @param new_trip_id New trip_id.
      */
-    Bus(string new_bus_id, string new_trip_id);
+    Bus(string new_route_id, string new_trip_id);
 
     /** @brief Overloaded == operator.
      *
      *  @param other Compared Object.
      */
     bool operator==(const Bus &other) const {
-      return (bus_id == other.bus_id && trip_id == other.trip_id);
+      return (route_id == other.route_id && trip_id == other.trip_id);
     }
 
     /** @brief hashing class/function stolen from
@@ -54,7 +55,7 @@ private:
         // Compute individual hash values for first, second and third
         // http://stackoverflow.com/a/1646913/126995
         size_t res = 17;
-        res = res * 31 + hash<string>()(b.bus_id);
+        res = res * 31 + hash<string>()(b.route_id);
         res = res * 31 + hash<string>()(b.trip_id);
         return res;
       }
@@ -63,7 +64,7 @@ private:
     /*
      * `route_id` from `trips.csv`.
      */
-    string bus_id;
+    string route_id;
 
     /*
      * `trip_id` from `trips.csv`.
@@ -80,7 +81,7 @@ private:
     /** @brief Parametrized Bus constructor.
      *
      *  @param new_stop_id New stop_id.
-     *  @param new_bus_id New trip_id.
+     *  @param new_trip_id New trip_id.
      */
     Stop(string new_stop_id, string new_trip_id);
 
@@ -89,7 +90,7 @@ private:
      *  @param other Compared Object.
      */
     bool operator==(const Stop &other) const {
-      return (stop_id == other.stop_id && trip_id == other.trip_id);
+      return (stop_id == other.stop_id);
     }
 
     /** @brief hashing class/function stolen from
@@ -116,7 +117,8 @@ private:
     /*
      * `trip_id` from `stop_times.csv`.
      */
-    string trip_id;
+    // string trip_id;
+    unordered_set<string> trip_ids;
   };
 
   /* @brief Default constructor.
