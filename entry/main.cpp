@@ -8,14 +8,14 @@ using namespace std;
 
 
 int main() {
-    string file = "../tests/example_dataset.txt";
+    string file = "../dataset/stop_times.txt";
     
     cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << "Hello, user!" << endl;
     cout << "\nWe are going to analyze the data in '" << file << "'." << endl;
 
     cout << "First, create a Transit object to parse the data into Vertices and Edges Objects.\n" << endl;
-    Transit transit("../tests/example_dataset.txt");
+    Transit transit(file);
 
     cout << "\nThen, we will save the parsed Vertices and Edges into vectors and pass";
     cout << "\tthem to an Algorithm constructor, which will create our graph.\n" << endl;
