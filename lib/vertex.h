@@ -11,8 +11,11 @@ using namespace std;
  *         and a vector of routes that go through that stop.
  */
 struct Vertex {
-    // Represents the stop identification.
+    /*
+     * Represents the stop identification.
+     */
     string stop;
+
 
     /** @brief Default constructor of Vertex.
      */
@@ -24,8 +27,9 @@ struct Vertex {
      *  @param stop_ new stop identification.
      */
     Vertex(string stop_) : stop(stop_) {
-        cout << "Created vertex with stop ID = " << stop << "." << endl;
+        cout << "-> Created vertex with stop ID = " << stop << "." << endl;
     }
+
 
     /* Overloading operators */
 

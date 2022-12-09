@@ -17,15 +17,24 @@ using namespace std;
  *         destination.
  */
 struct Edge {
-    // Represents the route identification.
+    /*
+     * Represents the route identification.
+     */
     string route;
-    // Represents the original stop.
+    /*
+     * Represents the original stop.
+     */
     Vertex origin;
-    // Represents the destination stop.
+    /*
+     * Represents the destination stop.
+     */
     Vertex destination;
-    // Represents the time it takes to go from origin to destination.
-    // Time is the weight of the edge.
+    /*
+     * Represents the time it takes to go from origin to destination.
+     Time is the weight of the edge.
+     */
     double time;
+
 
     /** @brief Default constructor of Edge.
      */
@@ -42,9 +51,10 @@ struct Edge {
      */
     Edge(string route_, Vertex origin_, Vertex destination_, double time_) :
             route(route_), origin(origin_), destination(destination_), time(time_) {
-        cout << "New Edge created with route = " << route << ", origin = " << origin.stop
+        cout << "-> Created edge with route = " << route << ", origin = " << origin.stop
                 << ", destination = " << destination.stop << ", and time = " << time << "s." << endl;
     }
+
 
     /* Overloading operators */
 
