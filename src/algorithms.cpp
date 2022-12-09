@@ -27,11 +27,58 @@ map<Vertex, map<Vertex, vector<Edge>>>& Algorithm::getGraph() {
 }
 
 
+// DFS to find connected vertices through routes
+
+/** @todo @test
+ */
+bool Algorithm::RouteConnection(string route, Vertex origin, Vertex destination) {
+    // If the origin and destination are the same, they are obviously
+    // connected.
+    if (origin == destination) {
+        return true;
+    }
+
+    map<Vertex, bool> visited;
+
+    // Find out if there is an edge in between origin and destination.
+    Edge edge = findEdge(route, origin, destination);
+    // If there isn't, we can't move forward on route.
+    if (edge == Edge()) {
+        return false;
+    }
+
+    visited[origin] = true;
+    // For each entry in graph:
+    for (auto it = graph.begin(); it != graph.end(); ++it) {   
+        // If the origin vertex hasn't been visited,
+        if (!visited[it->first]) {
+            RouteConnection(route, it->first, destination);
+        }
+    }
+
+    return true; // ?
+}
+
+Edge Algorithm::findEdge(string route, Vertex origin, Vertex destination) {
+    for (Edge edge : edges) {
+        if (edge.origin == origin &&
+            edge.destination == destination &&
+            edge.route == route) {
+            return edge;
+        }
+    }
+
+    return Edge();
+}
+
 // Dijkstra's Algorithm
 
-/// @todo
-// Source:
-// https://favtutor.com/blogs/dijkstras-algorithm-cpp#:~:text=What%20is%20Dijkstra's%20Algorithm%3F,other%20points%20in%20the%20graph.
+/** @todo @test
+ * 
+ *  Sources:
+ *  * https://favtutor.com/blogs/dijkstras-algorithm-cpp#:~:text=What%20is%20Dijkstra's%20Algorithm%3F,other%20points%20in%20the%20graph.
+ *  * https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
+ */
 map<Vertex, double> Algorithm::Dijkstra(Vertex source) {
     size_t source_idx = findVertexIndex(source);
     
@@ -65,18 +112,18 @@ map<Vertex, double> Algorithm::Dijkstra(Vertex source) {
             // value of interval[vertex_idx].
             for (Edge edge : graph[vertex][vertices[j]]) {
                 if ((!visited[j]) && (intervals[vertex_idx] != DBL_MAX) &&
-                    (intervals[vertex_idx] + edge.time < interval))
-
+                    (intervals[vertex_idx] + edge.time < intervals[j])) {
+                        intervals[j] = intervals[vertex_idx] + edge.time;
+                    }
             }
         }
     }
 
-    
-    
-    
+    return map<Vertex, double>(); // ?
 }
 
-/// @test
+/** @test
+ */
 vector<Edge> Algorithm::findOutgoingEdges(Vertex vertex) {
     vector<Edge> outgoingEdges;
     for (Edge edge : edges) {
@@ -87,7 +134,8 @@ vector<Edge> Algorithm::findOutgoingEdges(Vertex vertex) {
     return outgoingEdges;
 }
 
-/// @test
+/** @test
+ */
 vector<Edge> Algorithm::findIncomingEdges(Vertex vertex) {
     vector<Edge> incomingEdges;
     for (Edge edge : edges) {
@@ -98,7 +146,8 @@ vector<Edge> Algorithm::findIncomingEdges(Vertex vertex) {
     return incomingEdges;
 }
 
-/// @test
+/** @test
+ */
 int Algorithm::minInterval(vector<double> intervals, vector<bool> visited) {
     double min = DBL_MAX;
     int min_index;
@@ -113,9 +162,10 @@ int Algorithm::minInterval(vector<double> intervals, vector<bool> visited) {
     return min_index;
 }
 
-/// @test
+/** @test
+ */
 int Algorithm::findVertexIndex(Vertex vertex) {
-    for (int i = 0; i < vertices.size(); i++) {
+    for (size_t i = 0; i < vertices.size(); i++) {
         if (vertex == vertices[i]) {
             return i;
         }
@@ -123,13 +173,15 @@ int Algorithm::findVertexIndex(Vertex vertex) {
     return -1;
 }
 
+
 // Tarjan's Algorithm
 
-/// @todo @bug Wrong output
-// Help setting up this function can be found here:
-// https://www.youtube.com/watch?v=wUgWX0nc4NY&t=398s
-// and here:
-// https://www.geeksforgeeks.org/tarjan-algorithm-find-strongly-connected-components/
+/** @todo @bug Wrong output on test
+ * 
+ *  Sources:
+ *  * https://www.youtube.com/watch?v=wUgWX0nc4NY&t=398s
+ *  * https://www.geeksforgeeks.org/tarjan-algorithm-find-strongly-connected-components/
+ */
 int Algorithm::Tarjan() {
     cout << "\nStarting Tarjan()...\n" << endl;
     map<Vertex, int>  ids;
@@ -171,7 +223,8 @@ int Algorithm::Tarjan() {
     return sccCount;
 }
 
-/// @todo @bug Wrong output
+/** @todo @bug Wrong output on test
+ */
 void Algorithm::TarjanHelper(Vertex vertex,
                              map<Vertex, int>& ids,
                              map<Vertex, int>& low_link,

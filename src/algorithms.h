@@ -42,6 +42,12 @@ public:
     map<Vertex, map<Vertex, vector<Edge>>>& getGraph();
 
 
+    // DFS to find connected vertices through routes
+
+    bool RouteConnection(string route, Vertex origin, Vertex destination);
+
+    Edge findEdge(string route, Vertex origin, Vertex destination);
+
     // Dijkstra's Algorithm
 
     /** @brief Dijkstra's Algorithm.
