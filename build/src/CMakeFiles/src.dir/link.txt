@@ -1,2 +1,0 @@
-/usr/bin/llvm-ar qc libsrc.a CMakeFiles/src.dir/transit.cpp.o
-/usr/bin/llvm-ranlib libsrc.a
