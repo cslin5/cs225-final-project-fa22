@@ -10,4 +10,6 @@ add_test( [==[Transit Test 1]==] [==[/workspaces/CS 225/cs225-final-project-fa22
 set_tests_properties( [==[Transit Test 1]==] PROPERTIES WORKING_DIRECTORY [==[/workspaces/CS 225/cs225-final-project-fa22/build]==])
 add_test( [==[Algorithm Test 1]==] [==[/workspaces/CS 225/cs225-final-project-fa22/build/test]==] [==[Algorithm Test 1]==]  )
 set_tests_properties( [==[Algorithm Test 1]==] PROPERTIES WORKING_DIRECTORY [==[/workspaces/CS 225/cs225-final-project-fa22/build]==])
-set( test_TESTS [==[Vertex (Simple) Test 1]==] [==[Vertex (Simple) Test 2]==] [==[Vertex + Edge (Simple) Test 1]==] [==[findTime() Test 1]==] [==[Transit Test 1]==] [==[Algorithm Test 1]==])
+add_test( [==[Tarjan Test 1]==] [==[/workspaces/CS 225/cs225-final-project-fa22/build/test]==] [==[Tarjan Test 1]==]  )
+set_tests_properties( [==[Tarjan Test 1]==] PROPERTIES WORKING_DIRECTORY [==[/workspaces/CS 225/cs225-final-project-fa22/build]==])
+set( test_TESTS [==[Vertex (Simple) Test 1]==] [==[Vertex (Simple) Test 2]==] [==[Vertex + Edge (Simple) Test 1]==] [==[findTime() Test 1]==] [==[Transit Test 1]==] [==[Algorithm Test 1]==] [==[Tarjan Test 1]==])

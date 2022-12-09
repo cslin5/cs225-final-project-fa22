@@ -149,6 +149,12 @@ src/CMakeFiles/src.dir/algorithms.cpp.o: \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/debug/safe_sequence.h \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/debug/safe_sequence.tcc \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/pstl/execution_defs.h \
+  /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/stack \
+  /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/deque \
+  /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/bits/stl_deque.h \
+  /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/bits/deque.tcc \
+  /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/debug/deque \
+  /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/bits/stl_stack.h \
   /workspaces/CS\ 225/cs225-final-project-fa22/src/algorithms.h \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/iostream \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/ostream \
@@ -349,10 +355,6 @@ src/CMakeFiles/src.dir/algorithms.cpp.o: \
   /usr/include/uchar.h \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/bitset \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/debug/bitset \
-  /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/deque \
-  /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/bits/stl_deque.h \
-  /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/bits/deque.tcc \
-  /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/debug/deque \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/fstream \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/bits/codecvt.h \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/aarch64-linux-gnu/c++/11/bits/basic_file.h \
@@ -386,8 +388,6 @@ src/CMakeFiles/src.dir/algorithms.cpp.o: \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/pstl/glue_numeric_defs.h \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/queue \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/bits/stl_queue.h \
-  /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/stack \
-  /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/bits/stl_stack.h \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/valarray \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/bits/valarray_array.h \
   /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/bits/valarray_array.tcc \

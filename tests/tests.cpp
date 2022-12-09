@@ -231,3 +231,24 @@ TEST_CASE("Algorithm Test 1", "[algorithm][transit][vertex][edge]") {
         }
     }
 }
+
+TEST_CASE("Tarjan Test 1", "[tarjan][algorithm][transit][vertex][edge]") {
+    cout << "\nTarjan Test 1" << endl;
+    
+    Transit transit("../tests/example2_dataset.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    Algorithm algorithm(vertices, edges);
+
+    // for (pair<const Vertex, map<Vertex, vector<Edge>>> origin : graph) {
+    //     for (pair<const Vertex, vector<Edge>> destination : origin.second) {
+    //         for (size_t i = 0; i < destination.second.size(); i++) {
+    //             REQUIRE(origin.first == destination.second[i].origin);
+    //             REQUIRE(destination.first == destination.second[i].destination);
+    //         }
+    //     }
+    // }
+
+    REQUIRE(algorithm.Tarjan() == 3);
+}
