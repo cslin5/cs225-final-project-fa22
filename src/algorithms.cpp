@@ -182,15 +182,13 @@ int Algorithm::findVertexIndex(Vertex vertex) {
 // Tarjan's Algorithm (Natalia)
 
 void printLowLink(map<Vertex, int> low_link) {
-    cout << "Printing low_link:" << endl;
+    cout << "\nPrinting low_link:" << endl;
     for (auto& pair : low_link) {
         cout << (pair.first).stop << ": " << pair.second << endl;
     }
 }
 
-/** @todo @bug Wrong output on test
- * 
- *  Sources:
+/** Sources:
  *  * https://www.youtube.com/watch?v=wUgWX0nc4NY&t=398s
  *  * https://www.geeksforgeeks.org/tarjan-algorithm-find-strongly-connected-components/
  */
@@ -218,35 +216,35 @@ map<Vertex, int> Algorithm::Tarjan() {
 
     cout << "\n\nAfter initializing every node, analize every vertex if it is unvisited." << endl;
     for (Vertex vertex : vertices) {
-        cout << "\tVertex = " << vertex.stop << endl;
+        cout << "\n\tVertex = " << vertex.stop << endl;
         if (ids[vertex] == UNVISITED) {
             cout << "\t\t" << vertex.stop << " is unvisited" << endl;
             cout << "\t\tCalling TarjanHelper() on " << vertex.stop << endl;
             TarjanHelper(vertex, ids, low_link, on_stack, stack, sccCount);
             cout << "\t\tEnd of TarjanHelper()." << endl;
+        } else {
+            cout << "\t\t" << vertex.stop << " is visited" << endl;
         }
     }
 
-    cout << "States for every vertex:" << endl;
+    cout << "\nStates for every vertex:" << endl;
     for (Vertex vertex : vertices) {
-        cout << "Vertex = " << vertex.stop << endl;
-        cout << "\tids =\t\t" << ids[vertex] << endl;
-        cout << "\tlow_link =\t" << low_link[vertex] << endl;
-        cout << "\ton_stack =\t" << on_stack[vertex] << endl;
+        cout << "\tVertex = " << vertex.stop << endl;
+        cout << "\t\tids =\t\t" << ids[vertex] << endl;
+        cout << "\t\tlow_link =\t" << low_link[vertex] << endl;
+        cout << "\t\ton_stack =\t" << on_stack[vertex] << endl;
     }
 
     printLowLink(low_link);
     return low_link;
 }
 
-/** @todo @bug Wrong output on test
- */
 void Algorithm::TarjanHelper(Vertex vertex,
                              map<Vertex, int>& ids,
                              map<Vertex, int>& low_link,
                              map<Vertex, bool> on_stack,
                              stack<Vertex>& stack,
-                             /*int& id*/ int& sccCount) {
+                             int& sccCount) {
     static int id = 0;
     stack.push(vertex);
     on_stack[vertex] = true;
@@ -276,8 +274,9 @@ void Algorithm::TarjanHelper(Vertex vertex,
             
             low_link[vertex] = ((low_link[vertex] <= low_link[destination]) ? low_link[vertex] : low_link[destination]);
             cout << "\t\t\tUpdating low-link value for " << vertex.stop << " to " << low_link[vertex] << endl;
+        }
 
-        } else {
+        if (on_stack[destination]) {
             cout << "\t\t\t" << destination.stop << " has been visited" << endl;
 
             low_link[vertex] = ((low_link[vertex] <= ids[destination]) ? low_link[vertex] : ids[destination]);

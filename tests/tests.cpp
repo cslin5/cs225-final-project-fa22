@@ -280,20 +280,19 @@ TEST_CASE("Tarjan Test 3", "[tarjan][algorithm][transit][vertex][edge]") {
 
     Algorithm algorithm(vertices, edges);
     
-    map<Vertex, int> low_link;
-    Vertex v0 = Vertex("0");
-    Vertex v1 = Vertex("1");
-    Vertex v2 = Vertex("2");
-    Vertex v3 = Vertex("3");
-    Vertex v4 = Vertex("4");
+    map<Vertex, int> expected;
+    Vertex v0 = Vertex("0"); expected[v0] = 0;
+    Vertex v1 = Vertex("1"); expected[v1] = 0;
+    Vertex v2 = Vertex("2"); expected[v2] = 0;
+    Vertex v3 = Vertex("3"); expected[v3] = 3;
+    Vertex v4 = Vertex("4"); expected[v4] = 4;
 
-    low_link[v0] = 0;
-    low_link[v1] = 0;
-    low_link[v2] = 0;
-    low_link[v3] = 3;
-    low_link[v4] = 4;
-
-    REQUIRE(low_link == algorithm.Tarjan());
+    map<Vertex, int> tarjan = algorithm.Tarjan();
+    REQUIRE(expected.size() == tarjan.size());
+    
+    for (auto& pair : expected) {
+        REQUIRE(tarjan[pair.first] == pair.second);
+    }
 }
 
 TEST_CASE("Tarjan Test 4", "[tarjan][algorithm][transit][vertex][edge]") {
@@ -306,18 +305,18 @@ TEST_CASE("Tarjan Test 4", "[tarjan][algorithm][transit][vertex][edge]") {
 
     Algorithm algorithm(vertices, edges);
     
-    map<Vertex, int> low_link;
-    Vertex v0 = Vertex("0");
-    Vertex v1 = Vertex("1");
-    Vertex v2 = Vertex("2");
-    Vertex v3 = Vertex("3");
+    map<Vertex, int> expected;
+    Vertex v0 = Vertex("0"); expected[v0] = 0;
+    Vertex v1 = Vertex("1"); expected[v1] = 1;
+    Vertex v2 = Vertex("2"); expected[v2] = 2;
+    Vertex v3 = Vertex("3"); expected[v3] = 3;
 
-    low_link[v0] = 0;
-    low_link[v1] = 1;
-    low_link[v2] = 2;
-    low_link[v3] = 3;
-
-    REQUIRE(low_link == algorithm.Tarjan());
+    map<Vertex, int> tarjan = algorithm.Tarjan();
+    REQUIRE(expected.size() == tarjan.size());
+    
+    for (auto& pair : expected) {
+        REQUIRE(tarjan[pair.first] == pair.second);
+    }
 }
 
 TEST_CASE("Tarjan Test 5", "[tarjan][algorithm][transit][vertex][edge]") {
@@ -330,24 +329,21 @@ TEST_CASE("Tarjan Test 5", "[tarjan][algorithm][transit][vertex][edge]") {
 
     Algorithm algorithm(vertices, edges);
 
-    map<Vertex, int> low_link;
-    Vertex v0 = Vertex("0");
-    Vertex v1 = Vertex("1");
-    Vertex v2 = Vertex("2");
-    Vertex v3 = Vertex("3");
-    Vertex v4 = Vertex("4");
-    Vertex v5 = Vertex("5");
-    Vertex v6 = Vertex("6");
+    map<Vertex, int> expected;
+    Vertex v0 = Vertex("0"); expected[v0] = 0;
+    Vertex v1 = Vertex("1"); expected[v1] = 0;
+    Vertex v2 = Vertex("2"); expected[v2] = 0;
+    Vertex v3 = Vertex("3"); expected[v3] = 3;
+    Vertex v4 = Vertex("4"); expected[v4] = 5;
+    Vertex v5 = Vertex("5"); expected[v5] = 4;
+    Vertex v6 = Vertex("6"); expected[v6] = 6;
 
-    low_link[v0] = 0;
-    low_link[v1] = 0;
-    low_link[v2] = 0;
-    low_link[v3] = 3;
-    low_link[v4] = 4;
-    low_link[v5] = 5;
-    low_link[v6] = 6;
-
-    REQUIRE(low_link == algorithm.Tarjan());
+    map<Vertex, int> tarjan = algorithm.Tarjan();
+    REQUIRE(expected.size() == tarjan.size());
+    
+    for (auto& pair : expected) {
+        REQUIRE(tarjan[pair.first] == pair.second);
+    }
 }
 
 TEST_CASE("Tarjan Test 6", "[tarjan][algorithm][transit][vertex][edge]") {
@@ -360,43 +356,25 @@ TEST_CASE("Tarjan Test 6", "[tarjan][algorithm][transit][vertex][edge]") {
 
     Algorithm algorithm(vertices, edges);
 
-    map<Vertex, int> low_link;
-    Vertex v0 = Vertex("0");
-    Vertex v1 = Vertex("1");
-    Vertex v2 = Vertex("2");
-    Vertex v3 = Vertex("3");
-    Vertex v4 = Vertex("4");
-    Vertex v5 = Vertex("5");
-    Vertex v6 = Vertex("6");
-    Vertex v7 = Vertex("6");
-    Vertex v8 = Vertex("6");
-    Vertex v9 = Vertex("6");
-    Vertex v10 = Vertex("10");
+    map<Vertex, int> expected;
+    Vertex v0 = Vertex("0"); expected[v0] = 0;
+    Vertex v1 = Vertex("1"); expected[v1] = 0;
+    Vertex v2 = Vertex("2"); expected[v2] = 0;
+    Vertex v3 = Vertex("3"); expected[v3] = 9; // Should be either 0 or 9
+    Vertex v4 = Vertex("4"); expected[v4] = 3;
+    Vertex v5 = Vertex("5"); expected[v5] = 3;
+    Vertex v6 = Vertex("6"); expected[v6] = 3;
+    Vertex v7 = Vertex("7"); expected[v7] = 6;
+    Vertex v8 = Vertex("8"); expected[v8] = 7;
+    Vertex v9 = Vertex("9"); expected[v9] = 7;
+    Vertex v10 = Vertex("10"); expected[v10] = 10;
 
-    low_link[v0] = 0;
-    low_link[v1] = 0;
-    low_link[v2] = 0;
-    low_link[v3] = 0;
-    low_link[v4] = 4;
-    low_link[v5] = 4;
-    low_link[v6] = 4;
-    low_link[v7] = 7;
-    low_link[v8] = 8;
-    low_link[v9] = 8;
-    low_link[v10] = 10;
-
-    // map<Vertex, map<Vertex, vector<Edge>>> graph = algorithm.getGraph();
-    // for (pair<const Vertex, map<Vertex, vector<Edge>>>& origin : graph) {
-    //     cout << "\norigin: " << origin.first.stop << endl;
-    //     for (pair<const Vertex, vector<Edge>> destination : origin.second) {
-    //         cout << "\tdestination: " << destination.first.stop << endl;
-    //         for (size_t i = 0; i < destination.second.size(); i++) {
-    //             cout << "\t\tedge: " << destination.second[i].route << endl;
-    //         }
-    //     }
-    // }
-
-    REQUIRE(low_link == algorithm.Tarjan());
+    map<Vertex, int> tarjan = algorithm.Tarjan();
+    REQUIRE(expected.size() == tarjan.size());
+    
+    for (auto& pair : expected) {
+        REQUIRE(tarjan[pair.first] == pair.second);
+    }
 }
 
 // TEST_CASE("Route Connection - Teal Ex 1","[Route Connection][algorithm][transit][vertex][edge]") {
