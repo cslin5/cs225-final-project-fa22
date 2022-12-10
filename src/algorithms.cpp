@@ -189,9 +189,9 @@ int Algorithm::Tarjan() {
     map<Vertex, bool> on_stack;
     stack<Vertex>     stack;
 
-    // Used to give each vertex an ID.
-    int id = 0;
-    cout << "ID starts at " << id << "." << endl;
+    // // Used to give each vertex an ID.
+    // int id = 0;
+    // cout << "ID starts at " << id << "." << endl;
     // Used to count number of strongly connected components (SCCs) found.
     int sccCount = 0;
     cout << "sccCount starts at " << sccCount << "." << endl;
@@ -230,7 +230,8 @@ void Algorithm::TarjanHelper(Vertex vertex,
                              map<Vertex, int>& low_link,
                              map<Vertex, bool> on_stack,
                              stack<Vertex>& stack,
-                             int& id, int& sccCount) {
+                             /*int& id*/, int& sccCount) {
+    int id = 0;
     stack.push(vertex);
     on_stack[vertex] = true;
     ids[vertex] = low_link[vertex] = id++;
