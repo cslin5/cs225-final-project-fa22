@@ -44,10 +44,24 @@ public:
 
     // DFS to find connected vertices through routes
 
+    bool RouteConnection(string route, string origin, string destination,  map<Vertex, bool>& visited);
 
-    bool RouteConnection(string route, Vertex origin, Vertex destination);
-
+    /** @brief Finds the Edge with given route, origin, and destination
+     *         in edges.
+     * 
+     *  @param route Route of edge.
+     *  @param origin Origin vertex of edge.
+     *  @param destination Destination verttex of edge.
+     *  @return the edge with given inputs; else, new empty edge.
+    */
     Edge findEdge(string route, Vertex origin, Vertex destination);
+    
+    /** @brief Finds the vertex in vertices with the given stop ID.
+     * 
+     *  @param stop The stop ID to search for.
+     *  @return the Vertex object with the given ID.
+     */
+    Vertex findVertex(string stop);
 
     // Dijkstra's Algorithm
 
@@ -59,20 +73,6 @@ public:
      *         two vertices.
      */
     map<Vertex, double> Dijkstra(Vertex source);
-
-    /** @brief Finds all edges with origin at vertex.
-     * 
-     *  @param vertex source.
-     *  @return a vector of edges.
-     */
-    vector<Edge> findOutgoingEdges(Vertex vertex);
-    
-    /** @brief Finds all edges with destination at vertex.
-     * 
-     *  @param vertex destination.
-     *  @return a vector of edges.
-     */
-    vector<Edge> findIncomingEdges(Vertex vertex);
 
     /** @brief Returns the 
      * 
@@ -87,7 +87,7 @@ public:
      * 
      *  @param vertex Vertex to be found.
      *  @return index of vertex to be found.
-    */
+     */
     int findVertexIndex(Vertex vertex);
 
 
@@ -97,7 +97,7 @@ public:
      *         This is an algorithm used to find the strongly connected
      *         components of a graph.
      * 
-     *  @return the number of connected components.
+     *  @return the low-link value of the vertices.
      */
     map<Vertex, int> Tarjan();
 
@@ -110,7 +110,6 @@ public:
      *  @param low_link The low-link value of each vertex.
      *  @param on_stack Check if the vertex is on the stack.
      *  @param stack Stack containing the connected ancestors.
-     *  @param id The current ID value.
      *  @param sccCount The current number of strongly connected
      *         components.
      */
@@ -119,7 +118,7 @@ public:
                       map<Vertex, int>& low_link,
                       map<Vertex, bool> on_stack,
                       stack<Vertex>& stack,
-                      int& id, int& sccCount);
+                      int& sccCount);
 
     
 

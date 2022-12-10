@@ -29,7 +29,6 @@ Transit::Transit(const string& stop_times_dataset) {
             int index = 0;
             while (getline(ss, field, ',')) {
                 if (index == 0 || index == 1 || index == 3) {
-                    cout << "  1" << endl;
                     info.push_back(field);
                 }
 
