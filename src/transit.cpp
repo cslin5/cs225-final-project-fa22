@@ -29,6 +29,7 @@ Transit::Transit(const string& stop_times_dataset) {
             int index = 0;
             while (getline(ss, field, ',')) {
                 if (index == 0 || index == 1 || index == 3) {
+                    cout << "  1" << endl;
                     info.push_back(field);
                 }
 
@@ -42,7 +43,7 @@ Transit::Transit(const string& stop_times_dataset) {
             // Create every vertex.
             // We need to create this before we create each edge because edges have
             // origin and destination vertices.
-            string stop_id = info[2];
+            string stop_id = info.at(2);
             if (findVertex(stop_id) == -1) {
                 // Avoids duplicate stops.
                 vertices.push_back(Vertex(stop_id));
@@ -50,7 +51,6 @@ Transit::Transit(const string& stop_times_dataset) {
 
             data.push_back(info);
         }
-
         createEdges(data);
     }
 
