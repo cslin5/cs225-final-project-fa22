@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <stack>
+#include <iostream>
 
 #include "algorithms.h"
 
@@ -27,65 +28,61 @@ map<Vertex, map<Vertex, vector<Edge>>>& Algorithm::getGraph() {
 }
 
 
-// DFS to find connected vertices through routes (Kalika)
+// DFS to find connected vertices through routes (Kalika) (Natalia)
 
-/** @todo @test
- */
-bool Algorithm::RouteConnection(string route, string origin, string destination,  map<Vertex, bool>& visited) {
-    // If the origin and destination are the same, they are obviously
-    // connected.
-    if (origin == destination) {
-        cout << "Found destination" << endl;
+bool Algorithm::RouteConnection(string route, string origin_stop, string destination_stop) {
+     // If the origin is the same as destination, exit the code.
+    if (origin_stop == destination_stop) {
+        cout << "Destination was found!" << endl;
         return true;
     }
 
-    // map<Vertex, bool> visited;
-    // for (Vertex v : vertices)
-    //     visited[v] = false;
-
-    Vertex start = findVertex(origin);
-    Vertex end = findVertex(destination);
-    // Find out if there is an edge in between origin and destination.
-    Edge edge = findEdge(route, start, end);
-    // // If there isn't, we can't move forward on route.
-    if (edge == Edge()) {
-        return false;
-        cout << "Can't move foward" << endl;
+    // Else, create a map of vertices to bool to keep track of visited nodes.
+    map<Vertex, bool> visited;
+    // Mark all of them as unvisited.
+    for (Vertex vertex : vertices) {
+        visited[vertex] = false;
     }
 
-    visited[start] = true;
-    // For each entry in graph:
-    for (auto it = graph[start].begin(); it != graph[start].end(); ++it) {   
-        // If the origin vertex hasn't been visited,
-        cout << "enter graph iteration" << endl;
-        bool has_route = false;
-        string stop = "";
-        for (Edge e : it -> second) { 
-            if (visited.find(it->first) != visited.end() && !visited[it->first] && e.route == route) {
-            cout << "not visited" << endl;
-            has_route = true;
-            stop = it -> first.stop;
-            RouteConnection(route, it->first.stop, destination, visited);
-            }
-        }
-        if (has_route && stop != destination) {
-            return false;
-            cout << "Can't move foward and not at stop" << endl;
-        }
-    }
+    // Find corresponding vertex to origin and destination stops
+    Vertex origin = findVertex(origin_stop);
+    Vertex destination = findVertex(destination_stop);
 
-    return true; // ?
+    // Call the recursive RouteConnection function.
+    return RouteConnectionHelper(route, origin, destination, visited);
 }
 
-Edge Algorithm::findEdge(string route, Vertex origin, Vertex destination) {
-    for (Edge edge : graph[origin][destination]) {
-        if (edge.route == route) {
-            // cout << "Edge was found." << endl;
-            return edge;
-        }
+bool Algorithm::RouteConnectionHelper(string route, Vertex origin, Vertex destination,  map<Vertex, bool>& visited) {
+    cout << "\nRouteConnection for " << route << " from " << origin.stop << " to " << destination.stop << endl;
+    
+    // If the origin and destination are the same, they are obviously connected.
+    if (origin.stop == destination.stop) {
+        cout << "Destination was found!" << endl;
+        return true;
     }
-    // cout << "Edge was not found." << endl;
-    return Edge();
+
+    // Mark the origin as true so we don't visit it again.
+    visited[origin] = true;
+    
+    // For each origin in graph, iterate through the destinations:
+    cout << "Entering graph iteration..." << endl;
+    for (auto it = graph[origin].begin(); it != graph[origin].end(); ++it) {
+        // For each edge coming out from origin,
+        for (Edge edge : it->second) {
+            // If the edge has the same route,
+            if (!visited[it->first] && edge.route == route) {
+                cout << "Edge was found between " << origin.stop << " and " << it->first.stop << endl;
+                // Return the RoutConnection recursive function's result.
+                if (RouteConnectionHelper(route, it->first, destination, visited) == true) {
+                    return true;
+                }
+            }
+        }
+
+    }
+
+    // Else, return false: We haven't found the connection.
+    return false;
 }
 
 Vertex Algorithm::findVertex(string stop) {
@@ -148,7 +145,7 @@ map<Vertex, double> Algorithm::Dijkstra(Vertex source) {
         }
     }
 
-    return map<Vertex, double>(); // ?
+    return map<Vertex, double>();
 }
 
 /** @test

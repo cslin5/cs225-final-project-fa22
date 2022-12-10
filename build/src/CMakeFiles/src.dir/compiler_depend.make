@@ -162,7 +162,6 @@ src/CMakeFiles/src.dir/algorithms.cpp.o: ../src/algorithms.cpp \
   /usr/include/c++/11/bits/deque.tcc \
   /usr/include/c++/11/debug/deque \
   /usr/include/c++/11/bits/stl_stack.h \
-  ../src/algorithms.h \
   /usr/include/c++/11/iostream \
   /usr/include/c++/11/ostream \
   /usr/include/c++/11/ios \
@@ -238,6 +237,7 @@ src/CMakeFiles/src.dir/algorithms.cpp.o: ../src/algorithms.cpp \
   /usr/include/c++/11/bits/ostream.tcc \
   /usr/include/c++/11/istream \
   /usr/include/c++/11/bits/istream.tcc \
+  ../src/algorithms.h \
   /usr/include/c++/11/list \
   /usr/include/c++/11/bits/stl_list.h \
   /usr/include/c++/11/bits/allocated_ptr.h \
@@ -1442,10 +1442,6 @@ src/CMakeFiles/src.dir/transit.cpp.o: ../src/transit.cpp \
 
 /usr/include/c++/11/bits/stl_stack.h:
 
-/usr/include/c++/11/bits/char_traits.h:
-
-../src/algorithms.h:
-
 /usr/include/c++/11/ostream:
 
 /usr/include/c++/11/initializer_list:
@@ -1607,6 +1603,10 @@ src/CMakeFiles/src.dir/transit.cpp.o: ../src/transit.cpp \
 /usr/include/aarch64-linux-gnu/bits/sched.h:
 
 /usr/include/c++/11/bits/istream.tcc:
+
+/usr/include/c++/11/bits/char_traits.h:
+
+../src/algorithms.h:
 
 /usr/include/c++/11/bits/list.tcc:
 

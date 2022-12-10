@@ -44,17 +44,25 @@ public:
 
     // DFS to find connected vertices through routes
 
-    bool RouteConnection(string route, string origin, string destination,  map<Vertex, bool>& visited);
-
-    /** @brief Finds the Edge with given route, origin, and destination
-     *         in edges.
+    /** @brief Route Connection returns if there is a connection between
+     *         a given stop to another stop using a certain route.
      * 
-     *  @param route Route of edge.
-     *  @param origin Origin vertex of edge.
-     *  @param destination Destination verttex of edge.
-     *  @return the edge with given inputs; else, new empty edge.
-    */
-    Edge findEdge(string route, Vertex origin, Vertex destination);
+     *  @param route Route ID.
+     *  @param origin_stop Stop ID of origin.
+     *  @param destination_stop Stop ID of destination.
+     *  @return if we found a connection.
+     */
+    bool RouteConnection(string route, string origin_stop, string destination_stop);
+
+    /** @brief Helper for RouteConnetion.
+     * 
+     *  @param route Route ID.
+     *  @param origin Vertex origin.
+     *  @param destination Vertex destination.
+     *  @param visited Map that checks if certain Vertex was already visited.
+     *  @return if we found a connection.
+     */
+    bool RouteConnectionHelper(string route, Vertex origin, Vertex destination, map<Vertex, bool>& visited);
     
     /** @brief Finds the vertex in vertices with the given stop ID.
      * 

@@ -232,17 +232,17 @@ TEST_CASE("Building Algorithm Test 1", "[algorithm][transit][vertex][edge]") {
     }
 }
 
-TEST_CASE("Tarjan Test 1", "[tarjan][algorithm][transit][vertex][edge]") {
-    cout << "\nTarjan Test 1" << endl;
+// TEST_CASE("Tarjan Test 1", "[tarjan][algorithm][transit][vertex][edge]") {
+//     cout << "\nTarjan Test 1" << endl;
     
-    Transit transit("../tests/example2_dataset.txt");
-    vector<Vertex> vertices = transit.getVertices();
-    vector<Edge> edges = transit.getEdges();
+//     Transit transit("../tests/example2_dataset.txt");
+//     vector<Vertex> vertices = transit.getVertices();
+//     vector<Edge> edges = transit.getEdges();
 
-    Algorithm algorithm(vertices, edges);
+//     Algorithm algorithm(vertices, edges);
 
-    algorithm.Tarjan();
-}
+//     algorithm.Tarjan();
+// }
 
 TEST_CASE("Tarjan Test 2", "[tarjan][algorithm][transit][vertex][edge]") {
     cout << "\nTarjan Test 2" << endl;
@@ -254,20 +254,19 @@ TEST_CASE("Tarjan Test 2", "[tarjan][algorithm][transit][vertex][edge]") {
 
     Algorithm algorithm(vertices, edges);
 
-    map<Vertex, int> low_link;
-    Vertex v0 = Vertex("0");
-    Vertex v1 = Vertex("1");
-    Vertex v2 = Vertex("2");
-    Vertex v3 = Vertex("3");
-    Vertex v4 = Vertex("4");
+    map<Vertex, int> expected;
+    Vertex v0 = Vertex("0"); expected[v0] = 0;
+    Vertex v1 = Vertex("1"); expected[v1] = 0;
+    Vertex v2 = Vertex("2"); expected[v2] = 0;
+    Vertex v3 = Vertex("3"); expected[v3] = 0;
+    Vertex v4 = Vertex("4"); expected[v4] = 0;
 
-    low_link[v0] = 0;
-    low_link[v1] = 0;
-    low_link[v2] = 0;
-    low_link[v3] = 0;
-    low_link[v4] = 0;
-
-    REQUIRE(low_link == algorithm.Tarjan());
+    map<Vertex, int> tarjan = algorithm.Tarjan();
+    REQUIRE(expected.size() == tarjan.size());
+    
+    for (auto& pair : expected) {
+        REQUIRE(tarjan[pair.first] == pair.second);
+    }
 }
 
 TEST_CASE("Tarjan Test 3", "[tarjan][algorithm][transit][vertex][edge]") {
@@ -377,58 +376,70 @@ TEST_CASE("Tarjan Test 6", "[tarjan][algorithm][transit][vertex][edge]") {
     }
 }
 
-// TEST_CASE("Route Connection - Teal Ex 1","[Route Connection][algorithm][transit][vertex][edge]") {
-//     cout << "\nR" << endl;
-//     Transit transit("../tests/example_dataset.txt");
-//     vector<Vertex> vertices = transit.getVertices();
-//     vector<Edge> edges = transit.getEdges();
-//     map<Vertex, bool> visited;
-//     // map<Vertex, bool> visited2;
-//     Algorithm algorithm(vertices, edges);
-//     // Vertex a = algorithm.findVertex("A");
-//     // Vertex b = algorithm.findVertex("B");
-//     // Vertex c = algorithm.findVertex("C");
-//     // Vertex d = algorithm.findVertex("D");
+TEST_CASE("Route Connection - Grey","[grey][routeconnection][algorithm][transit][vertex][edge]") {
+    cout << "\nRoute Connection - Grey" << endl;
 
-//     REQUIRE(algorithm.RouteConnection("Teal", "A", "B", visited));
-//     visited.clear();
-//     REQUIRE_FALSE(algorithm.RouteConnection("Teal", "A", "D", visited));
-// }
+    Transit transit("../tests/example_dataset.txt");
 
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+    
+    Algorithm algorithm(vertices, edges);
 
-// TEST_CASE("Route Connection - Grey Ex 1","[Route Connection][algorithm][transit][vertex][edge]") {
-//     cout << "\nR" << endl;
-//     Transit transit("../tests/example_dataset.txt");
-//     vector<Vertex> vertices = transit.getVertices();
-//     vector<Edge> edges = transit.getEdges();
-//     map<Vertex, bool> visited;
+    REQUIRE(algorithm.RouteConnection("Grey", "A", "B") == true);
+    REQUIRE(algorithm.RouteConnection("Grey", "A", "C") == true);
+    REQUIRE(algorithm.RouteConnection("Grey", "A", "D") == true);
+    REQUIRE(algorithm.RouteConnection("Grey", "B", "C") == true);
+    REQUIRE(algorithm.RouteConnection("Grey", "B", "D") == true); //
+    REQUIRE(algorithm.RouteConnection("Grey", "C", "D") == true);
+    REQUIRE(algorithm.RouteConnection("Grey", "D", "D") == true);
+    REQUIRE(algorithm.RouteConnection("Grey", "B", "A") == false);
+    REQUIRE(algorithm.RouteConnection("Grey", "C", "A") == false);
+    REQUIRE(algorithm.RouteConnection("Grey", "D", "A") == false);
+}
 
-//     Algorithm algorithm(vertices, edges);
+TEST_CASE("Route Connection - Teal","[teal][routeconnection][algorithm][transit][vertex][edge]") {
+    cout << "\nRoute Connection - Teal" << endl;
 
-//     REQUIRE(algorithm.RouteConnection("Grey", "A", "D", visited));
-//     visited.clear();
-//     REQUIRE(algorithm.RouteConnection("Grey", "A", "B", visited));
-//     visited.clear();
-//     REQUIRE(algorithm.RouteConnection("Grey", "D", "B", visited));
-// }
+    Transit transit("../tests/example_dataset.txt");
 
-// TEST_CASE("Route Connection - Blue Ex 1","[Route Connection][algorithm][transit][vertex][edge]") {
-//     cout << "\nR" << endl;
-//     Transit transit("../tests/example_dataset.txt");
-//     vector<Vertex> vertices = transit.getVertices();
-//     vector<Edge> edges = transit.getEdges();
-//     map<Vertex, bool> visited;
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+    
+    Algorithm algorithm(vertices, edges);
 
-//     Algorithm algorithm(vertices, edges);
-//     // Vertex a = algorithm.findVertex("A");
-//     // Vertex b = algorithm.findVertex("B");
-//     // Vertex c = algorithm.findVertex("C");
-//     // Vertex d = algorithm.findVertex("D");
+    REQUIRE(algorithm.RouteConnection("Teal", "A", "B") == true);
+    REQUIRE(algorithm.RouteConnection("Teal", "A", "C") == true);
+    REQUIRE(algorithm.RouteConnection("Teal", "B", "B") == true);
+    REQUIRE(algorithm.RouteConnection("Teal", "B", "C") == false);
+    REQUIRE(algorithm.RouteConnection("Teal", "B", "D") == false);
+    REQUIRE(algorithm.RouteConnection("Teal", "A", "D") == false);
+    REQUIRE(algorithm.RouteConnection("Teal", "C", "D") == false);
+    REQUIRE(algorithm.RouteConnection("Teal", "D", "D") == true);
+    REQUIRE(algorithm.RouteConnection("Teal", "B", "A") == false);
+    REQUIRE(algorithm.RouteConnection("Teal", "C", "A") == false);
+    REQUIRE(algorithm.RouteConnection("Teal", "D", "A") == false);
+}
 
-//     REQUIRE(algorithm.RouteConnection("Grey", "A", "C", visited));
-//     visited.clear();
-//     REQUIRE(algorithm.RouteConnection("Grey", "D", "B", visited));
-//     visited.clear();
-//     REQUIRE_FALSE(algorithm.RouteConnection("Grey", "B", "D", visited));
+TEST_CASE("Route Connection - Blue","[blue][routeconnection][algorithm][transit][vertex][edge]") {
+    cout << "\nRoute Connection - Blue" << endl;
 
-// } 
+    Transit transit("../tests/example_dataset.txt");
+
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+    
+    Algorithm algorithm(vertices, edges);
+
+    REQUIRE(algorithm.RouteConnection("Blue", "A", "B") == true);
+    REQUIRE(algorithm.RouteConnection("Blue", "A", "C") == true);
+    REQUIRE(algorithm.RouteConnection("Blue", "B", "B") == true);
+    REQUIRE(algorithm.RouteConnection("Blue", "B", "C") == false);
+    REQUIRE(algorithm.RouteConnection("Blue", "B", "D") == false);
+    REQUIRE(algorithm.RouteConnection("Blue", "A", "D") == true);
+    REQUIRE(algorithm.RouteConnection("Blue", "C", "D") == false);
+    REQUIRE(algorithm.RouteConnection("Blue", "D", "D") == true);
+    REQUIRE(algorithm.RouteConnection("Blue", "B", "A") == false);
+    REQUIRE(algorithm.RouteConnection("Blue", "C", "A") == false);
+    REQUIRE(algorithm.RouteConnection("Blue", "D", "A") == false);
+}
