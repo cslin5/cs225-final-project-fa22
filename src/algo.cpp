@@ -238,3 +238,72 @@ int minDistance(map<Vertex, double> time_diff, vector<bool> sptSet){
 // }
 
 
+bool Algo::RouteConnectionMain(string route, string origin, string destination) {
+     if (origin == destination) {
+        cout << "Found destination" << endl;
+        return true;
+    }
+
+    map<Vertex, bool> visited;
+    for (Vertex v : vertices)
+         visited[v] = false;
+
+    Vertex start = findVertex(origin);
+    Vertex end = findVertex(destination);
+    return RouteConnection(route, start, end, visited);
+ }
+
+
+
+bool Algo::RouteConnection(string route, Vertex origin, Vertex destination,  map<Vertex, bool>& visited) {
+    // If the origin and destination are the same, they are obviously
+    // connected.
+    if (origin.stop == destination.stop) {
+        cout << "Found destination" << endl;
+        return true;
+    }
+
+     // Find out if there is an edge in between origin and destination.
+    Edge edge = findEdge(route, start, end);
+    // If there isn't, we can't move forward on route.
+    if (edge == Edge()) {
+        return false;
+        cout << "Can't move foward" << endl;
+    }
+
+    visited[start] = true;
+    // For each entry in graph:
+    for (auto it = graph[start].begin(); it != graph[start].end(); ++it) {
+        // If the origin vertex hasn't been visited,
+        cout << "enter graph iteration" << endl;
+       // bool has_route = false;
+       // string stop = "";
+        for (Edge e : it -> second) { 
+            if (visited.find(it->first) != visited.end() && !visited[it->first] /&& e.route == route/) {
+            cout << "not visited" << endl;
+           // has_route = true;
+           // stop = it -> first.stop;
+            RouteConnection(route, it->first, destination, visited);
+            }
+        }
+     /*   if (has_route && stop != destination) {
+            return false;
+            cout << "Can't move foward and not at stop" << endl;
+        }*/
+    }
+
+    return true; // 
+}
+ 
+Edge Algo::findEdge(string route, Vertex origin, Vertex destination) {
+if (graph.find(origin) != graph.end() && graph[origin].find(destionation) != graph[origin].end()) {
+    for (Edge edge : graph[origin][destination]) {
+        if (edge.route == route) {
+            // cout << "Edge was found." << endl;
+            return edge;
+        }
+    }
+}
+    // cout << "Edge was not found." << endl;
+    return Edge();
+}`
