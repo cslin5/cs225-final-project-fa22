@@ -241,14 +241,149 @@ TEST_CASE("Tarjan Test 1", "[tarjan][algorithm][transit][vertex][edge]") {
 
     Algorithm algorithm(vertices, edges);
 
-    // for (pair<const Vertex, map<Vertex, vector<Edge>>> origin : graph) {
-    //     for (pair<const Vertex, vector<Edge>> destination : origin.second) {
-    //         for (size_t i = 0; i < destination.second.size(); i++) {
-    //             REQUIRE(origin.first == destination.second[i].origin);
-    //             REQUIRE(destination.first == destination.second[i].destination);
-    //         }
-    //     }
-    // }
+    algorithm.Tarjan();
+}
 
-    REQUIRE(algorithm.Tarjan() == 3);
+TEST_CASE("Tarjan Test 2", "[tarjan][algorithm][transit][vertex][edge]") {
+    cout << "\nTarjan Test 2" << endl;
+    cout << "Geeks for Geeks: SCC in firth graph." << endl;
+    
+    Transit transit("../tests/geeksforgeeks5.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    Algorithm algorithm(vertices, edges);
+
+    map<Vertex, int> low_link;
+    Vertex v0 = Vertex("0");
+    Vertex v1 = Vertex("1");
+    Vertex v2 = Vertex("2");
+    Vertex v3 = Vertex("3");
+    Vertex v4 = Vertex("4");
+
+    low_link[v0] = 0;
+    low_link[v1] = 0;
+    low_link[v2] = 0;
+    low_link[v3] = 0;
+    low_link[v4] = 0;
+
+    REQUIRE(low_link == algorithm.Tarjan());
+}
+
+TEST_CASE("Tarjan Test 3", "[tarjan][algorithm][transit][vertex][edge]") {
+    cout << "\nTarjan Test 3" << endl;
+    cout << "Geeks for Geeks: SCC in first graph." << endl;
+
+    Transit transit("../tests/geeksforgeeks1.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    Algorithm algorithm(vertices, edges);
+    
+    map<Vertex, int> low_link;
+    Vertex v0 = Vertex("0");
+    Vertex v1 = Vertex("1");
+    Vertex v2 = Vertex("2");
+    Vertex v3 = Vertex("3");
+    Vertex v4 = Vertex("4");
+
+    low_link[v0] = 0;
+    low_link[v1] = 0;
+    low_link[v2] = 0;
+    low_link[v3] = 3;
+    low_link[v4] = 4;
+
+    REQUIRE(low_link == algorithm.Tarjan());
+}
+
+TEST_CASE("Tarjan Test 4", "[tarjan][algorithm][transit][vertex][edge]") {
+    cout << "\nTarjan Test 4" << endl;
+    cout << "Geeks for Geeks: SCC in second graph." << endl;
+
+    Transit transit("../tests/geeksforgeeks2.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    Algorithm algorithm(vertices, edges);
+    
+    map<Vertex, int> low_link;
+    Vertex v0 = Vertex("0");
+    Vertex v1 = Vertex("1");
+    Vertex v2 = Vertex("2");
+    Vertex v3 = Vertex("3");
+
+    low_link[v0] = 0;
+    low_link[v1] = 1;
+    low_link[v2] = 2;
+    low_link[v3] = 3;
+
+    REQUIRE(low_link == algorithm.Tarjan());
+}
+
+TEST_CASE("Tarjan Test 5", "[tarjan][algorithm][transit][vertex][edge]") {
+    cout << "\nTarjan Test 5" << endl;
+    cout << "Geeks for Geeks: SCC in third graph." << endl;
+    
+    Transit transit("../tests/geeksforgeeks3.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    Algorithm algorithm(vertices, edges);
+
+    map<Vertex, int> low_link;
+    Vertex v0 = Vertex("0");
+    Vertex v1 = Vertex("1");
+    Vertex v2 = Vertex("2");
+    Vertex v3 = Vertex("3");
+    Vertex v4 = Vertex("4");
+    Vertex v5 = Vertex("5");
+    Vertex v6 = Vertex("6");
+
+    low_link[v0] = 0;
+    low_link[v1] = 0;
+    low_link[v2] = 0;
+    low_link[v3] = 3;
+    low_link[v4] = 4;
+    low_link[v5] = 5;
+    low_link[v6] = 6;
+
+    REQUIRE(low_link == algorithm.Tarjan());
+}
+
+TEST_CASE("Tarjan Test 6", "[tarjan][algorithm][transit][vertex][edge]") {
+    cout << "\nTarjan Test 6" << endl;
+    cout << "Geeks for Geeks: SCC in four graph." << endl;
+    
+    Transit transit("../tests/geeksforgeeks4.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    Algorithm algorithm(vertices, edges);
+
+    map<Vertex, int> low_link;
+    Vertex v0 = Vertex("0");
+    Vertex v1 = Vertex("1");
+    Vertex v2 = Vertex("2");
+    Vertex v3 = Vertex("3");
+    Vertex v4 = Vertex("4");
+    Vertex v5 = Vertex("5");
+    Vertex v6 = Vertex("6");
+    Vertex v7 = Vertex("6");
+    Vertex v8 = Vertex("6");
+    Vertex v9 = Vertex("6");
+    Vertex v10 = Vertex("10");
+
+    low_link[v0] = 0;
+    low_link[v1] = 0;
+    low_link[v2] = 0;
+    low_link[v3] = 0;
+    low_link[v4] = 4;
+    low_link[v5] = 4;
+    low_link[v6] = 4;
+    low_link[v7] = 7;
+    low_link[v8] = 8;
+    low_link[v9] = 8;
+    low_link[v10] = 10;
+
+    REQUIRE(low_link == algorithm.Tarjan());
 }

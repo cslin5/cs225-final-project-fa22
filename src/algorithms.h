@@ -44,6 +44,7 @@ public:
 
     // DFS to find connected vertices through routes
 
+
     bool RouteConnection(string route, Vertex origin, Vertex destination);
 
     Edge findEdge(string route, Vertex origin, Vertex destination);
@@ -98,7 +99,7 @@ public:
      * 
      *  @return the number of connected components.
      */
-    int Tarjan();
+    map<Vertex, int> Tarjan();
 
     /** @brief Tarjan's Algorithm helper.
      *         This is a recursive function that finds strongly

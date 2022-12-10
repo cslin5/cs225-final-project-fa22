@@ -176,13 +176,20 @@ int Algorithm::findVertexIndex(Vertex vertex) {
 
 // Tarjan's Algorithm
 
+void printLowLink(map<Vertex, int> low_link) {
+    cout << "Printing low_link:" << endl;
+    for (auto& pair : low_link) {
+        cout << (pair.first).stop << ": " << pair.second << endl;
+    }
+}
+
 /** @todo @bug Wrong output on test
  * 
  *  Sources:
  *  * https://www.youtube.com/watch?v=wUgWX0nc4NY&t=398s
  *  * https://www.geeksforgeeks.org/tarjan-algorithm-find-strongly-connected-components/
  */
-int Algorithm::Tarjan() {
+map<Vertex, int> Algorithm::Tarjan() {
     cout << "\nStarting Tarjan()...\n" << endl;
     map<Vertex, int>  ids;
     map<Vertex, int>  low_link;
@@ -219,8 +226,8 @@ int Algorithm::Tarjan() {
         }
     }
 
-    cout << "\n\nThe number of strongly connected components is " << sccCount << "." << endl;
-    return sccCount;
+    printLowLink(low_link);
+    return low_link;
 }
 
 /** @todo @bug Wrong output on test
@@ -247,11 +254,11 @@ void Algorithm::TarjanHelper(Vertex vertex,
         if (ids[destination] == UNVISITED) {
             cout << "\t** Recursive Tarjan..." << endl;
             TarjanHelper(destination, ids, low_link, on_stack, stack, id, sccCount);
-            low_link[vertex] = ((low_link[vertex] < low_link[destination]) ? low_link[vertex] : low_link[destination]);
+            low_link[vertex] = ((low_link[vertex] <= low_link[destination]) ? low_link[vertex] : low_link[destination]);
             cout << "\tLow-link value for " << vertex.stop << " is " << low_link[vertex] << endl;
             cout << "\t** End Recursive Tarjan." << endl;
         } else if (on_stack[destination]) {
-            low_link[vertex] = ((low_link[vertex] < ids[destination]) ? low_link[vertex] : ids[destination]);
+            low_link[vertex] = ((low_link[vertex] <= ids[destination]) ? low_link[vertex] : ids[destination]);
             cout << "\tLow-link value for " << vertex.stop << " is " << low_link[vertex] << endl;
         }
     }
