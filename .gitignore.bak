@@ -1,5 +1,3 @@
 # ignore boost
 lib/boost/
 build/
-.git/
-.vscode/

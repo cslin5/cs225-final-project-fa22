@@ -1,7 +1,6 @@
 # Path definitions.
 set(lib_dir ${CMAKE_CURRENT_SOURCE_DIR})
 
-<<<<<<< HEAD
 # Add lodepng library.
 set(lodepng_dir ${lib_dir}/lodepng)
 file(GLOB_RECURSE lodepng_sources CONFIGURE_DEPENDS ${lodepng_dir}/*.h ${lodepng_dir}/*.cpp)
@@ -19,8 +18,3 @@ target_link_libraries(cs225 PRIVATE lodepng)
 add_library(libs INTERFACE)
 target_include_directories(libs INTERFACE ${lib_dir})
 target_link_libraries(libs INTERFACE cs225)
-=======
-# Add overall libs library.
-add_library(libs INTERFACE)
-target_include_directories(libs INTERFACE ${lib_dir})
->>>>>>> 4139d45d8766044bcfaed35b0eb776fbf2a000be
