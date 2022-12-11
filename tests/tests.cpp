@@ -17,8 +17,7 @@ using namespace std;
 
 /* VERTEX AND EDGES */
 
-TEST_CASE("Vertex (Simple) Test 1", "[vertex]") {
-    cout << "\nVertex Test 1" <<  endl;
+TEST_CASE("Vertex Constructor Test 1", "[vertex]") {
     vector<string> stops({"A", "B", "C", "D"});
 
     vector<Vertex> vertices(stops.size());
@@ -32,9 +31,7 @@ TEST_CASE("Vertex (Simple) Test 1", "[vertex]") {
     REQUIRE(vertices[3].stop == "D");
 }
 
-
-TEST_CASE("Vertex (Simple) Test 2", "[vertex]") {
-    cout << "\nVertex Test 2" <<  endl;
+TEST_CASE("Vertex Constructor Test 2", "[vertex]") {
     vector<Vertex> vertices(50);
     for (size_t i = 0; i < 50; i++) {
         vertices[i] = Vertex(to_string(i));
@@ -45,9 +42,7 @@ TEST_CASE("Vertex (Simple) Test 2", "[vertex]") {
     }
 }
 
-
-TEST_CASE("Vertex + Edge (Simple) Test 1", "[vertex][edge]") {
-    cout << "\nVertex + Edge Test 1" <<  endl;
+TEST_CASE("Vertex & Edge Constructor Test 1", "[vertex][edge]") {
     vector<string> stops({"A", "B", "C", "D"});
 
     vector<Vertex> vertices(stops.size());
@@ -96,52 +91,15 @@ TEST_CASE("Vertex + Edge (Simple) Test 1", "[vertex][edge]") {
 
 // /* TRANSIT */
 
-double findTime(string time1, string time2) {
-    cout << "Finding time from " << time1 << " to " << time2 << "... " << endl;
-
-    int tm_hour1 = stoi(time1.substr(0, 2));
-    int tm_min1  = stoi(time1.substr(3, 2));
-    int tm_sec1  = stoi(time1.substr(6, 2));
-    
-    struct tm time_tm1{};
-    time_tm1.tm_hour = tm_hour1;
-    time_tm1.tm_min  = tm_min1;
-    time_tm1.tm_sec  = tm_sec1;
-    cout << "\ntime_tm1: " << time_tm1.tm_hour << '\t'
-                           << time_tm1.tm_min << '\t'
-                           << time_tm1.tm_sec << endl;
-
-    time_t time_convert1 = mktime(&time_tm1);
-    cout << asctime(&time_tm1) << endl;
-
-
-    int tm_hour2 = stoi(time2.substr(0, 2));
-    int tm_min2  = stoi(time2.substr(3, 2));
-    int tm_sec2  = stoi(time2.substr(6, 2));
-    
-    struct tm time_tm2{};
-    time_tm2.tm_hour = tm_hour2;
-    time_tm2.tm_min  = tm_min2;
-    time_tm2.tm_sec  = tm_sec2;
-    cout << "\ntime_tm2: " << time_tm2.tm_hour << '\t'
-                           << time_tm2.tm_min << '\t'
-                           << time_tm2.tm_sec << endl;
-
-    time_t time_convert2 = mktime(&time_tm2);
-    cout << asctime(&time_tm2) << endl;
-
-    // The order is weird too but has to be like this:
-    return difftime(time_convert2, time_convert1);
-}
-
-TEST_CASE("findTime() Test 1", "[time]") {
-    double time = findTime("14:00:00", "15:30:00");
+TEST_CASE("Find time between strings of time", "[time]") {
+    Transit transit;
+    double time = transit.findTime("14:00:00", "15:30:00");
 
     REQUIRE(time == (1*60*60 + 30*60));
 }
 
 
-TEST_CASE("Transit Test 1", "[transit][vertex][edge]") {
+TEST_CASE("Transit Constructor Test 1", "[transit][vertex][edge]") {
     cout << "\nTransit Test 1" << endl;
 
     Transit transit("../tests/example_dataset.txt");

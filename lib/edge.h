@@ -51,8 +51,8 @@ struct Edge {
      */
     Edge(string route_, Vertex origin_, Vertex destination_, double time_) :
             route(route_), origin(origin_), destination(destination_), time(time_) {
-        cout << "-> Created edge with route = " << route << ", origin = " << origin.stop
-                << ", destination = " << destination.stop << ", and time = " << time << "s." << endl;
+        // cout << "-> Created edge with route = " << route << ", origin = " << origin.stop
+                // << ", destination = " << destination.stop << ", and time = " << time << "s." << endl;
     }
 
 

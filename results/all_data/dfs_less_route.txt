@@ -1,0 +1,12 @@
+Is there a connection between EMS:9 and PSPCTWASH:2 through route [@6.0.28929208@][32][1657992971959]/6__7W_#2_SHOW_HS_Early_Out?		YES.
+
+Is there a connection between EMS:9 and PSPCTVIN:8 through route [@6.0.28929208@][32][1657992971959]/6__7W_#2_SHOW_HS_Early_Out?		YES.
+
+Is there a connection between PSPCTWASH:2 and EMS:9 through route [@6.0.28929208@][32][1657992971959]/6__7W_#2_SHOW_HS_Early_Out?		NO.
+
+Is there a connection between PSPCTWASH:2 and PSPCTVIN:8 through route [@6.0.28929208@][32][1657992971959]/6__7W_#2_SHOW_HS_Early_Out?		YES.
+
+Is there a connection between PSPCTVIN:8 and EMS:9 through route [@6.0.28929208@][32][1657992971959]/6__7W_#2_SHOW_HS_Early_Out?		NO.
+
+Is there a connection between PSPCTVIN:8 and PSPCTWASH:2 through route [@6.0.28929208@][32][1657992971959]/6__7W_#2_SHOW_HS_Early_Out?		NO.
+

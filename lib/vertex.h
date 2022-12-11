@@ -27,7 +27,7 @@ struct Vertex {
      *  @param stop_ Stop ID of new Vertex.
      */
     Vertex(string stop_) : stop(stop_) {
-        cout << "-> Created vertex with stop ID = " << stop << "." << endl;
+        // cout << "-> Created vertex with stop ID = " << stop << "." << endl;
     }
 
 

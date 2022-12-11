@@ -128,7 +128,11 @@ public:
                       stack<Vertex>& stack,
                       int& sccCount);
 
-    
+
+    // Getters
+
+    vector<Vertex>& getVertices();
+    vector<Edge>& getEdges();
 
 private:
     /** @brief Default constructor for Algorithm.
