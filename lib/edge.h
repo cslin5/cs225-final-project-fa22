@@ -59,6 +59,17 @@ struct Edge {
          << "s." << endl;
   }
 
+  // @brief Copy constructor of Edge
+  Edge(const Edge &other) {
+    route = other.route;
+    origin = other.origin;
+    destination = other.destination;
+    time = other.time;
+    cout << "-> Created edge with route = " << route
+         << ", origin = " << origin.stop
+         << ", destination = " << destination.stop << ", and time = " << time
+         << "s." << endl;
+  }
   /* Overloading operators */
 
   bool operator==(const Edge &other) const {

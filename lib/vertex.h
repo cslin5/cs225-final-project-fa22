@@ -24,15 +24,6 @@ struct Vertex {
   }
 
   /** @brief Parametrized constructor of Vertex.
-   *         Creates a stop.
-   *
-   *  @param stop_ new stop identification.
-   */
-  Vertex(string stop_) : stop(stop_) {
-    cout << "-> Created vertex with stop ID = " << stop << "." << endl;
-  }
-
-  /** @brief Parametrized constructor of Vertex.
    *         Creates a vertex with given stop ID.
    *
    *  @param stop_ Stop ID of new Vertex.
@@ -41,7 +32,11 @@ struct Vertex {
     cout << "-> Created vertex with stop ID = " << stop << "." << endl;
   }
 
-  bool operator==(const Vertex &other) const { return (stop == other.stop); }
+  // @brief Vertex copy constructor
+  Vertex(const Vertex &other) {
+    stop = other.stop;
+    cout << "-> Created vertex with stop ID = " << stop << "." << endl;
+  }
 
   /* Operator Overloading */
 

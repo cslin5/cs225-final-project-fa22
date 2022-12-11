@@ -46,7 +46,9 @@ public:
 
   Edge findEdge(string route, Vertex origin, Vertex destination);
 
-  // Dijkstra's Algorithm
+  /* @brief Find Minimum Spanning Tree of bus stops based on time. Uses Prim's
+   * algorithm*/
+  map<Vertex, map<Vertex, Edge>> Prim();
 
   /** @brief Route Connection returns if there is a connection between
    *         a given stop to another stop using a certain route.
@@ -118,15 +120,15 @@ public:
    */
   int Tarjan();
 
-  // Tarjan's Algorithm
+  // // Tarjan's Algorithm
 
-  /** @brief Tarjan's Algorithm.
-   *         This is an algorithm used to find the strongly connected
-   *         components of a graph.
-   *
-   *  @return the low-link value of the vertices.
-   */
-  map<Vertex, int> Tarjan();
+  // /** @brief Tarjan's Algorithm.
+  //  *         This is an algorithm used to find the strongly connected
+  //  *         components of a graph.
+  //  *
+  //  *  @return the low-link value of the vertices.
+  //  */
+  // map<Vertex, int> Tarjan();
 
   /** @brief Tarjan's Algorithm helper.
    *         This is a recursive function that finds strongly
