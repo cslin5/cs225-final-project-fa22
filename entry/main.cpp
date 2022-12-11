@@ -19,30 +19,29 @@ int main() {
        << endl;
   Transit transit(file);
 
-  cout << "\nThen, we will save the parsed Vertices and Edges into vectors and "
-          "pass";
-  cout << "\tthem to an Algorithm constructor, which will create our graph.\n"
-       << endl;
-  vector<Vertex> vertices = transit.getVertices();
-  vector<Edge> edges = transit.getEdges();
-  Algorithm algorithm(vertices, edges);
+  // cout << "Let's now visualize the graph!\n" << endl;
+  // map<Vertex, map<Vertex, vector<Edge>>> graph = algorithm.getGraph();
+  // for (pair<const Vertex, map<Vertex, vector<Edge>>> origin : graph) {
+  //     cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+  //     cout << "origin: " << origin.first.stop << endl;
+  //     for (pair<const Vertex, vector<Edge>> destination : origin.second) {
+  //         cout << "\n\tdestination: " << destination.first.stop << endl;
+  //         for (size_t i = 0; i < destination.second.size(); i++) {
+  //             cout << "\t\tedge: {" << destination.second[i].route << ", " <<
+  //             destination.second[i].origin.stop
+  //                     << ", " << destination.second[i].destination.stop << ",
+  //                     " << destination.second[i].time << " seconds}" << endl;
+  //         }
+  //     }
+  // }
 
-  cout << "Let's now visualize the graph!\n" << endl;
-  map<Vertex, map<Vertex, vector<Edge>>> graph = algorithm.getGraph();
+  // RouteConnection()
+  algorithm.RouteConnection(
+      "[@124.0.143437300@][31][1591365669945]/0__L2_NO_SCH_MF", "WRTWASH:4",
+      "WRTCHCH:4");
 
-  for (pair<const Vertex, map<Vertex, vector<Edge>>> origin : graph) {
-    cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "origin: " << origin.first.stop << endl;
-    for (pair<const Vertex, vector<Edge>> destination : origin.second) {
-      cout << "\n\tdestination: " << destination.first.stop << endl;
-      for (size_t i = 0; i < destination.second.size(); i++) {
-        cout << "\t\tedge: {" << destination.second[i].route << ", "
-             << destination.second[i].origin.stop << ", "
-             << destination.second[i].destination.stop << ", "
-             << destination.second[i].time << " seconds}" << endl;
-      }
-    }
-  }
+  // Tarjan()
+  algorithm.Tarjan();
 
   return 0;
 }

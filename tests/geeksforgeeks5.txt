@@ -1,0 +1,9 @@
+trip_id,arrival_time,departure_time,stop_id,stop_sequence,stop_headsign,pickup_type,drop_off_type
+Edge1,09:00:00,09:00:00,0,0,,0,0
+Edge1,09:00:00,09:00:00,1,0,,0,0
+Edge1,09:00:00,09:00:00,2,0,,0,0
+Edge1,09:00:00,09:00:00,3,0,,0,0
+Edge1,09:00:00,09:00:00,0,0,,0,0
+Edge2,09:00:00,09:00:00,2,0,,0,0
+Edge2,09:00:00,09:00:00,4,0,,0,0
+Edge2,09:00:00,09:00:00,2,0,,0,0

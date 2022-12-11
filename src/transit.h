@@ -9,7 +9,7 @@ using namespace std;
 
 class Transit {
 public:
-  /** @brief Parametrixed constructor of Transit.
+  /** @brief Parametrized constructor of Transit.
    *
    *  @param stop_times_dataset 'stop_times.csv'.
    */

@@ -1,7 +1,6 @@
 #include <algorithm>
+#include <iostream>
 #include <stack>
-#include <unordered_map>
-#include <unordered_set>
 
 #include "algorithms.h"
 
@@ -29,51 +28,83 @@ void Algorithm::buildGraph() {
 
 map<Vertex, map<Vertex, vector<Edge>>> &Algorithm::getGraph() { return graph; }
 
-// DFS to find connected vertices through routes
+// DFS to find connected vertices through routes (Kalika) (Natalia)
 
-/** @todo @test
- */
-bool Algorithm::RouteConnection(string route, Vertex origin,
-                                Vertex destination) {
-  // If the origin and destination are the same, they are obviously
-  // connected.
-  if (origin == destination) {
+bool Algorithm::RouteConnection(string route, string origin_stop,
+                                string destination_stop) {
+  // If the origin is the same as destination, exit the code.
+  if (origin_stop == destination_stop) {
+    cout << "Destination was found!" << endl;
+    return true;
+  }
+}
+
+// Else, create a map of vertices to bool to keep track of visited nodes.
+map<Vertex, bool> visited;
+// Mark all of them as unvisited.
+for (Vertex vertex : vertices) {
+  visited[vertex] = false;
+}
+
+// Find corresponding vertex to origin and destination stops
+Vertex origin = findVertex(origin_stop);
+Vertex destination = findVertex(destination_stop);
+
+// Call the recursive RouteConnection function.
+return RouteConnectionHelper(route, origin, destination, visited);
+}
+
+bool Algorithm::RouteConnectionHelper(string route, Vertex origin,
+                                      Vertex destination,
+                                      map<Vertex, bool> &visited) {
+  cout << "\nRouteConnection for " << route << " from " << origin.stop << " to "
+       << destination.stop << endl;
+
+  // If the origin and destination are the same, they are obviously connected.
+  if (origin.stop == destination.stop) {
+    cout << "Destination was found!" << endl;
     return true;
   }
 
-  map<Vertex, bool> visited;
-
-  // Find out if there is an edge in between origin and destination.
-  Edge edge = findEdge(route, origin, destination);
-  // If there isn't, we can't move forward on route.
-  if (edge == Edge()) {
-    return false;
-  }
-
+  // Mark the origin as true so we don't visit it again.
   visited[origin] = true;
-  // For each entry in graph:
-  for (auto it = graph.begin(); it != graph.end(); ++it) {
-    // If the origin vertex hasn't been visited,
-    if (!visited[it->first]) {
-      RouteConnection(route, it->first, destination);
+
+  // For each origin in graph, iterate through the destinations:
+  cout << "Entering graph iteration..." << endl;
+  for (auto it = graph[origin].begin(); it != graph[origin].end(); ++it) {
+    // For each edge coming out from origin,
+    for (Edge edge : it->second) {
+      // If the edge has the same route,
+      if (!visited[it->first] && edge.route == route) {
+        cout << "Edge was found between " << origin.stop << " and "
+             << it->first.stop << endl;
+        // Return the RoutConnection recursive function's result.
+        if (RouteConnectionHelper(route, it->first, destination, visited) ==
+            true) {
+          return true;
+        }
+      }
     }
   }
 
-  return true; // ?
+  // Else, return false: We haven't found the connection.
+  return false;
 }
 
-Edge Algorithm::findEdge(string route, Vertex origin, Vertex destination) {
-  for (Edge edge : edges) {
-    if (edge.origin == origin && edge.destination == destination &&
-        edge.route == route) {
-      return edge;
+Vertex Algorithm::findVertex(string stop) {
+  for (Vertex vertex : vertices) {
+    if (vertex.stop == stop) {
+      // cout << "Vertex was found." << endl;
+      return vertex;
     }
   }
-
-  return Edge();
 }
 
-// Dijkstra's Algorithm
+// cout << "Vertex was not found." << endl;
+return Vertex();
+}
+
+// Dijkstra's Algorithm (Deeya) (Calvin)
 
 /** @todo @test
  *
@@ -128,207 +159,158 @@ vector<Edge> Algorithm::Dijkstra(Vertex source) {
         }
       }
     }
+
+    return map<Vertex, double>();
   }
-  return solution;
-}
 
-// map<Vertex, set<Vertex>> Algorithm::Dijkstra(Vertex source) {
-//   // map from vertices to whether or not it's been visited
-//   unordered_map<string, bool> visited;
-//   // map from vertices to it's distance from source
-//   map<Edge, double> distances;
-//   // shortest paths from source
-//   // not using unordered cuz don't wanna define hash function
-//   map<Vertex, set<Vertex>> solution;
+  /** @test
+   */
+  int Algorithm::minInterval(vector<double> intervals, vector<bool> visited) {
+    double min = DBL_MAX;
+    int min_index;
 
-//   for (auto vertex : vertices) {
-//     // init visited as false for all vertices
-//     visited.insert(pair<string, bool>(vertex.stop, false));
-//   }
-
-//   for (auto edge : edges) {
-//     // init distance as INF (max double) for all vertices
-//     distances.insert(pair<Edge, double>(edge, DBL_MAX));
-//   }
-
-//   Edge source_edge = Edge("", source.stop, source.stop, 0);
-//   // set distance to self as 0.0
-//   distances[source_edge] = 0.0;
-
-//   std::stack<Vertex> s;
-//   s.push(source);
-//   for (auto v : visited) {
-//     auto curr = s.top();
-//     s.pop();
-//     auto connected = findOutgoingEdges(curr);
-//     double curr_dist = distances[source_edge];
-//     for (auto edge : connected) {
-//       s.push(edge.destination);
-//       double edge_dist = curr_dist + edge.time;
-
-//       // if the distance from connected edge destination to source is smaller
-//       // than the currently stored value, update the distance of the edge
-//       // destination in the map
-//       if (edge_dist < distances[edge]) {
-//         distances[edge] = edge_dist;
-
-//         // im (calvin) assuming that when you're allowed to update distance,
-//         // then it's a valid edge to add to graph
-//         auto find = solution.find(edge.origin);
-//         if (find != solution.end()) {
-//           find->second.insert(edge.destination);
-//         } else {
-//           set<Vertex> connected;
-//           connected.insert(edge.destination);
-//           solution[edge.origin] = connected;
-//         }
-//       }
-//     }
-//     // mark curr as visited once done looking at all neighbors
-//     visited[v.stop] = true;
-//   }
-// }
-/** @test
- */
-vector<Edge> Algorithm::findOutgoingEdges(Vertex vertex) {
-  vector<Edge> outgoingEdges;
-  for (Edge edge : edges) {
-    if (edge.origin == vertex) {
-      outgoingEdges.push_back(edge);
+    for (size_t i = 0; i < vertices.size(); i++) {
+      if (!visited[i] && intervals[i] <= min) {
+        min = intervals[i];
+        min_index = i;
+      }
     }
-  }
-  return outgoingEdges;
-}
 
-/** @test
- */
-vector<Edge> Algorithm::findIncomingEdges(Vertex vertex) {
-  vector<Edge> incomingEdges;
-  for (Edge edge : edges) {
-    if (edge.destination == vertex) {
-      incomingEdges.push_back(edge);
+    return min_index;
+  }
+
+  /** @test
+   */
+  int Algorithm::findVertexIndex(Vertex vertex) {
+    for (size_t i = 0; i < vertices.size(); i++) {
+      if (vertex == vertices[i]) {
+        return i;
+      }
     }
+    return -1;
   }
-  return incomingEdges;
-}
 
-/** @test
- */
-int Algorithm::minInterval(vector<double> intervals, vector<bool> visited) {
-  double min = DBL_MAX;
-  int min_index;
+  // Tarjan's Algorithm (Natalia)
 
-  for (size_t i = 0; i < vertices.size(); i++) {
-    if (!visited[i] && intervals[i] <= min) {
-      min = intervals[i];
-      min_index = i;
+  void printLowLink(map<Vertex, int> low_link) {
+    cout << "\nPrinting low_link:" << endl;
+    for (auto &pair : low_link) {
+      cout << (pair.first).stop << ": " << pair.second << endl;
     }
   }
 
-  return min_index;
-}
+  /** Sources:
+   *  * https://www.youtube.com/watch?v=wUgWX0nc4NY&t=398s
+   *  *
+   * https://www.geeksforgeeks.org/tarjan-algorithm-find-strongly-connected-components/
+   */
+  map<Vertex, int> Algorithm::Tarjan() {
+    cout << "\n~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "Starting Tarjan()...\n" << endl;
 
-/** @test
- */
-int Algorithm::findVertexIndex(Vertex vertex) {
-  for (size_t i = 0; i < vertices.size(); i++) {
-    if (vertex == vertices[i]) {
-      return i;
+    map<Vertex, int> ids;
+    map<Vertex, int> low_link;
+    map<Vertex, bool> on_stack;
+    stack<Vertex> stack;
+
+    // Used to count number of strongly connected components (SCCs) found.
+    int sccCount = 0;
+
+    cout << "Initialize all the vertices to on_stack=false, ids=-1, low_link=0."
+         << endl;
+    for (Vertex vertex : vertices) {
+      // Mark the each vertex as unvisited.
+      on_stack[vertex] = false;
+      // Assign it an ID.
+      ids[vertex] = UNVISITED;
+      // Assign it a low-link value.
+      low_link[vertex] = 0;
     }
   }
-  return -1;
-}
 
-// Tarjan's Algorithm
-
-/** @todo @bug Wrong output on test
- *
- *  Sources:
- *  * https://www.youtube.com/watch?v=wUgWX0nc4NY&t=398s
- *  *
- * https://www.geeksforgeeks.org/tarjan-algorithm-find-strongly-connected-components/
- */
-int Algorithm::Tarjan() {
-  cout << "\nStarting Tarjan()...\n" << endl;
-  map<Vertex, int> ids;
-  map<Vertex, int> low_link;
-  map<Vertex, bool> on_stack;
-  stack<Vertex> stack;
-
-  // Used to give each vertex an ID.
-  int id = 0;
-  cout << "ID starts at " << id << "." << endl;
-  // Used to count number of strongly connected components (SCCs) found.
-  int sccCount = 0;
-  cout << "sccCount starts at " << sccCount << "." << endl;
-
-  cout << "Initialize the vertices:" << endl;
+  cout << "\n\nAfter initializing every node, analize every vertex if it is "
+          "unvisited."
+       << endl;
   for (Vertex vertex : vertices) {
-    // Mark the each vertex as unvisited.
-    on_stack[vertex] = false;
-    // Assign it an ID.
-    ids[vertex] = UNVISITED;
-    // Assign it a low-link value.
-    low_link[vertex] = 0;
-
-    cout << "\nvertex: " << vertex.stop << endl;
-    cout << "\ton_stack: " << (on_stack[vertex] ? "true" : "false") << endl;
-    cout << "\tid: " << ids[vertex] << endl;
-    cout << "\tlow_link: " << low_link[vertex] << endl;
-  }
-
-  cout << "\nFor each vertex in vertices:" << endl;
-  for (Vertex vertex : vertices) {
+    cout << "\n\tVertex = " << vertex.stop << endl;
     if (ids[vertex] == UNVISITED) {
-      cout << "Vertex " << vertex.stop << " is unvisited." << endl;
-      TarjanHelper(vertex, ids, low_link, on_stack, stack, id, sccCount);
+      cout << "\t\t" << vertex.stop << " is unvisited" << endl;
+      cout << "\t\tCalling TarjanHelper() on " << vertex.stop << endl;
+      TarjanHelper(vertex, ids, low_link, on_stack, stack, sccCount);
+      cout << "\t\tEnd of TarjanHelper()." << endl;
+    } else {
+      cout << "\t\t" << vertex.stop << " is visited" << endl;
     }
   }
 
-  cout << "\n\nThe number of strongly connected components is " << sccCount
-       << "." << endl;
-  return sccCount;
+  cout << "\nStates for every vertex:" << endl;
+  for (Vertex vertex : vertices) {
+    cout << "\tVertex = " << vertex.stop << endl;
+    cout << "\t\tids =\t\t" << ids[vertex] << endl;
+    cout << "\t\tlow_link =\t" << low_link[vertex] << endl;
+    cout << "\t\ton_stack =\t" << on_stack[vertex] << endl;
+  }
+
+  printLowLink(low_link);
+  return low_link;
 }
 
-/** @todo @bug Wrong output on test
- */
 void Algorithm::TarjanHelper(Vertex vertex, map<Vertex, int> &ids,
                              map<Vertex, int> &low_link,
                              map<Vertex, bool> on_stack, stack<Vertex> &stack,
-                             int &id, int &sccCount) {
+                             int &sccCount) {
+  static int id = 0;
   stack.push(vertex);
   on_stack[vertex] = true;
   ids[vertex] = low_link[vertex] = id++;
 
-  cout << "\tID:\t\t" << ids[vertex] << endl;
-  cout << "\tlow_link:\t" << low_link[vertex] << endl;
-  cout << "\tStack top:\t" << stack.top().stop
-       << " | Stack size = " << stack.size() << endl
-       << endl;
+  cout << "\t\t\tids =\t\t" << ids[vertex] << endl;
+  cout << "\t\t\tlow_link =\t" << low_link[vertex] << endl;
+  cout << "\t\t\ton_stack =\t" << on_stack[vertex] << endl;
+  cout << "\t\t\tstack.top =\t" << stack.top().stop << endl;
+  cout << "\t\t\tstack.size =\t" << stack.size() << endl;
 
   // Visit all neighbors and min low-link value on callback.
   for (auto it = graph[vertex].begin(); it != graph[vertex].end(); ++it) {
     Vertex destination = it->first;
+    cout << "\n\t\t\tdestination =\t" << destination.stop << endl;
 
     if (ids[destination] == UNVISITED) {
-      cout << "\t** Recursive Tarjan..." << endl;
-      TarjanHelper(destination, ids, low_link, on_stack, stack, id, sccCount);
+      cout << "\t\t\t" << destination.stop << " is unvisited" << endl;
+      cout << "\t\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+           << endl;
+      cout << "\n\t\t\t** Starting Recursive Tarjan for vertex "
+           << destination.stop << endl;
+
+      TarjanHelper(destination, ids, low_link, on_stack, stack, sccCount);
+
+      cout << "\n\t\t\t** End Recursive Tarjan for vertex " << destination.stop
+           << endl;
+      cout << "\t\t\t--------------------------------------------------------"
+           << endl;
+      cout << "\t\t\tCalling back vertex " << vertex.stop << endl;
+
       low_link[vertex] =
-          ((low_link[vertex] < low_link[destination]) ? low_link[vertex]
-                                                      : low_link[destination]);
-      cout << "\tLow-link value for " << vertex.stop << " is "
+          ((low_link[vertex] <= low_link[destination]) ? low_link[vertex]
+                                                       : low_link[destination]);
+      cout << "\t\t\tUpdating low-link value for " << vertex.stop << " to "
            << low_link[vertex] << endl;
-      cout << "\t** End Recursive Tarjan." << endl;
-    } else if (on_stack[destination]) {
+    }
+
+    if (on_stack[destination]) {
+      cout << "\t\t\t" << destination.stop << " has been visited" << endl;
+
       low_link[vertex] =
-          ((low_link[vertex] < ids[destination]) ? low_link[vertex]
-                                                 : ids[destination]);
-      cout << "\tLow-link value for " << vertex.stop << " is "
+          ((low_link[vertex] <= ids[destination]) ? low_link[vertex]
+                                                  : ids[destination]);
+      cout << "\t\t\tUpdating low-link value for " << vertex.stop << " to "
            << low_link[vertex] << endl;
     }
   }
 
   if (ids[vertex] == low_link[vertex]) {
+    cout << "\n\t\t\tids = low_link for vertex " << vertex.stop << endl;
+
     while (!stack.empty()) {
       Vertex tmp = stack.top();
       stack.pop();
@@ -341,6 +323,8 @@ void Algorithm::TarjanHelper(Vertex vertex, map<Vertex, int> &ids,
     }
 
     sccCount++;
-    cout << "\n\tsccCount = " << sccCount << endl;
+    cout << "\t\t\t-> increment sccCount to " << sccCount << endl;
+  } else {
+    cout << "\n\t\t\tids != low_link for vertex " << vertex.stop << endl;
   }
 }

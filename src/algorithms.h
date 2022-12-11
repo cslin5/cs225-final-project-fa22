@@ -48,20 +48,34 @@ public:
 
   // Dijkstra's Algorithm
 
-  /** @brief Dijkstra's Algorithm.
-   *         This is an algorithm for finding the shortest paths between
-   *         vertices in the graph.
+  /** @brief Route Connection returns if there is a connection between
+   *         a given stop to another stop using a certain route.
    *
-   *         Here, it will be used to find the path of least time between
-   *         two vertices.
+   *  @param route Route ID.
+   *  @param origin_stop Stop ID of origin.
+   *  @param destination_stop Stop ID of destination.
+   *  @return if we found a connection.
    */
-  vector<Edge> Dijkstra(Vertex source);
+  bool RouteConnection(string route, string origin_stop,
+                       string destination_stop);
 
-  /** @brief Finds all edges with origin at vertex.
+  /** @brief Helper for RouteConnetion.
    *
-   *  @param vertex source.
-   *  @return a vector of edges.
+   *  @param route Route ID.
+   *  @param origin Vertex origin.
+   *  @param destination Vertex destination.
+   *  @param visited Map that checks if certain Vertex was already visited.
+   *  @return if we found a connection.
    */
+  bool RouteConnectionHelper(string route, Vertex origin, Vertex destination,
+                             map<Vertex, bool> &visited);
+
+  /** @brief Finds the vertex in vertices with the given stop ID.
+   *
+   *  @param stop The stop ID to search for.
+   *  @return the Vertex object with the given ID.
+   */
+  Vertex findVertex(string stop);
 
   // /* @brief compare function for pairs (compares second*/
   // struct distCompare {
@@ -96,8 +110,6 @@ public:
    */
   int findVertexIndex(Vertex vertex);
 
-  // Tarjan's Algorithm
-
   /** @brief Tarjan's Algorithm.
    *         This is an algorithm used to find the strongly connected
    *         components of a graph.
@@ -105,6 +117,16 @@ public:
    *  @return the number of connected components.
    */
   int Tarjan();
+
+  // Tarjan's Algorithm
+
+  /** @brief Tarjan's Algorithm.
+   *         This is an algorithm used to find the strongly connected
+   *         components of a graph.
+   *
+   *  @return the low-link value of the vertices.
+   */
+  map<Vertex, int> Tarjan();
 
   /** @brief Tarjan's Algorithm helper.
    *         This is a recursive function that finds strongly
@@ -115,13 +137,12 @@ public:
    *  @param low_link The low-link value of each vertex.
    *  @param on_stack Check if the vertex is on the stack.
    *  @param stack Stack containing the connected ancestors.
-   *  @param id The current ID value.
    *  @param sccCount The current number of strongly connected
    *         components.
    */
   void TarjanHelper(Vertex vertex, map<Vertex, int> &ids,
                     map<Vertex, int> &low_link, map<Vertex, bool> on_stack,
-                    stack<Vertex> &stack, int &id, int &sccCount);
+                    stack<Vertex> &stack, int &sccCount);
 
 private:
   /** @brief Default constructor for Algorithm.

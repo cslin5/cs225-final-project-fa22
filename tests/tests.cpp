@@ -90,7 +90,7 @@ TEST_CASE("Vertex + Edge (Simple) Test 1", "[vertex][edge]") {
   REQUIRE(edges[4].time == 80);
 }
 
-/* TRANSIT */
+// /* TRANSIT */
 
 double findTime(string time1, string time2) {
   cout << "Finding time from " << time1 << " to " << time2 << "... " << endl;
@@ -199,10 +199,14 @@ TEST_CASE("Transit Test 1", "[transit][vertex][edge]") {
   REQUIRE(edges[7].time == 3 * 60);
 }
 
-/* ALGORITHMS */
+// /* ALGORITHMS */
 
-TEST_CASE("Algorithm Test 1", "[algorithm][transit][vertex][edge]") {
-  cout << "\nAlgorithm Test 1" << endl;
+TEST_CASE("Building Algorithm Test 1", "[algorithm][transit][vertex][edge]") {
+  cout << "\nBuilding Algorithm Test 1" << endl;
+
+  Transit transit("../tests/example_dataset.txt");
+  vector<Vertex> vertices = transit.getVertices();
+  vector<Edge> edges = transit.getEdges();
 
   Transit transit("../tests/example_dataset.txt");
   vector<Vertex> vertices = transit.getVertices();
@@ -221,58 +225,251 @@ TEST_CASE("Algorithm Test 1", "[algorithm][transit][vertex][edge]") {
   }
 }
 
-TEST_CASE("Tarjan Test 1", "[tarjan][algorithm][transit][vertex][edge]") {
-  cout << "\nTarjan Test 1" << endl;
+// TEST_CASE("Tarjan Test 1", "[tarjan][algorithm][transit][vertex][edge]") {
+//     cout << "\nTarjan Test 1" << endl;
+
+//     Transit transit("../tests/example2_dataset.txt");
+//     vector<Vertex> vertices = transit.getVertices();
+//     vector<Edge> edges = transit.getEdges();
+
+//     Algorithm algorithm(vertices, edges);
+
+//     algorithm.Tarjan();
+// }
+
+TEST_CASE("Tarjan Test 2", "[tarjan][algorithm][transit][vertex][edge]") {
+  cout << "\nTarjan Test 2" << endl;
+  cout << "Geeks for Geeks: SCC in firth graph." << endl;
+
+  Transit transit("../tests/geeksforgeeks5.txt");
+  vector<Vertex> vertices = transit.getVertices();
+  vector<Edge> edges = transit.getEdges();
 
   Transit transit("../tests/example2_dataset.txt");
   vector<Vertex> vertices = transit.getVertices();
   vector<Edge> edges = transit.getEdges();
 
-  Algorithm algorithm(vertices, edges);
+  map<Vertex, int> expected;
+  Vertex v0 = Vertex("0");
+  expected[v0] = 0;
+  Vertex v1 = Vertex("1");
+  expected[v1] = 0;
+  Vertex v2 = Vertex("2");
+  expected[v2] = 0;
+  Vertex v3 = Vertex("3");
+  expected[v3] = 0;
+  Vertex v4 = Vertex("4");
+  expected[v4] = 0;
 
-  // for (pair<const Vertex, map<Vertex, vector<Edge>>> origin : graph) {
-  //     for (pair<const Vertex, vector<Edge>> destination : origin.second) {
-  //         for (size_t i = 0; i < destination.second.size(); i++) {
-  //             REQUIRE(origin.first == destination.second[i].origin);
-  //             REQUIRE(destination.first ==
-  //             destination.second[i].destination);
-  //         }
-  //     }
-  // }
+  map<Vertex, int> tarjan = algorithm.Tarjan();
+  REQUIRE(expected.size() == tarjan.size());
 
-  REQUIRE(algorithm.Tarjan() == 3);
+  for (auto &pair : expected) {
+    REQUIRE(tarjan[pair.first] == pair.second);
+  }
 }
 
-TEST_CASE("Dijkstras Test 1", "[d][algorithm][transit][vertex][edge]") {
-  cout << "\nDijkstras Test 1" << endl;
-  Transit transit("../tests/example_dijkstras2.txt");
+TEST_CASE("Tarjan Test 3", "[tarjan][algorithm][transit][vertex][edge]") {
+  cout << "\nTarjan Test 3" << endl;
+  cout << "Geeks for Geeks: SCC in first graph." << endl;
+
+  Transit transit("../tests/geeksforgeeks1.txt");
   vector<Vertex> vertices = transit.getVertices();
   vector<Edge> edges = transit.getEdges();
 
   Algorithm algorithm(vertices, edges);
-  REQUIRE(vertices.size() == 4);
-  REQUIRE(edges.size() == 16);
-  for (auto v : vertices) {
-    cout << v.stop << endl;
+
+  map<Vertex, int> expected;
+  Vertex v0 = Vertex("0");
+  expected[v0] = 0;
+  Vertex v1 = Vertex("1");
+  expected[v1] = 0;
+  Vertex v2 = Vertex("2");
+  expected[v2] = 0;
+  Vertex v3 = Vertex("3");
+  expected[v3] = 3;
+  Vertex v4 = Vertex("4");
+  expected[v4] = 4;
+
+  map<Vertex, int> tarjan = algorithm.Tarjan();
+  REQUIRE(expected.size() == tarjan.size());
+
+  for (auto &pair : expected) {
+    REQUIRE(tarjan[pair.first] == pair.second);
   }
-  auto a = algorithm.Dijkstra(vertices[0]);
-  auto b = algorithm.Dijkstra(vertices[1]);
-  auto c = algorithm.Dijkstra(vertices[2]);
-  auto d = algorithm.Dijkstra(vertices[3]);
-  cout << "A" << endl;
-  for (auto e : a) {
-    cout << e.origin.stop << " -> " << e.destination.stop << endl;
+}
+
+TEST_CASE("Tarjan Test 4", "[tarjan][algorithm][transit][vertex][edge]") {
+  cout << "\nTarjan Test 4" << endl;
+  cout << "Geeks for Geeks: SCC in second graph." << endl;
+
+  Transit transit("../tests/geeksforgeeks2.txt");
+  vector<Vertex> vertices = transit.getVertices();
+  vector<Edge> edges = transit.getEdges();
+
+  Algorithm algorithm(vertices, edges);
+
+  map<Vertex, int> expected;
+  Vertex v0 = Vertex("0");
+  expected[v0] = 0;
+  Vertex v1 = Vertex("1");
+  expected[v1] = 1;
+  Vertex v2 = Vertex("2");
+  expected[v2] = 2;
+  Vertex v3 = Vertex("3");
+  expected[v3] = 3;
+
+  map<Vertex, int> tarjan = algorithm.Tarjan();
+  REQUIRE(expected.size() == tarjan.size());
+
+  for (auto &pair : expected) {
+    REQUIRE(tarjan[pair.first] == pair.second);
   }
-  cout << "B" << endl;
-  for (auto e : b) {
-    cout << e.origin.stop << " -> " << e.destination.stop << endl;
+}
+
+TEST_CASE("Tarjan Test 5", "[tarjan][algorithm][transit][vertex][edge]") {
+  cout << "\nTarjan Test 5" << endl;
+  cout << "Geeks for Geeks: SCC in third graph." << endl;
+
+  Transit transit("../tests/geeksforgeeks3.txt");
+  vector<Vertex> vertices = transit.getVertices();
+  vector<Edge> edges = transit.getEdges();
+
+  Algorithm algorithm(vertices, edges);
+
+  map<Vertex, int> expected;
+  Vertex v0 = Vertex("0");
+  expected[v0] = 0;
+  Vertex v1 = Vertex("1");
+  expected[v1] = 0;
+  Vertex v2 = Vertex("2");
+  expected[v2] = 0;
+  Vertex v3 = Vertex("3");
+  expected[v3] = 3;
+  Vertex v4 = Vertex("4");
+  expected[v4] = 5;
+  Vertex v5 = Vertex("5");
+  expected[v5] = 4;
+  Vertex v6 = Vertex("6");
+  expected[v6] = 6;
+
+  map<Vertex, int> tarjan = algorithm.Tarjan();
+  REQUIRE(expected.size() == tarjan.size());
+
+  for (auto &pair : expected) {
+    REQUIRE(tarjan[pair.first] == pair.second);
   }
-  cout << "C" << endl;
-  for (auto e : c) {
-    cout << e.origin.stop << " -> " << e.destination.stop << endl;
+}
+
+TEST_CASE("Tarjan Test 6", "[tarjan][algorithm][transit][vertex][edge]") {
+  cout << "\nTarjan Test 6" << endl;
+  cout << "Geeks for Geeks: SCC in four graph." << endl;
+
+  Transit transit("../tests/geeksforgeeks4.txt");
+  vector<Vertex> vertices = transit.getVertices();
+  vector<Edge> edges = transit.getEdges();
+
+  Algorithm algorithm(vertices, edges);
+
+  map<Vertex, int> expected;
+  Vertex v0 = Vertex("0");
+  expected[v0] = 0;
+  Vertex v1 = Vertex("1");
+  expected[v1] = 0;
+  Vertex v2 = Vertex("2");
+  expected[v2] = 0;
+  Vertex v3 = Vertex("3");
+  expected[v3] = 9; // Should be either 0 or 9
+  Vertex v4 = Vertex("4");
+  expected[v4] = 3;
+  Vertex v5 = Vertex("5");
+  expected[v5] = 3;
+  Vertex v6 = Vertex("6");
+  expected[v6] = 3;
+  Vertex v7 = Vertex("7");
+  expected[v7] = 6;
+  Vertex v8 = Vertex("8");
+  expected[v8] = 7;
+  Vertex v9 = Vertex("9");
+  expected[v9] = 7;
+  Vertex v10 = Vertex("10");
+  expected[v10] = 10;
+
+  map<Vertex, int> tarjan = algorithm.Tarjan();
+  REQUIRE(expected.size() == tarjan.size());
+
+  for (auto &pair : expected) {
+    REQUIRE(tarjan[pair.first] == pair.second);
   }
-  cout << "D" << endl;
-  for (auto e : d) {
-    cout << e.origin.stop << " -> " << e.destination.stop << endl;
-  }
+}
+
+TEST_CASE("Route Connection - Grey",
+          "[grey][routeconnection][algorithm][transit][vertex][edge]") {
+  cout << "\nRoute Connection - Grey" << endl;
+
+  Transit transit("../tests/example_dataset.txt");
+
+  vector<Vertex> vertices = transit.getVertices();
+  vector<Edge> edges = transit.getEdges();
+
+  Algorithm algorithm(vertices, edges);
+
+  REQUIRE(algorithm.RouteConnection("Grey", "A", "B") == true);
+  REQUIRE(algorithm.RouteConnection("Grey", "A", "C") == true);
+  REQUIRE(algorithm.RouteConnection("Grey", "A", "D") == true);
+  REQUIRE(algorithm.RouteConnection("Grey", "B", "C") == true);
+  REQUIRE(algorithm.RouteConnection("Grey", "B", "D") == true); //
+  REQUIRE(algorithm.RouteConnection("Grey", "C", "D") == true);
+  REQUIRE(algorithm.RouteConnection("Grey", "D", "D") == true);
+  REQUIRE(algorithm.RouteConnection("Grey", "B", "A") == false);
+  REQUIRE(algorithm.RouteConnection("Grey", "C", "A") == false);
+  REQUIRE(algorithm.RouteConnection("Grey", "D", "A") == false);
+}
+
+TEST_CASE("Route Connection - Teal",
+          "[teal][routeconnection][algorithm][transit][vertex][edge]") {
+  cout << "\nRoute Connection - Teal" << endl;
+
+  Transit transit("../tests/example_dataset.txt");
+
+  vector<Vertex> vertices = transit.getVertices();
+  vector<Edge> edges = transit.getEdges();
+
+  Algorithm algorithm(vertices, edges);
+
+  REQUIRE(algorithm.RouteConnection("Teal", "A", "B") == true);
+  REQUIRE(algorithm.RouteConnection("Teal", "A", "C") == true);
+  REQUIRE(algorithm.RouteConnection("Teal", "B", "B") == true);
+  REQUIRE(algorithm.RouteConnection("Teal", "B", "C") == false);
+  REQUIRE(algorithm.RouteConnection("Teal", "B", "D") == false);
+  REQUIRE(algorithm.RouteConnection("Teal", "A", "D") == false);
+  REQUIRE(algorithm.RouteConnection("Teal", "C", "D") == false);
+  REQUIRE(algorithm.RouteConnection("Teal", "D", "D") == true);
+  REQUIRE(algorithm.RouteConnection("Teal", "B", "A") == false);
+  REQUIRE(algorithm.RouteConnection("Teal", "C", "A") == false);
+  REQUIRE(algorithm.RouteConnection("Teal", "D", "A") == false);
+}
+
+TEST_CASE("Route Connection - Blue",
+          "[blue][routeconnection][algorithm][transit][vertex][edge]") {
+  cout << "\nRoute Connection - Blue" << endl;
+
+  Transit transit("../tests/example_dataset.txt");
+
+  vector<Vertex> vertices = transit.getVertices();
+  vector<Edge> edges = transit.getEdges();
+
+  Algorithm algorithm(vertices, edges);
+
+  REQUIRE(algorithm.RouteConnection("Blue", "A", "B") == true);
+  REQUIRE(algorithm.RouteConnection("Blue", "A", "C") == true);
+  REQUIRE(algorithm.RouteConnection("Blue", "B", "B") == true);
+  REQUIRE(algorithm.RouteConnection("Blue", "B", "C") == false);
+  REQUIRE(algorithm.RouteConnection("Blue", "B", "D") == false);
+  REQUIRE(algorithm.RouteConnection("Blue", "A", "D") == true);
+  REQUIRE(algorithm.RouteConnection("Blue", "C", "D") == false);
+  REQUIRE(algorithm.RouteConnection("Blue", "D", "D") == true);
+  REQUIRE(algorithm.RouteConnection("Blue", "B", "A") == false);
+  REQUIRE(algorithm.RouteConnection("Blue", "C", "A") == false);
+  REQUIRE(algorithm.RouteConnection("Blue", "D", "A") == false);
 }
