@@ -98,20 +98,22 @@ int main() {
     
     // Tarjan()
 
-    // cout << "\nRouteConnection() is done; let's move on to Tarjan's Algorithm." << endl;
+    cout << "\nRouteConnection() is done; let's move on to Tarjan's Algorithm." << endl;
 
-    // ofstream tarjan;
-    // tarjan.open("../results/all_data/tarjan_results.txt");
+    ofstream tarjan;
+    tarjan.open("../results/all_data/tarjan_results.txt");
 
-    // map<Vertex, int> low_link = algorithm.Tarjan();
+    map<Vertex, int> low_link = algorithm.Tarjan();
 
-    // for (auto& pair : low_link) {
-    //     tarjan << (pair.first).stop << ":\t\t" << pair.second << endl;
-    // }
+    for (auto& pair : low_link) {
+        tarjan << (pair.first).stop << ":\t\t" << pair.second << endl;
+    }
     
-    // tarjan.close();
+    tarjan.close();
 
     // Prims()
+
+    cout << "\nTarjan() is done; let's take a look at what on to Prims's Algorithm tells us about our data." << endl;
     
 
     return 0;
