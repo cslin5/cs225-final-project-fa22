@@ -10,9 +10,11 @@ using std::string;
 using std::vector;
 
 /** @brief A Vertex represents a bus stop.
- *         Each vertex has a stop ID in string format.
+ *         Each vertex has a stop ID in string.
  */
 struct Vertex {
+  /* Variables */
+
   /*
    * Bus stop identification.
    */
@@ -23,14 +25,26 @@ struct Vertex {
   Vertex() : stop("") { /* Do nothing. */
   }
 
+  /* Constructors */
+
+  /** @brief Default constructor of Vertex.
+   */
+  Vertex() { /* Do nothing. */
+  }
+
   /** @brief Parametrized constructor of Vertex.
    *         Creates a vertex with given stop ID.
    *
    *  @param stop_ Stop ID of new Vertex.
    */
-  Vertex(string stop_) : stop(stop_) {
-    cout << "-> Created vertex with stop ID = " << stop << "." << endl;
+  Vertex(string stop_) : stop(stop_) { /* Do nothing. */
   }
+
+  /** @brief Copy constructor of Vertex.
+   *
+   *  @param other Vertex to be copied.
+   */
+  Vertex(const Vertex &other) { stop = other.stop; }
 
   /* Operator Overloading */
 
