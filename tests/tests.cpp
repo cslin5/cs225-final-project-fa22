@@ -109,20 +109,10 @@ TEST_CASE("Transit Constructor Test 1", "[transit][vertex][edge]") {
     REQUIRE(vertices.size() == 4);
     REQUIRE(edges.size() == 8);
 
-    cout << "\nVertex:" << endl;
-    for (Vertex vertex : vertices) {
-        cout << "  * " << vertex.stop << endl;
-    }
-
     REQUIRE(vertices[0].stop == "A");
     REQUIRE(vertices[1].stop == "B");
     REQUIRE(vertices[2].stop == "C");
     REQUIRE(vertices[3].stop == "D");
-    
-    cout << "\nEdges:" << endl;
-    for (Edge edge : edges) {
-        cout << "  * " << edge.route << endl;
-    }
 
     REQUIRE(edges[0].route == "Grey");
     REQUIRE(edges[0].origin.stop == "A");
@@ -190,150 +180,6 @@ TEST_CASE("Building Algorithm Test 1", "[algorithm][transit][vertex][edge]") {
     }
 }
 
-// TEST_CASE("Tarjan Test 1", "[tarjan][algorithm][transit][vertex][edge]") {
-//     cout << "\nTarjan Test 1" << endl;
-    
-//     Transit transit("../tests/example2_dataset.txt");
-//     vector<Vertex> vertices = transit.getVertices();
-//     vector<Edge> edges = transit.getEdges();
-
-//     Algorithm algorithm(vertices, edges);
-
-//     algorithm.Tarjan();
-// }
-
-TEST_CASE("Tarjan Test 2", "[tarjan][algorithm][transit][vertex][edge]") {
-    cout << "\nTarjan Test 2" << endl;
-    cout << "Geeks for Geeks: SCC in firth graph." << endl;
-    
-    Transit transit("../tests/geeksforgeeks5.txt");
-    vector<Vertex> vertices = transit.getVertices();
-    vector<Edge> edges = transit.getEdges();
-
-    Algorithm algorithm(vertices, edges);
-
-    map<Vertex, int> expected;
-    Vertex v0 = Vertex("0"); expected[v0] = 0;
-    Vertex v1 = Vertex("1"); expected[v1] = 0;
-    Vertex v2 = Vertex("2"); expected[v2] = 0;
-    Vertex v3 = Vertex("3"); expected[v3] = 0;
-    Vertex v4 = Vertex("4"); expected[v4] = 0;
-
-    map<Vertex, int> tarjan = algorithm.Tarjan();
-    REQUIRE(expected.size() == tarjan.size());
-    
-    for (auto& pair : expected) {
-        REQUIRE(tarjan[pair.first] == pair.second);
-    }
-}
-
-TEST_CASE("Tarjan Test 3", "[tarjan][algorithm][transit][vertex][edge]") {
-    cout << "\nTarjan Test 3" << endl;
-    cout << "Geeks for Geeks: SCC in first graph." << endl;
-
-    Transit transit("../tests/geeksforgeeks1.txt");
-    vector<Vertex> vertices = transit.getVertices();
-    vector<Edge> edges = transit.getEdges();
-
-    Algorithm algorithm(vertices, edges);
-    
-    map<Vertex, int> expected;
-    Vertex v0 = Vertex("0"); expected[v0] = 0;
-    Vertex v1 = Vertex("1"); expected[v1] = 0;
-    Vertex v2 = Vertex("2"); expected[v2] = 0;
-    Vertex v3 = Vertex("3"); expected[v3] = 3;
-    Vertex v4 = Vertex("4"); expected[v4] = 4;
-
-    map<Vertex, int> tarjan = algorithm.Tarjan();
-    REQUIRE(expected.size() == tarjan.size());
-    
-    for (auto& pair : expected) {
-        REQUIRE(tarjan[pair.first] == pair.second);
-    }
-}
-
-TEST_CASE("Tarjan Test 4", "[tarjan][algorithm][transit][vertex][edge]") {
-    cout << "\nTarjan Test 4" << endl;
-    cout << "Geeks for Geeks: SCC in second graph." << endl;
-
-    Transit transit("../tests/geeksforgeeks2.txt");
-    vector<Vertex> vertices = transit.getVertices();
-    vector<Edge> edges = transit.getEdges();
-
-    Algorithm algorithm(vertices, edges);
-    
-    map<Vertex, int> expected;
-    Vertex v0 = Vertex("0"); expected[v0] = 0;
-    Vertex v1 = Vertex("1"); expected[v1] = 1;
-    Vertex v2 = Vertex("2"); expected[v2] = 2;
-    Vertex v3 = Vertex("3"); expected[v3] = 3;
-
-    map<Vertex, int> tarjan = algorithm.Tarjan();
-    REQUIRE(expected.size() == tarjan.size());
-    
-    for (auto& pair : expected) {
-        REQUIRE(tarjan[pair.first] == pair.second);
-    }
-}
-
-TEST_CASE("Tarjan Test 5", "[tarjan][algorithm][transit][vertex][edge]") {
-    cout << "\nTarjan Test 5" << endl;
-    cout << "Geeks for Geeks: SCC in third graph." << endl;
-    
-    Transit transit("../tests/geeksforgeeks3.txt");
-    vector<Vertex> vertices = transit.getVertices();
-    vector<Edge> edges = transit.getEdges();
-
-    Algorithm algorithm(vertices, edges);
-
-    map<Vertex, int> expected;
-    Vertex v0 = Vertex("0"); expected[v0] = 0;
-    Vertex v1 = Vertex("1"); expected[v1] = 0;
-    Vertex v2 = Vertex("2"); expected[v2] = 0;
-    Vertex v3 = Vertex("3"); expected[v3] = 3;
-    Vertex v4 = Vertex("4"); expected[v4] = 5;
-    Vertex v5 = Vertex("5"); expected[v5] = 4;
-    Vertex v6 = Vertex("6"); expected[v6] = 6;
-
-    map<Vertex, int> tarjan = algorithm.Tarjan();
-    REQUIRE(expected.size() == tarjan.size());
-    
-    for (auto& pair : expected) {
-        REQUIRE(tarjan[pair.first] == pair.second);
-    }
-}
-
-TEST_CASE("Tarjan Test 6", "[tarjan][algorithm][transit][vertex][edge]") {
-    cout << "\nTarjan Test 6" << endl;
-    cout << "Geeks for Geeks: SCC in four graph." << endl;
-    
-    Transit transit("../tests/geeksforgeeks4.txt");
-    vector<Vertex> vertices = transit.getVertices();
-    vector<Edge> edges = transit.getEdges();
-
-    Algorithm algorithm(vertices, edges);
-
-    map<Vertex, int> expected;
-    Vertex v0 = Vertex("0"); expected[v0] = 0;
-    Vertex v1 = Vertex("1"); expected[v1] = 0;
-    Vertex v2 = Vertex("2"); expected[v2] = 0;
-    Vertex v3 = Vertex("3"); expected[v3] = 9; // Should be either 0 or 9
-    Vertex v4 = Vertex("4"); expected[v4] = 3;
-    Vertex v5 = Vertex("5"); expected[v5] = 3;
-    Vertex v6 = Vertex("6"); expected[v6] = 3;
-    Vertex v7 = Vertex("7"); expected[v7] = 6;
-    Vertex v8 = Vertex("8"); expected[v8] = 7;
-    Vertex v9 = Vertex("9"); expected[v9] = 7;
-    Vertex v10 = Vertex("10"); expected[v10] = 10;
-
-    map<Vertex, int> tarjan = algorithm.Tarjan();
-    REQUIRE(expected.size() == tarjan.size());
-    
-    for (auto& pair : expected) {
-        REQUIRE(tarjan[pair.first] == pair.second);
-    }
-}
-
 TEST_CASE("Route Connection - Grey","[grey][routeconnection][algorithm][transit][vertex][edge]") {
     cout << "\nRoute Connection - Grey" << endl;
 
@@ -344,11 +190,12 @@ TEST_CASE("Route Connection - Grey","[grey][routeconnection][algorithm][transit]
     
     Algorithm algorithm(vertices, edges);
 
+    // There are general and edge cases mixed here:
     REQUIRE(algorithm.RouteConnection("Grey", "A", "B") == true);
     REQUIRE(algorithm.RouteConnection("Grey", "A", "C") == true);
     REQUIRE(algorithm.RouteConnection("Grey", "A", "D") == true);
     REQUIRE(algorithm.RouteConnection("Grey", "B", "C") == true);
-    REQUIRE(algorithm.RouteConnection("Grey", "B", "D") == true); //
+    REQUIRE(algorithm.RouteConnection("Grey", "B", "D") == true);
     REQUIRE(algorithm.RouteConnection("Grey", "C", "D") == true);
     REQUIRE(algorithm.RouteConnection("Grey", "D", "D") == true);
     REQUIRE(algorithm.RouteConnection("Grey", "B", "A") == false);
@@ -366,6 +213,7 @@ TEST_CASE("Route Connection - Teal","[teal][routeconnection][algorithm][transit]
     
     Algorithm algorithm(vertices, edges);
 
+    // There are general and edge cases mixed here:
     REQUIRE(algorithm.RouteConnection("Teal", "A", "B") == true);
     REQUIRE(algorithm.RouteConnection("Teal", "A", "C") == true);
     REQUIRE(algorithm.RouteConnection("Teal", "B", "B") == true);
@@ -389,6 +237,7 @@ TEST_CASE("Route Connection - Blue","[blue][routeconnection][algorithm][transit]
     
     Algorithm algorithm(vertices, edges);
 
+    // There are general and edge cases mixed here:
     REQUIRE(algorithm.RouteConnection("Blue", "A", "B") == true);
     REQUIRE(algorithm.RouteConnection("Blue", "A", "C") == true);
     REQUIRE(algorithm.RouteConnection("Blue", "B", "B") == true);
@@ -400,4 +249,192 @@ TEST_CASE("Route Connection - Blue","[blue][routeconnection][algorithm][transit]
     REQUIRE(algorithm.RouteConnection("Blue", "B", "A") == false);
     REQUIRE(algorithm.RouteConnection("Blue", "C", "A") == false);
     REQUIRE(algorithm.RouteConnection("Blue", "D", "A") == false);
+}
+
+TEST_CASE("Prim Test 1", "[prim][algorithm][transit][vertex][edge]") {
+    cout << "\nPrim Test 1" << endl;
+
+    Transit transit("../tests/prim1.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    REQUIRE(vertices.size() == 4);
+    REQUIRE(edges.size() == 16);
+
+    Algorithm algorithm(vertices, edges);
+    auto mst = algorithm.Prim();
+
+    REQUIRE(mst.size() == 1);
+    REQUIRE(mst[Vertex("A")].size() == 3);
+}
+
+TEST_CASE("Prim Test 2", "[prim][algorithm][transit][vertex][edge]") {
+    cout << "\nPrim Test 2" << endl;
+
+    Transit transit("../tests/prim2.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    REQUIRE(vertices.size() == 4);
+    REQUIRE(edges.size() == 16);
+
+    Algorithm algorithm(vertices, edges);
+    auto mst = algorithm.Prim();
+
+    REQUIRE(mst.size() == 2);
+    REQUIRE(mst[Vertex("A")].size() == 2);
+    REQUIRE(mst[Vertex("B")].size() == 1);
+}
+
+TEST_CASE("Prim Test 3", "[prim][algorithm][transit][vertex][edge]") {
+    cout << "\nPrim Test 3" << endl;
+    
+    Transit transit("../tests/prim3.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    REQUIRE(vertices.size() == 12);
+    REQUIRE(edges.size() == 21);
+
+    Algorithm algorithm(vertices, edges);
+    auto mst = algorithm.Prim();
+
+    REQUIRE(mst.size() == 8);
+    REQUIRE(mst[Vertex("1")].size() == 1);
+    REQUIRE(mst[Vertex("2")].size() == 1);
+    REQUIRE(mst[Vertex("3")].size() == 2);
+    REQUIRE(mst[Vertex("4")].size() == 0);
+    REQUIRE(mst[Vertex("5")].size() == 2);
+    REQUIRE(mst[Vertex("6")].size() == 1);
+    REQUIRE(mst[Vertex("8")].size() == 1);
+    REQUIRE(mst[Vertex("9")].size() == 0);
+    REQUIRE(mst[Vertex("10")].size() == 1);
+    REQUIRE(mst[Vertex("11")].size() == 1);
+}
+
+TEST_CASE("Tarjan Test 1", "[tarjan][algorithm][transit][vertex][edge]") {
+    cout << "\nTarjan Test 1" << endl;
+    
+    Transit transit("../tests/tarjan1.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    Algorithm algorithm(vertices, edges);
+
+    map<Vertex, int> expected;
+    Vertex v0 = Vertex("0"); expected[v0] = 0;
+    Vertex v1 = Vertex("1"); expected[v1] = 0;
+    Vertex v2 = Vertex("2"); expected[v2] = 0;
+    Vertex v3 = Vertex("3"); expected[v3] = 0;
+    Vertex v4 = Vertex("4"); expected[v4] = 0;
+
+    map<Vertex, int> tarjan = algorithm.Tarjan();
+    REQUIRE(expected.size() == tarjan.size());
+    
+    for (auto& pair : expected) {
+        REQUIRE(tarjan[pair.first] == pair.second);
+    }
+}
+
+TEST_CASE("Tarjan Test 2", "[tarjan][algorithm][transit][vertex][edge]") {
+    cout << "\nTarjan Test 2" << endl;
+
+    Transit transit("../tests/tarjan2.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    Algorithm algorithm(vertices, edges);
+    
+    map<Vertex, int> expected;
+    Vertex v0 = Vertex("0"); expected[v0] = 5;
+    Vertex v1 = Vertex("1"); expected[v1] = 5;
+    Vertex v2 = Vertex("2"); expected[v2] = 5;
+    Vertex v3 = Vertex("3"); expected[v3] = 8;
+    Vertex v4 = Vertex("4"); expected[v4] = 9;
+
+    map<Vertex, int> tarjan = algorithm.Tarjan();
+    REQUIRE(expected.size() == tarjan.size());
+    
+    for (auto& pair : expected) {
+        REQUIRE(tarjan[pair.first] == pair.second);
+    }
+}
+
+TEST_CASE("Tarjan Test 3", "[tarjan][algorithm][transit][vertex][edge]") {
+    cout << "\nTarjan Test 3" << endl;
+
+    Transit transit("../tests/tarjan3.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    Algorithm algorithm(vertices, edges);
+    
+    map<Vertex, int> expected;
+    Vertex v0 = Vertex("0"); expected[v0] = 10;
+    Vertex v1 = Vertex("1"); expected[v1] = 11;
+    Vertex v2 = Vertex("2"); expected[v2] = 12;
+    Vertex v3 = Vertex("3"); expected[v3] = 13;
+
+    map<Vertex, int> tarjan = algorithm.Tarjan();
+    REQUIRE(expected.size() == tarjan.size());
+    
+    for (auto& pair : expected) {
+        REQUIRE(tarjan[pair.first] == pair.second);
+    }
+}
+
+TEST_CASE("Tarjan Test 4", "[tarjan][algorithm][transit][vertex][edge]") {
+    cout << "\nTarjan Test 4" << endl;
+    
+    Transit transit("../tests/tarjan4.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    Algorithm algorithm(vertices, edges);
+
+    map<Vertex, int> expected;
+    Vertex v0 = Vertex("0"); expected[v0] = 14;
+    Vertex v1 = Vertex("1"); expected[v1] = 14;
+    Vertex v2 = Vertex("2"); expected[v2] = 14;
+    Vertex v3 = Vertex("3"); expected[v3] = 17;
+    Vertex v4 = Vertex("4"); expected[v4] = 19;
+    Vertex v5 = Vertex("5"); expected[v5] = 18;
+    Vertex v6 = Vertex("6"); expected[v6] = 20;
+
+    map<Vertex, int> tarjan = algorithm.Tarjan();
+    REQUIRE(expected.size() == tarjan.size());
+    
+    for (auto& pair : expected) {
+        REQUIRE(tarjan[pair.first] == pair.second);
+    }
+}
+
+TEST_CASE("Tarjan Test 5", "[tarjan][algorithm][transit][vertex][edge]") {
+    cout << "\nTarjan Test 5" << endl;
+    
+    Transit transit("../tests/tarjan5.txt");
+    vector<Vertex> vertices = transit.getVertices();
+    vector<Edge> edges = transit.getEdges();
+
+    Algorithm algorithm(vertices, edges);
+
+    map<Vertex, int> expected;
+    Vertex v0 = Vertex("0"); expected[v0] = 21;
+    Vertex v1 = Vertex("1"); expected[v1] = 21;
+    Vertex v2 = Vertex("2"); expected[v2] = 21;
+    Vertex v3 = Vertex("3"); expected[v3] = 30;
+    Vertex v4 = Vertex("4"); expected[v4] = 24;
+    Vertex v5 = Vertex("5"); expected[v5] = 24;
+    Vertex v6 = Vertex("6"); expected[v6] = 24;
+    Vertex v7 = Vertex("7"); expected[v7] = 27;
+    Vertex v8 = Vertex("8"); expected[v8] = 28;
+    Vertex v9 = Vertex("9"); expected[v9] = 28;
+    Vertex v10 = Vertex("10"); expected[v10] = 31;
+
+    map<Vertex, int> tarjan = algorithm.Tarjan();
+    REQUIRE(expected.size() == tarjan.size());
+    
+    for (auto& pair : expected) {
+        REQUIRE(tarjan[pair.first] == pair.second);
+    }
 }

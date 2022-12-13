@@ -1,22 +1,27 @@
 #pragma once
 
-#include <iostream>
-#include <list>
-#include <map>
-#include <set>
-#include <string>
-#include <vector>
-#include <bits/stdc++.h>
+#include <map>              /* for std::map */
+#include <stack>            /* for std::stack */
+#include <string>           /* for std::string */
+#include <vector>           /* for std::vector */
 
 #include "transit.h"
 
 using namespace std;
 
 
+/** @brief Algorithm provides functions to be used
+ *         in an adjacency list, such as Tarjan's
+ *         algorithm, Prim's algorithm, and a DFS
+ *         traversal.
+ */
 class Algorithm {
 public:
+    /* Constructors*/
 
-    // Constructor
+    /** @brief Default constructor for Algorithm.
+     */
+    Algorithm() { /* Do nothing. */ }
 
     /** @brief Parametrized constructor for algorithm.
      *         Constructs a graph with a given vector of vertices and
@@ -24,25 +29,28 @@ public:
      * 
      *  @param vertices_ vector of vertices parsed from dataset.
      *  @param edges_ vector of edges parsed from dataset.
-    */
+     */
     Algorithm(vector<Vertex> vertices_, vector<Edge> edges_);
+
+
+    /* Helper Functions */
 
     /** @brief Fills the graph with information about the edges.
      *         This will end up connecting the vertices in the graph.
+     * 
+     *         Creates an adjacency list.
      */
     void buildGraph();
 
-
-    // Getters
-
-    /** @brief Getter for graph.
+    /** @brief Finds the vertex in vertices with the given stop ID.
      * 
-     *  @return graph.
+     *  @param stop The stop ID to search for.
+     *  @return the vertex object with the given ID.
      */
-    map<Vertex, map<Vertex, vector<Edge>>>& getGraph();
+    Vertex findVertex(string stop);
 
 
-    // DFS to find connected vertices through routes
+    /* DFS Traversal and Helpers */
 
     /** @brief Route Connection returns if there is a connection between
      *         a given stop to another stop using a certain route.
@@ -54,7 +62,9 @@ public:
      */
     bool RouteConnection(string route, string origin_stop, string destination_stop);
 
-    /** @brief Helper for RouteConnetion.
+    /** @brief Recursive helper function for RouteConnetion.
+     *         Keeps iterating though origins, and, if origin
+     *         is ever the same as destination, returns true.
      * 
      *  @param route Route ID.
      *  @param origin Vertex origin.
@@ -63,43 +73,40 @@ public:
      *  @return if we found a connection.
      */
     bool RouteConnectionHelper(string route, Vertex origin, Vertex destination, map<Vertex, bool>& visited);
+
     
-    /** @brief Finds the vertex in vertices with the given stop ID.
+    /* Prim's Algorithm and Helpers */
+    
+    /** @brief Finds minimum spanning tree of bus stops based on
+     *         time.
      * 
-     *  @param stop The stop ID to search for.
-     *  @return the Vertex object with the given ID.
+     *  @return Minimum spanning tree of bus stops.
      */
-    Vertex findVertex(string stop);
+    map<Vertex, map<Vertex, Edge>> Prim();
 
-    // Dijkstra's Algorithm
-
-    /** @brief Dijkstra's Algorithm.
-     *         This is an algorithm for finding the shortest paths between
-     *         vertices in the graph.
+    /** @brief Finds all edges leaving the passed vertex.
      * 
-     *         Here, it will be used to find the path of least time between
-     *         two vertices.
+     *  @param vertex Vertex to be analyzed.
+     *  @return all edges with origin equals to vertex.
      */
-    map<Vertex, double> Dijkstra(Vertex source);
+    vector<Edge> findOutgoingEdges(Vertex vertex);
 
-    /** @brief Returns the 
-     * 
-     *  @param intervals Vector for the min time difference for each
-     *         vertex.
-     *  @param visited Vector to mark vertices as visited or unvisited.
-     *  @return the min time difference.
+    /** @brief Edge time comparison struct for priority queue.
      */
-    int minInterval(vector<double> intervals, vector<bool> visited);
+    struct CompareTime {
+        /** @brief Edge time comparison struct for priority queue.
+         * 
+         *  @param a Edge a.
+         *  @param b Edge b.
+         *  @return if a has larger time than b.
+         */
+        constexpr bool operator()(Edge const &a, Edge const &b) const noexcept {
+            return a.time > b.time;
+        }
+    };
 
-    /** @brief Finds the index of vertex in vertices.
-     * 
-     *  @param vertex Vertex to be found.
-     *  @return index of vertex to be found.
-     */
-    int findVertexIndex(Vertex vertex);
 
-
-    // Tarjan's Algorithm
+    /* Tarjan's Algorithm and Helpers */
 
     /** @brief Tarjan's Algorithm.
      *         This is an algorithm used to find the strongly connected
@@ -129,31 +136,42 @@ public:
                       int& sccCount);
 
 
-    // Getters
+    /* Getters */
 
+    /** @brief Getter for graph.
+     * 
+     *  @return graph.
+     */
+    map<Vertex, map<Vertex, vector<Edge>>>& getGraph();
+
+    /** @brief Getter for vertices.
+     *  
+     *  @return vertices.
+     */
     vector<Vertex>& getVertices();
+
+    /** @brief Getter for edges.
+     *  
+     *  @return edges.
+     */
     vector<Edge>& getEdges();
 
 private:
-    /** @brief Default constructor for Algorithm.
-     *         This is private because we don't want this to be used.
-     */
-    Algorithm() { /* Do nothing. */ }
-
+    /* Variables */
 
     /* 
-     * This is an weighted, directed adjacency matrix.
-     * This constitutes the graph of stops (Vertices) and routes (Edges).
+     * This is an weighted, directed adjacency list.
+     * This constitutes the graph of stops (vertices) and routes (edges).
      */
     map<Vertex, map<Vertex, vector<Edge>>> graph;
 
     /* 
-     * Represents all stops (Vertices).
+     * Represents all stops (vertices).
      */
     vector<Vertex> vertices;
 
     /* 
-     * Represents all routes (Edges).
+     * Represents all routes (edges).
      */
     vector<Edge> edges;
 };
