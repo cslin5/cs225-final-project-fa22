@@ -22,8 +22,9 @@ struct Vertex {
     /* Constructors */
 
     /** @brief Default constructor of Vertex.
+     *         Initializes stop to an empty string.
      */
-    Vertex() { /* Do nothing. */ }
+    Vertex() : stop("") { /* Do nothing. */ }
 
     /** @brief Parametrized constructor of Vertex.
      *         Creates a vertex with given stop ID.
@@ -31,15 +32,7 @@ struct Vertex {
      *  @param stop_ Stop ID of new Vertex.
      */
     Vertex(string stop_) : stop(stop_) { /* Do nothing. */ }
-
-    /** @brief Copy constructor of Vertex.
-     *  
-     *  @param other Vertex to be copied.
-     */
-    Vertex(const Vertex& other) {
-        stop = other.stop;
-    }
-
+    
 
     /* Operator Overloading */
 
@@ -55,7 +48,8 @@ struct Vertex {
     /** @brief Overloading comparison operator '=='.
      *  
      *  @param other Vertex to be compared to.
-     *  @return if vertices have equal stop IDs.
+     *  @return if this vertex has stop ID smaller than
+     *          other's stop ID.
      */
     bool operator<(const Vertex& other) const {
         return (stop < other.stop);
