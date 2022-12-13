@@ -34,7 +34,7 @@ bool Algorithm::RouteConnection(string route, string origin_stop,
                                 string destination_stop) {
   // If the origin is the same as destination, exit the code.
   if (origin_stop == destination_stop) {
-    cout << "Destination was found!" << endl;
+    // cout << "Destination was found!" << endl;
     return true;
   }
 
@@ -56,12 +56,12 @@ bool Algorithm::RouteConnection(string route, string origin_stop,
 bool Algorithm::RouteConnectionHelper(string route, Vertex origin,
                                       Vertex destination,
                                       map<Vertex, bool> &visited) {
-  cout << "\nRouteConnection for " << route << " from " << origin.stop << " to "
-       << destination.stop << endl;
+  // cout << "\nRouteConnection for " << route << " from " << origin.stop << "
+  // to " << destination.stop << endl;
 
   // If the origin and destination are the same, they are obviously connected.
   if (origin.stop == destination.stop) {
-    cout << "Destination was found!" << endl;
+    // cout << "Destination was found!" << endl;
     return true;
   }
 
@@ -69,15 +69,15 @@ bool Algorithm::RouteConnectionHelper(string route, Vertex origin,
   visited[origin] = true;
 
   // For each origin in graph, iterate through the destinations:
-  cout << "Entering graph iteration..." << endl;
+  // cout << "Entering graph iteration..." << endl;
   for (auto it = graph[origin].begin(); it != graph[origin].end(); ++it) {
     // For each edge coming out from origin,
     for (Edge edge : it->second) {
       // If the edge has the same route,
       if (!visited[it->first] && edge.route == route) {
-        cout << "Edge was found between " << origin.stop << " and "
-             << it->first.stop << endl;
-        // Return the RoutConnection recursive function's result.
+        // cout << "Edge was found between " << origin.stop << " and " <<
+        // it->first.stop << endl; Return the RoutConnection recursive
+        // function's result.
         if (RouteConnectionHelper(route, it->first, destination, visited) ==
             true) {
           return true;
@@ -85,7 +85,6 @@ bool Algorithm::RouteConnectionHelper(string route, Vertex origin,
       }
     }
   }
-
   // Else, return false: We haven't found the connection.
   return false;
 }
@@ -125,9 +124,6 @@ map<Vertex, map<Vertex, Edge>> Algorithm::Prim() {
       // if already visited, skip
       if (find == unvisited.end())
         continue;
-
-      cout << edge.origin.stop << "->" << edge.destination.stop << " ("
-           << edge.time << " < " << shortest_time[edge.destination] << endl;
       // if edge's time is cheaper, update shortest_time and cheapest_edge
       if (edge.time < shortest_time[edge.destination]) {
         cout << "yep, shortest" << endl;
@@ -195,19 +191,16 @@ void printLowLink(map<Vertex, int> low_link) {
  * https://www.geeksforgeeks.org/tarjan-algorithm-find-strongly-connected-components/
  */
 map<Vertex, int> Algorithm::Tarjan() {
-  cout << "\n~~~~~~~~~~~~~~~~~~~~" << endl;
-  cout << "Starting Tarjan()...\n" << endl;
+  // cout << "\n~~~~~~~~~~~~~~~~~~~~" << endl;
+  // cout << "Starting Tarjan()...\n" << endl;
 
   map<Vertex, int> ids;
   map<Vertex, int> low_link;
   map<Vertex, bool> on_stack;
   stack<Vertex> stack;
 
-  // Used to count number of strongly connected components (SCCs) found.
-  int sccCount = 0;
-
-  cout << "Initialize all the vertices to on_stack=false, ids=-1, low_link=0."
-       << endl;
+  // cout << "Initialize all the vertices to on_stack=false, ids=-1,
+  // low_link=0." << endl;
   for (Vertex vertex : vertices) {
     // Mark the each vertex as unvisited.
     on_stack[vertex] = false;
@@ -217,25 +210,30 @@ map<Vertex, int> Algorithm::Tarjan() {
     low_link[vertex] = 0;
   }
 
-  cout << "\n\nAfter initializing every node, analize every vertex if it is "
-          "unvisited."
-       << endl;
+  // cout << "\n\nAfter initializing every node, analize every vertex if it is
+  // unvisited." << endl;
   for (Vertex vertex : vertices) {
+    // cout << "\n\tVertex = " << vertex.stop << endl;
     if (ids[vertex] == UNVISITED) {
+      // cout << "\t\t" << vertex.stop << " is unvisited" << endl;
+      // cout << "\t\tCalling TarjanHelper() on " << vertex.stop << endl;
       TarjanHelper(vertex, ids, low_link, on_stack, stack, sccCount);
-      cout << "\t\tEnd of TarjanHelper()." << endl;
-    } else {
+      // cout << "\t\tEnd of TarjanHelper()." << endl;
     }
+    // else {
+    //     cout << "\t\t" << vertex.stop << " is visited" << endl;
+    // }
   }
 
-  cout << "\nStates for every vertex:" << endl;
-  for (Vertex vertex : vertices) {
-    cout << "\t\tids =\t\t" << ids[vertex] << endl;
-    cout << "\t\tlow_link =\t" << low_link[vertex] << endl;
-    cout << "\t\ton_stack =\t" << on_stack[vertex] << endl;
-  }
+  // cout << "\nStates for every vertex:" << endl;
+  // for (Vertex vertex : vertices) {
+  // cout << "\tVertex = " << vertex.stop << endl;
+  // cout << "\t\tids =\t\t" << ids[vertex] << endl;
+  // cout << "\t\tlow_link =\t" << low_link[vertex] << endl;
+  // cout << "\t\ton_stack =\t" << on_stack[vertex] << endl;
+  // }
 
-  printLowLink(low_link);
+  // printLowLink(low_link);
   return low_link;
 }
 
@@ -248,42 +246,50 @@ void Algorithm::TarjanHelper(Vertex vertex, map<Vertex, int> &ids,
   on_stack[vertex] = true;
   ids[vertex] = low_link[vertex] = id++;
 
-  cout << "\t\t\tids =\t\t" << ids[vertex] << endl;
-  cout << "\t\t\tlow_link =\t" << low_link[vertex] << endl;
-  cout << "\t\t\ton_stack =\t" << on_stack[vertex] << endl;
-  cout << "\t\t\tstack.size =\t" << stack.size() << endl;
+  // cout << "\t\t\tids =\t\t" << ids[vertex] << endl;
+  // cout << "\t\t\tlow_link =\t" << low_link[vertex] << endl;
+  // cout << "\t\t\ton_stack =\t" << on_stack[vertex] << endl;
+  // cout << "\t\t\tstack.top =\t" << stack.top().stop << endl;
+  // cout << "\t\t\tstack.size =\t" << stack.size() << endl;
 
   // Visit all neighbors and min low-link value on callback.
   for (auto it = graph[vertex].begin(); it != graph[vertex].end(); ++it) {
     Vertex destination = it->first;
+    // cout << "\n\t\t\tdestination =\t" << destination.stop << endl;
 
     if (ids[destination] == UNVISITED) {
-      cout << "\t\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-           << endl;
-      cout << "\n\t\t\t** Starting Recursive Tarjan for vertex ";
+      // cout << "\t\t\t" << destination.stop << " is unvisited" << endl;
+      // cout << "\t\t\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      // << endl; cout << "\n\t\t\t** Starting Recursive Tarjan for vertex " <<
+      // destination.stop << endl;
 
       TarjanHelper(destination, ids, low_link, on_stack, stack, sccCount);
 
-      cout << endl;
-      cout << "\t\t\t--------------------------------------------------------"
-           << endl;
+      // cout << "\n\t\t\t** End Recursive Tarjan for vertex " <<
+      // destination.stop<< endl; cout <<
+      // "\t\t\t--------------------------------------------------------" <<
+      // endl; cout << "\t\t\tCalling back vertex " << vertex.stop << endl;
 
       low_link[vertex] =
           ((low_link[vertex] <= low_link[destination]) ? low_link[vertex]
                                                        : low_link[destination]);
-      cout << low_link[vertex] << endl;
+      // cout << "\t\t\tUpdating low-link value for " << vertex.stop << " to "
+      // << low_link[vertex] << endl;
     }
 
     if (on_stack[destination]) {
+      // cout << "\t\t\t" << destination.stop << " has been visited" << endl;
 
       low_link[vertex] =
           ((low_link[vertex] <= ids[destination]) ? low_link[vertex]
                                                   : ids[destination]);
-      cout << low_link[vertex] << endl;
+      // cout << "\t\t\tUpdating low-link value for " << vertex.stop << " to "
+      // << low_link[vertex] << endl;
     }
   }
 
   if (ids[vertex] == low_link[vertex]) {
+    // cout << "\n\t\t\tids = low_link for vertex " << vertex.stop << endl;
 
     while (!stack.empty()) {
       Vertex tmp = stack.top();
@@ -297,7 +303,15 @@ void Algorithm::TarjanHelper(Vertex vertex, map<Vertex, int> &ids,
     }
 
     sccCount++;
-    cout << "\t\t\t-> increment sccCount to " << sccCount << endl;
-  } else {
+    // cout << "\t\t\t-> increment sccCount to " << sccCount << endl;
   }
+  // else {
+  // cout << "\n\t\t\tids != low_link for vertex " << vertex.stop << endl;
+  // }
 }
+
+// Getters
+
+vector<Vertex> &Algorithm::getVertices() { return vertices; }
+
+vector<Edge> &Algorithm::getEdges() { return edges; }

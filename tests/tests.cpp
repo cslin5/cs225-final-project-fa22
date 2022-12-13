@@ -12,12 +12,12 @@
 #include "../src/transit.h"
 #include "../tests/tests.h"
 
-using namespace std;
+using std::string;
+using std::vector;
 
 /* VERTEX AND EDGES */
 
-TEST_CASE("Vertex (Simple) Test 1", "[vertex]") {
-  cout << "\nVertex Test 1" << endl;
+TEST_CASE("Vertex Constructor Test 1", "[vertex]") {
   vector<string> stops({"A", "B", "C", "D"});
 
   vector<Vertex> vertices(stops.size());
@@ -31,8 +31,7 @@ TEST_CASE("Vertex (Simple) Test 1", "[vertex]") {
   REQUIRE(vertices[3].stop == "D");
 }
 
-TEST_CASE("Vertex (Simple) Test 2", "[vertex]") {
-  cout << "\nVertex Test 2" << endl;
+TEST_CASE("Vertex Constructor Test 2", "[vertex]") {
   vector<Vertex> vertices(50);
   for (size_t i = 0; i < 50; i++) {
     vertices[i] = Vertex(to_string(i));
@@ -43,8 +42,7 @@ TEST_CASE("Vertex (Simple) Test 2", "[vertex]") {
   }
 }
 
-TEST_CASE("Vertex + Edge (Simple) Test 1", "[vertex][edge]") {
-  cout << "\nVertex + Edge Test 1" << endl;
+TEST_CASE("Vertex & Edge Constructor Test 1", "[vertex][edge]") {
   vector<string> stops({"A", "B", "C", "D"});
 
   vector<Vertex> vertices(stops.size());
@@ -133,7 +131,7 @@ TEST_CASE("findTime() Test 1", "[time]") {
   REQUIRE(time == (1 * 60 * 60 + 30 * 60));
 }
 
-TEST_CASE("Transit Test 1", "[transit][vertex][edge]") {
+TEST_CASE("Transit Constructor Test 1", "[transit][vertex][edge]") {
   cout << "\nTransit Test 1" << endl;
 
   Transit transit("../tests/example_dataset.txt");

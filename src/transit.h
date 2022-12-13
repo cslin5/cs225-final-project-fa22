@@ -9,6 +9,11 @@ using namespace std;
 
 class Transit {
 public:
+  /** @brief Default constructor of Transit.
+   */
+  Transit() { /* Do nothing. */
+  }
+
   /** @brief Parametrized constructor of Transit.
    *
    *  @param stop_times_dataset 'stop_times.csv'.
@@ -51,12 +56,6 @@ public:
   vector<Edge> &getEdges();
 
 private:
-  /** @brief Default constructor of Transit.
-   *         This is private because we don't want this to be used.
-   */
-  Transit() { /* Do nothing. */
-  }
-
   /*
    * Represents all created vertices.
    */

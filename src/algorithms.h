@@ -46,16 +46,17 @@ public:
 
   Edge findEdge(string route, Vertex origin, Vertex destination);
 
-  /* @brief Find Minimum Spanning Tree of bus stops based on time. Uses Prim's
-   * algorithm*/
+  /** @brief Find Minimum Spanning Tree of bus stops based on time. Uses Prim's
+   * algorithm */
   map<Vertex, map<Vertex, Edge>> Prim();
 
-  /* @brief edge time comparison struct for priority queue */
+  /** @brief edge time comparison struct for priority queue */
   struct compareTime {
     constexpr bool operator()(Edge const &a, Edge const &b) const noexcept {
       return a.time > b.time;
     }
   };
+
   /** @brief Route Connection returns if there is a connection between
    *         a given stop to another stop using a certain route.
    *
@@ -97,6 +98,16 @@ public:
    */
   map<Vertex, int> Tarjan();
 
+  // Tarjan's Algorithm
+
+  /** @brief Tarjan's Algorithm.
+   *         This is an algorithm used to find the strongly connected
+   *         components of a graph.
+   *
+   *  @return the low-link value of the vertices.
+   */
+  map<Vertex, int> Tarjan();
+
   /** @brief Tarjan's Algorithm helper.
    *         This is a recursive function that finds strongly
    *         connected components using a DFS traversal.
@@ -112,6 +123,11 @@ public:
   void TarjanHelper(Vertex vertex, map<Vertex, int> &ids,
                     map<Vertex, int> &low_link, map<Vertex, bool> on_stack,
                     stack<Vertex> &stack, int &sccCount);
+
+  // Getters
+
+  vector<Vertex> &getVertices();
+  vector<Edge> &getEdges();
 
 private:
   /** @brief Default constructor for Algorithm.

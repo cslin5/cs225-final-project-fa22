@@ -1,5 +1,6 @@
 {
     "files.associations": {
+<<<<<<< HEAD
         "ostream": "cpp",
         "array": "cpp",
         "bitset": "cpp",
@@ -10,5 +11,12 @@
         "regex": "cpp",
         "utility": "cpp",
         "valarray": "cpp"
+=======
+        "iostream": "cpp",
+        "map": "cpp",
+        "*.tcc": "cpp",
+        "ostream": "cpp",
+        "iosfwd": "cpp"
+>>>>>>> 2d706ec0e9036eb7705a54eea02b8b19275cea51
     }
 }

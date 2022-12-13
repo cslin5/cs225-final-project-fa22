@@ -1,0 +1,6 @@
+
+--------- RouteConnection() example: ---------
+
+Let's see if there is a connection between two stops!
+Using route < [@124.0.143437300@][31][1591365669945]/0__L2_NO_SCH_MF >, is there a connection between origin < WRTWASH:4 >, and destination < WRTCHCH:4 >?
+	Yes!

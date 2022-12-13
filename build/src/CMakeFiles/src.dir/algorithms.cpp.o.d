@@ -1,5 +1,9 @@
 src/CMakeFiles/src.dir/algorithms.cpp.o: \
+<<<<<<< HEAD
   /workspaces/cs225env/cs225-final-project-fa22/src/algorithms.cpp \
+=======
+  /workspaces/CS\ 225/cs225-final-project-fa22/src/algorithms.cpp \
+>>>>>>> 2d706ec0e9036eb7705a54eea02b8b19275cea51
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/algorithm \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/utility \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/x86_64-linux-gnu/c++/11/bits/c++config.h \
@@ -149,6 +153,15 @@ src/CMakeFiles/src.dir/algorithms.cpp.o: \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/safe_sequence.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/safe_sequence.tcc \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/pstl/execution_defs.h \
+<<<<<<< HEAD
+=======
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/stack \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/deque \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_deque.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/deque.tcc \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/deque \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_stack.h \
+>>>>>>> 2d706ec0e9036eb7705a54eea02b8b19275cea51
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/iostream \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/ostream \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/ios \
@@ -220,6 +233,7 @@ src/CMakeFiles/src.dir/algorithms.cpp.o: \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/ostream.tcc \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/istream \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/istream.tcc \
+<<<<<<< HEAD
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/stack \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/deque \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_deque.h \
@@ -227,6 +241,27 @@ src/CMakeFiles/src.dir/algorithms.cpp.o: \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/deque \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_stack.h \
   /workspaces/cs225env/cs225-final-project-fa22/src/algorithms.h \
+=======
+  /workspaces/CS\ 225/cs225-final-project-fa22/src/algorithms.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/list \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_list.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/allocated_ptr.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/list.tcc \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/list \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/map \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_tree.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_map.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_multimap.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/map \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/map.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/multimap.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/set \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_set.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_multiset.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/set \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/set.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/multiset.h \
+>>>>>>> 2d706ec0e9036eb7705a54eea02b8b19275cea51
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/x86_64-linux-gnu/c++/11/bits/stdc++.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/cassert \
   /usr/include/assert.h \
@@ -338,6 +373,7 @@ src/CMakeFiles/src.dir/algorithms.cpp.o: \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/quoted_string.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/iterator \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stream_iterator.h \
+<<<<<<< HEAD
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/list \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_list.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/allocated_ptr.h \
@@ -350,6 +386,8 @@ src/CMakeFiles/src.dir/algorithms.cpp.o: \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/map \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/map.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/multimap.h \
+=======
+>>>>>>> 2d706ec0e9036eb7705a54eea02b8b19275cea51
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/memory \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_raw_storage_iter.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/align.h \
@@ -366,12 +404,15 @@ src/CMakeFiles/src.dir/algorithms.cpp.o: \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/pstl/glue_numeric_defs.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/queue \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_queue.h \
+<<<<<<< HEAD
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/set \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_set.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_multiset.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/set \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/set.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/debug/multiset.h \
+=======
+>>>>>>> 2d706ec0e9036eb7705a54eea02b8b19275cea51
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/valarray \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/valarray_array.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/valarray_array.tcc \
@@ -434,6 +475,12 @@ src/CMakeFiles/src.dir/algorithms.cpp.o: \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/memory_resource \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/uses_allocator_args.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/variant \
+<<<<<<< HEAD
   /workspaces/cs225env/cs225-final-project-fa22/src/transit.h \
   /workspaces/cs225env/cs225-final-project-fa22/src/../lib/edge.h \
   /workspaces/cs225env/cs225-final-project-fa22/lib/vertex.h
+=======
+  /workspaces/CS\ 225/cs225-final-project-fa22/src/transit.h \
+  /workspaces/CS\ 225/cs225-final-project-fa22/src/../lib/edge.h \
+  /workspaces/CS\ 225/cs225-final-project-fa22/lib/vertex.h
+>>>>>>> 2d706ec0e9036eb7705a54eea02b8b19275cea51
