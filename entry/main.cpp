@@ -36,12 +36,12 @@ int main() {
   // }
 
   // RouteConnection()
-  algorithm.RouteConnection(
-      "[@124.0.143437300@][31][1591365669945]/0__L2_NO_SCH_MF", "WRTWASH:4",
-      "WRTCHCH:4");
+  //   algorithm.RouteConnection(
+  //       "[@124.0.143437300@][31][1591365669945]/0__L2_NO_SCH_MF",
+  //       "WRTWASH:4", "WRTCHCH:4");
 
   // Tarjan()
-  algorithm.Tarjan();
+  //   algorithm.Tarjan();
 
   return 0;
 }

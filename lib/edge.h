@@ -39,7 +39,9 @@ struct Edge {
 
   /** @brief Default constructor of Edge.
    */
-  Edge() { /* Do nothing. */
+  Edge()
+      : route(""), origin(Vertex()), destination(Vertex()),
+        time(0.0) { /* Do nothing. */
   }
 
   /** @brief Parametrized constructor of Vertex.
@@ -58,25 +60,12 @@ struct Edge {
          << ", destination = " << destination.stop << ", and time = " << time
          << "s." << endl;
   }
-
-  // @brief Copy constructor of Edge
-  Edge(const Edge &other) {
-    route = other.route;
-    origin = other.origin;
-    destination = other.destination;
-    time = other.time;
-    cout << "-> Created edge with route = " << route
-         << ", origin = " << origin.stop
-         << ", destination = " << destination.stop << ", and time = " << time
-         << "s." << endl;
-  }
   /* Overloading operators */
 
   bool operator==(const Edge &other) const {
     return (route == other.route) && (origin == other.origin) &&
            (destination == other.destination) && (time == other.time);
   }
-
   bool operator<(const Edge &other) const { return (time < other.time); }
 
   bool operator<=(const Edge &other) const { return (time <= other.time); }

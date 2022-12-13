@@ -20,7 +20,7 @@ struct Vertex {
 
   /** @brief Default constructor of Vertex.
    */
-  Vertex() { /* Do nothing. */
+  Vertex() : stop("") { /* Do nothing. */
   }
 
   /** @brief Parametrized constructor of Vertex.
@@ -29,12 +29,6 @@ struct Vertex {
    *  @param stop_ Stop ID of new Vertex.
    */
   Vertex(string stop_) : stop(stop_) {
-    cout << "-> Created vertex with stop ID = " << stop << "." << endl;
-  }
-
-  // @brief Vertex copy constructor
-  Vertex(const Vertex &other) {
-    stop = other.stop;
     cout << "-> Created vertex with stop ID = " << stop << "." << endl;
   }
 

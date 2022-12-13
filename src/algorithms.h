@@ -50,6 +50,12 @@ public:
    * algorithm*/
   map<Vertex, map<Vertex, Edge>> Prim();
 
+  /* @brief edge time comparison struct for priority queue */
+  struct compareTime {
+    constexpr bool operator()(Edge const &a, Edge const &b) const noexcept {
+      return a.time > b.time;
+    }
+  };
   /** @brief Route Connection returns if there is a connection between
    *         a given stop to another stop using a certain route.
    *
@@ -79,56 +85,17 @@ public:
    */
   Vertex findVertex(string stop);
 
-  // /* @brief compare function for pairs (compares second*/
-  // struct distCompare {
-  //   constexpr bool operator()(std::pair<Edge, double> const &a,
-  //                             std::pair<Edge, double> const &b) const
-  //                             noexcept {
-  //     return a.second < b.second;
-  //   }
-  // };
   vector<Edge> findOutgoingEdges(Vertex vertex);
 
-  /** @brief Finds all edges with destination at vertex.
-   *
-   *  @param vertex destination.
-   *  @return a vector of edges.
-   */
-  vector<Edge> findIncomingEdges(Vertex vertex);
-
-  /** @brief Returns the
-   *
-   *  @param intervals Vector for the min time difference for each
-   *         vertex.
-   *  @param visited Vector to mark vertices as visited or unvisited.
-   *  @return the min time difference.
-   */
-  int minInterval(vector<double> intervals, vector<bool> visited);
-
-  /** @brief Finds the index of vertex in vertices.
-   *
-   *  @param vertex Vertex to be found.
-   *  @return index of vertex to be found.
-   */
-  int findVertexIndex(Vertex vertex);
+  // // Tarjan's Algorithm
 
   /** @brief Tarjan's Algorithm.
    *         This is an algorithm used to find the strongly connected
    *         components of a graph.
    *
-   *  @return the number of connected components.
+   *  @return the low-link value of the vertices.
    */
-  int Tarjan();
-
-  // // Tarjan's Algorithm
-
-  // /** @brief Tarjan's Algorithm.
-  //  *         This is an algorithm used to find the strongly connected
-  //  *         components of a graph.
-  //  *
-  //  *  @return the low-link value of the vertices.
-  //  */
-  // map<Vertex, int> Tarjan();
+  map<Vertex, int> Tarjan();
 
   /** @brief Tarjan's Algorithm helper.
    *         This is a recursive function that finds strongly
