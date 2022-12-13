@@ -1,6 +1,5 @@
 # Written Report
 
-[The Github repository must contain a results.md file which describes:]
 
 ## Output and Correctness of Each Algorithm
 
