@@ -74,44 +74,42 @@ int main() {
 
     // dfs.close();
     
-    ofstream dfs_less_route;
-    dfs_less_route.open("../results/all_data/dfs_less_route.txt");
+    // ofstream dfs_less_route;
+    // dfs_less_route.open("../results/all_data/dfs_less_route.txt");
 
-    string route = "[@6.0.28929208@][32][1657992971959]/6__7W_#2_SHOW_HS_Early_Out";
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            string origin = vertices[i].stop;
-            string destination = vertices[j].stop;
+    // string route = "[@6.0.28929208@][32][1657992971959]/6__7W_#2_SHOW_HS_Early_Out";
+    // for (int i = 0; i < 3; i++) {
+    //     for (int j = 0; j < 3; j++) {
+    //         string origin = vertices[i].stop;
+    //         string destination = vertices[j].stop;
             
-            if (origin != destination) {
-                dfs_less_route << "Is there a connection between " << origin << " and " << destination << " through route " << route << "?\t\t";
+    //         if (origin != destination) {
+    //             dfs_less_route << "Is there a connection between " << origin << " and " << destination << " through route " << route << "?\t\t";
                 
-                bool result = algorithm.RouteConnection(route, origin, destination);
-                dfs_less_route << (result ? "YES." : "NO.") << endl << endl;   
-            }
-        }
-    }
+    //             bool result = algorithm.RouteConnection(route, origin, destination);
+    //             dfs_less_route << (result ? "YES." : "NO.") << endl << endl;   
+    //         }
+    //     }
+    // }
 
 
-    dfs_less_route.close();
+    // dfs_less_route.close();
 
     
     // Tarjan()
 
-    // cout << "\nRouteConnection() is done; let's move on to Tarjan's Algorithm." << endl;
+    cout << "\nRouteConnection() is done; let's move on to Tarjan's Algorithm." << endl;
 
-    // ofstream tarjan;
-    // tarjan.open("../results/all_data/tarjan_results.txt");
+    ofstream tarjan;
+    tarjan.open("../results/all_data/tarjan_results.txt");
 
-    // map<Vertex, int> low_link = algorithm.Tarjan();
+    map<Vertex, int> low_link = algorithm.Tarjan();
 
-    // for (auto& pair : low_link) {
-    //     tarjan << (pair.first).stop << ":\t\t" << pair.second << endl;
-    // }
+    for (auto& pair : low_link) {
+        tarjan << (pair.first).stop << ":\t\t" << pair.second << endl;
+    }
     
-    // tarjan.close();
-
-    // Prims()
+    tarjan.close();
     
 
     return 0;
