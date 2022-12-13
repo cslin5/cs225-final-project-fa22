@@ -1,3 +1,5 @@
+# Project Proposal
+
 ## Leading Question 
 We're focusing the scope of our project on the MTD bus system on campus. The broad idea of what we want to learn from this dataset is being able to provide more useful information to bus users, including students as well as people who use the MTD bus route but are not on campus residents. This relates to the issue of trying to improve it for passenger utility since that is who this information is intended for. 
 
