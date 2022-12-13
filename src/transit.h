@@ -8,17 +8,36 @@
 using namespace std;
 
 
+/** @brief A Transit object transforms a TXT file 
+ *         into vectors of vertices and edges.
+ * 
+ *         It contains information about each vertex
+ *         and edge.
+ *         
+ *         It is used in Algorithm to form a graph.
+ */
 class Transit {
 public:
+    /* Constructors */
+
     /** @brief Default constructor of Transit.
      */
     Transit() { /* Do nothing. */}
 
     /** @brief Parametrized constructor of Transit.
+     *         Reads the data in `dataset` and transforms
+     *         it into vertices and edges.
      * 
-     *  @param stop_times_dataset 'stop_times.csv'.
+     *         It first creates all possible vertices,
+     *         and then it uses those vertices to create
+     *         edges.
+     * 
+     *  @param dataset Dataset to be parsed.
      */
-    Transit(const string& stop_times_dataset);
+    Transit(const string& dataset);
+
+
+    /* Helper Functions */
 
     /** @brief Creates all edges given existing vertices and
      *         parsed data.
@@ -29,18 +48,23 @@ public:
 
     /** @brief Finds vertex in vertices vector.
      * 
-     *  @param stop stop id to be searched
-     *  @return found vertex.
+     *  @param stop stop ID to be searched
+     *  @return index of found vertex. If not found,
+     *          returns -1.
      */
     int findVertex(string stop);
 
-    /** @brief Calculate the time in seconds between two strings representing time.
+    /** @brief Calculates the time in seconds between two strings
+     *         representing time in the format HH:MM:SS.
      * 
      *  @param time1 first time.
      *  @param time2 second time.
-     *  @return a double value that is the difference between times.
-    */
+     *  @return the difference between times.
+     */
     double findTime(string time1, string time2);
+
+
+    /* Getters */
 
     /** @brief Getter for vertices.
      *
@@ -56,6 +80,8 @@ public:
 
 
 private:
+    /* Variables */
+
     /* 
      * Represents all created vertices.
      */

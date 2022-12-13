@@ -1,8 +1,8 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-#include <vector>
+#include <iostream> /* for std::cout, std::endl */
+#include <string>   /* for std::string */
+#include <vector>   /* for std::vector */
 
 #include "vertex.h"
 
